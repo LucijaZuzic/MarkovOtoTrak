@@ -1,4 +1,8 @@
-from utilities import *
+from utilities import load_object, save_object, fix_prob, predict_prob, predict_prob_with_array
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
 
 all_subdirs = os.listdir() 
 
@@ -60,25 +64,19 @@ if flag_replace or not os.path.isfile("num_occurences/num_occurences_of_speed"):
                     if next_next_speed not in num_occurences_of_speed_in_next_next_step[speed][next_speed]:
                         num_occurences_of_speed_in_next_next_step[speed][next_speed][next_next_speed] = 0
                     num_occurences_of_speed_in_next_next_step[speed][next_speed][next_next_speed] += 1
-
-    #print(num_occurences_of_speed)
+ 
     save_object("num_occurences/num_occurences_of_speed", num_occurences_of_speed)
-    #print(num_occurences_of_speed.keys())
-
+     
     plt.bar(num_occurences_of_speed.keys(), num_occurences_of_speed.values())
-    plt.show()
+    plt.show() 
 
-    #print(num_occurences_of_speed_in_next_step)
     save_object("num_occurences/num_occurences_of_speed_in_next_step", num_occurences_of_speed_in_next_step)
-    #print(num_occurences_of_speed_in_next_next_step)
     save_object("num_occurences/num_occurences_of_speed_in_next_next_step", num_occurences_of_speed_in_next_next_step)
 
     probability_of_speed, probability_of_speed_in_next_step, probability_of_speed_in_next_next_step = fix_prob(num_occurences_of_speed, num_occurences_of_speed_in_next_step, num_occurences_of_speed_in_next_next_step)
-    #print(probability_of_speed)
+    
     save_object("probability/probability_of_speed", probability_of_speed)
-    #print(probability_of_speed_in_next_step)
     save_object("probability/probability_of_speed_in_next_step", probability_of_speed_in_next_step)
-    #print(probability_of_speed_in_next_next_step)
     save_object("probability/probability_of_speed_in_next_next_step", probability_of_speed_in_next_next_step)
 
 probability_of_speed = load_object("probability/probability_of_speed") 

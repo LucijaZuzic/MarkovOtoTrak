@@ -1,5 +1,9 @@
-from utilities import *
-    
+from utilities import load_object, save_object, preprocess_long_lat, scale_long_lat, fix_prob, predict_prob, predict_prob_with_array
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
 all_subdirs = os.listdir() 
 
 if not os.path.isdir("num_occurences"):
@@ -63,25 +67,19 @@ if flag_replace or not os.path.isfile("num_occurences/num_occurences_of_longitud
                     if next_next_longitude_no_abs not in num_occurences_of_longitude_no_abs_in_next_next_step[longitude][next_longitude_no_abs]:
                         num_occurences_of_longitude_no_abs_in_next_next_step[longitude][next_longitude_no_abs][next_next_longitude_no_abs] = 0
                     num_occurences_of_longitude_no_abs_in_next_next_step[longitude][next_longitude_no_abs][next_next_longitude_no_abs] += 1
-
-    #print(num_occurences_of_longitude_no_abs)
+ 
     save_object("num_occurences/num_occurences_of_longitude_no_abs", num_occurences_of_longitude_no_abs)
-    #print(num_occurences_of_longitude_no_abs.keys())
-
+    
     plt.bar(num_occurences_of_longitude_no_abs.keys(), num_occurences_of_longitude_no_abs.values())
     plt.show()
-
-    #print(num_occurences_of_longitude_no_abs_in_next_step)
+ 
     save_object("num_occurences/num_occurences_of_longitude_no_abs_in_next_step", num_occurences_of_longitude_no_abs_in_next_step)
-    #print(num_occurences_of_longitude_no_abs_in_next_next_step)
     save_object("num_occurences/num_occurences_of_longitude_no_abs_in_next_next_step", num_occurences_of_longitude_no_abs_in_next_next_step)
 
     probability_of_longitude_no_abs, probability_of_longitude_no_abs_in_next_step, probability_of_longitude_no_abs_in_next_next_step = fix_prob(num_occurences_of_longitude_no_abs, num_occurences_of_longitude_no_abs_in_next_step, num_occurences_of_longitude_no_abs_in_next_next_step)
-    #print(probability_of_longitude_no_abs)
+    
     save_object("probability/probability_of_longitude_no_abs", probability_of_longitude_no_abs)
-    #print(probability_of_longitude_no_abs_in_next_step)
     save_object("probability/probability_of_longitude_no_abs_in_next_step", probability_of_longitude_no_abs_in_next_step)
-    #print(probability_of_longitude_no_abs_in_next_next_step)
     save_object("probability/probability_of_longitude_no_abs_in_next_next_step", probability_of_longitude_no_abs_in_next_next_step)
 
 probability_of_longitude_no_abs = load_object("probability/probability_of_longitude_no_abs") 

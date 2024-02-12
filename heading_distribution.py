@@ -1,4 +1,8 @@
-from utilities import *
+from utilities import load_object, save_object, fix_prob, predict_prob, predict_prob_with_array
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
     
 all_subdirs = os.listdir() 
 
@@ -67,26 +71,19 @@ if flag_replace or not os.path.isfile("num_occurences/num_occurences_of_directio
                     if next_next_direction not in num_occurences_of_direction_in_next_next_step[direction][next_direction]:
                         num_occurences_of_direction_in_next_next_step[direction][next_direction][next_next_direction] = 0
                     num_occurences_of_direction_in_next_next_step[direction][next_direction][next_next_direction] += 1
-
-    #print(num_occurences_of_direction)
+ 
     save_object("num_occurences/num_occurences_of_direction", num_occurences_of_direction)
-    #print(num_occurences_of_direction.keys())
-
-    #print(num_occurences_of_direction_diff)
+     
     plt.bar(num_occurences_of_direction_diff.keys(), num_occurences_of_direction_diff.values())
     plt.show()
 
-    #print(num_occurences_of_direction_in_next_step)
     save_object("num_occurences/num_occurences_of_direction_in_next_step", num_occurences_of_direction_in_next_step)
-    #print(num_occurences_of_direction_in_next_next_step)
     save_object("num_occurences/num_occurences_of_direction_in_next_next_step", num_occurences_of_direction_in_next_next_step)
-
+    
     probability_of_direction, probability_of_direction_in_next_step, probability_of_direction_in_next_next_step = fix_prob(num_occurences_of_direction, num_occurences_of_direction_in_next_step, num_occurences_of_direction_in_next_next_step)
-    #print(probability_of_direction)
+    
     save_object("probability/probability_of_direction", probability_of_direction)
-    #print(probability_of_direction_in_next_step)
     save_object("probability/probability_of_direction_in_next_step", probability_of_direction_in_next_step)
-    #print(probability_of_direction_in_next_next_step)
     save_object("probability/probability_of_direction_in_next_next_step", probability_of_direction_in_next_next_step)
 
 probability_of_direction = load_object("probability/probability_of_direction") 

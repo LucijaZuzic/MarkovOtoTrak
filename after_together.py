@@ -1,4 +1,6 @@
-from utilities import *  
+from utilities import load_object, translate_method, composite_image, load_traj_name, preprocess_long_lat, new_metric, scale_long_lat, format_e2 
+import os
+import numpy as np
   
 all_subdirs = os.listdir()   
 
@@ -366,7 +368,7 @@ for longlat in worst_worst_ride["euclidean"]:
         long, lat, time = load_traj_name(longer_name)
         long, lat = preprocess_long_lat(long, lat)
         long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-        process_ride = worst_worst_ride[metric_name][longlat].replace("/events_", " Vožnja ").replace(".csv", "").replace("Vehicle_", "Vozilo ")
+        process_ride = worst_worst_ride[metric_name][longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
     
         worst_subs_for_longlat.append(translate_method(longlat) + "\n" + new_metric(metric_name) + " = " + format_e2(worst_worst_score[metric_name][longlat]) + "\n" + process_ride)
         worst_longs_for_longlat.append(long)
@@ -406,9 +408,9 @@ for longlat in worst_worst_ride["euclidean"]:
     long, lat, time = load_traj_name(longer_name)
     long, lat = preprocess_long_lat(long, lat)
     long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-    process_ride = worst_worst_avg_ride[longlat].replace("/events_", " Vožnja ").replace(".csv", "").replace("Vehicle_", "Vozilo ")
+    process_ride = worst_worst_avg_ride[longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
     
-    worst_subs_for_longlat.append(translate_method(longlat) + "\nProsjek = " + format_e2(worst_worst_avg_score[longlat]) +  "\n" + process_ride)
+    worst_subs_for_longlat.append(translate_method(longlat) + "\nAverage = " + format_e2(worst_worst_avg_score[longlat]) +  "\n" + process_ride)
     worst_longs_for_longlat.append(long)
     worst_lats_for_longlat.append(lat) 
     worst_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
@@ -418,13 +420,13 @@ for longlat in worst_worst_ride["euclidean"]:
         worst_show_for_longlat.append(True) 
     else:
         ix2 = worst_names_for_longlat.index(longer_name)
-        worst_subs_for_longlat[ix2] = worst_subs_for_longlat[ix2].replace("\n" + process_ride, "\nProsjek = " + format_e2(worst_worst_avg_score[longlat]) + "\n" + process_ride)
+        worst_subs_for_longlat[ix2] = worst_subs_for_longlat[ix2].replace("\n" + process_ride, "\nAverage = " + format_e2(worst_worst_avg_score[longlat]) + "\n" + process_ride)
         worst_show_for_longlat.append(False)
 
     worst_names_for_longlat.append(longer_name) 
     
     if worst_worst_avg_score[longlat] < worst_scores_for_longlat_all[ix]: 
-        worst_subs_for_longlat_all[ix] = translate_method(longlat) + "\nProsjek = " + format_e2(worst_worst_avg_score[longlat]) +  "\n" + process_ride
+        worst_subs_for_longlat_all[ix] = translate_method(longlat) + "\nAverage = " + format_e2(worst_worst_avg_score[longlat]) +  "\n" + process_ride
         worst_longs_for_longlat_all[ix] = long
         worst_lats_for_longlat_all[ix] = lat
         worst_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]]
@@ -435,7 +437,7 @@ for longlat in worst_worst_ride["euclidean"]:
             worst_show_for_longlat_all[ix] = True
         else:
             ix2 = worst_names_for_longlat_all.index(longer_name)
-            worst_subs_for_longlat_all[ix2] = worst_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nProsjek = " + format_e2(worst_worst_avg_score[longlat]) + "\n" + process_ride)
+            worst_subs_for_longlat_all[ix2] = worst_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nAverage = " + format_e2(worst_worst_avg_score[longlat]) + "\n" + process_ride)
             worst_show_for_longlat_all[ix] = False
 
         worst_names_for_longlat_all[ix] = longer_name
@@ -445,9 +447,9 @@ for longlat in worst_worst_ride["euclidean"]:
     long, lat, time = load_traj_name(longer_name)
     long, lat = preprocess_long_lat(long, lat)
     long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-    process_ride = worst_worst_xavg_ride[longlat].replace("/events_", " Vožnja ").replace(".csv", "").replace("Vehicle_", "Vozilo ")
+    process_ride = worst_worst_xavg_ride[longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
     
-    worst_subs_for_longlat.append(translate_method(longlat) + "\nProsjek x = " + format_e2(worst_worst_xavg_score[longlat]) +  "\n" + process_ride)
+    worst_subs_for_longlat.append(translate_method(longlat) + "\nAverage x = " + format_e2(worst_worst_xavg_score[longlat]) +  "\n" + process_ride)
     worst_longs_for_longlat.append(long)
     worst_lats_for_longlat.append(lat) 
     worst_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
@@ -457,13 +459,13 @@ for longlat in worst_worst_ride["euclidean"]:
         worst_show_for_longlat.append(True) 
     else:
         ix2 = worst_names_for_longlat.index(longer_name)
-        worst_subs_for_longlat[ix2] = worst_subs_for_longlat[ix2].replace("\n" + process_ride, "\nProsjek x = " + format_e2(worst_worst_xavg_score[longlat]) + "\n" + process_ride)
+        worst_subs_for_longlat[ix2] = worst_subs_for_longlat[ix2].replace("\n" + process_ride, "\nAverage x = " + format_e2(worst_worst_xavg_score[longlat]) + "\n" + process_ride)
         worst_show_for_longlat.append(False)
 
     worst_names_for_longlat.append(longer_name) 
 
     if worst_worst_xavg_score[longlat] < worst_scores_for_longlat_all[ix]: 
-        worst_subs_for_longlat_all[ix] = translate_method(longlat) + "\nProsjek x = " + format_e2(worst_worst_xavg_score[longlat]) +  "\n" + process_ride
+        worst_subs_for_longlat_all[ix] = translate_method(longlat) + "\nAverage x = " + format_e2(worst_worst_xavg_score[longlat]) +  "\n" + process_ride
         worst_longs_for_longlat_all[ix] = long
         worst_lats_for_longlat_all[ix] = lat
         worst_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]]
@@ -474,7 +476,7 @@ for longlat in worst_worst_ride["euclidean"]:
             worst_show_for_longlat_all[ix] = True
         else:
             ix2 = worst_names_for_longlat_all.index(longer_name)
-            worst_subs_for_longlat_all[ix2] = worst_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nProsjek x = " + format_e2(worst_worst_xavg_score[longlat]) + "\n" + process_ride)
+            worst_subs_for_longlat_all[ix2] = worst_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nAverage x = " + format_e2(worst_worst_xavg_score[longlat]) + "\n" + process_ride)
             worst_show_for_longlat_all[ix] = False
 
         worst_names_for_longlat_all[ix] = longer_name
@@ -484,9 +486,9 @@ for longlat in worst_worst_ride["euclidean"]:
     long, lat, time = load_traj_name(longer_name)
     long, lat = preprocess_long_lat(long, lat)
     long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-    process_ride = worst_worst_yavg_ride[longlat].replace("/events_", " Vožnja ").replace(".csv", "").replace("Vehicle_", "Vozilo ")
+    process_ride = worst_worst_yavg_ride[longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
    
-    worst_subs_for_longlat.append(translate_method(longlat) + "\nProsjek y = " + format_e2(worst_worst_yavg_score[longlat]) +  "\n" + process_ride)
+    worst_subs_for_longlat.append(translate_method(longlat) + "\nAverage y = " + format_e2(worst_worst_yavg_score[longlat]) +  "\n" + process_ride)
     worst_longs_for_longlat.append(long)
     worst_lats_for_longlat.append(lat) 
     worst_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
@@ -496,13 +498,13 @@ for longlat in worst_worst_ride["euclidean"]:
         worst_show_for_longlat.append(True) 
     else:
         ix2 = worst_names_for_longlat.index(longer_name)
-        worst_subs_for_longlat[ix2] = worst_subs_for_longlat[ix2].replace("\n" + process_ride, "\nProsjek y = " + format_e2(worst_worst_yavg_score[longlat]) + "\n" + process_ride)
+        worst_subs_for_longlat[ix2] = worst_subs_for_longlat[ix2].replace("\n" + process_ride, "\nAverage y = " + format_e2(worst_worst_yavg_score[longlat]) + "\n" + process_ride)
         worst_show_for_longlat.append(False)
 
     worst_names_for_longlat.append(longer_name) 
  
     if worst_worst_yavg_score[longlat] < worst_scores_for_longlat_all[ix]: 
-        worst_subs_for_longlat_all[ix] = translate_method(longlat) + "\nProsjek x = " + format_e2(worst_worst_yavg_score[longlat]) +  "\n" + process_ride
+        worst_subs_for_longlat_all[ix] = translate_method(longlat) + "\nAverage x = " + format_e2(worst_worst_yavg_score[longlat]) +  "\n" + process_ride
         worst_longs_for_longlat_all[ix] = long
         worst_lats_for_longlat_all[ix] = lat
         worst_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]]
@@ -513,7 +515,7 @@ for longlat in worst_worst_ride["euclidean"]:
             worst_show_for_longlat_all[ix] = True
         else:
             ix2 = worst_names_for_longlat_all.index(longer_name)
-            worst_subs_for_longlat_all[ix2] = worst_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nProsjek y = " + format_e2(worst_worst_yavg_score[longlat]) + "\n" + process_ride)
+            worst_subs_for_longlat_all[ix2] = worst_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nAverage y = " + format_e2(worst_worst_yavg_score[longlat]) + "\n" + process_ride)
             worst_show_for_longlat_all[ix] = False
 
         worst_names_for_longlat_all[ix] = longer_name
@@ -522,9 +524,9 @@ for longlat in worst_worst_ride["euclidean"]:
         os.makedirs("markov_rides")
     filename = "markov_rides/" + longlat + "_worst.png"
 
-    composite_image(filename, worst_show_for_longlat, worst_longs_for_longlat, worst_lats_for_longlat, 4, 2, worst_other_longs_for_longlat, worst_other_lats_for_longlat, ["Procjena"], True, worst_subs_for_longlat)
+    composite_image(filename, worst_show_for_longlat, worst_longs_for_longlat, worst_lats_for_longlat, 8, 1, worst_other_longs_for_longlat, worst_other_lats_for_longlat, ["Estimated"], True, worst_subs_for_longlat)
     #print(row_str + "\\\\ \\hline")      
-composite_image("markov_rides/A_worst.png" ,worst_show_for_longlat_all, worst_longs_for_longlat_all, worst_lats_for_longlat_all, 4, 2, worst_other_longs_for_longlat_all, worst_other_lats_for_longlat_all, ["Procjena"], True, worst_subs_for_longlat_all)
+composite_image("markov_rides/A_worst.png" ,worst_show_for_longlat_all, worst_longs_for_longlat_all, worst_lats_for_longlat_all, 8, 1, worst_other_longs_for_longlat_all, worst_other_lats_for_longlat_all, ["Estimated"], True, worst_subs_for_longlat_all)
  
 print("Best occurence") 
 first_row = ""
@@ -677,7 +679,7 @@ for longlat in best_best_ride["euclidean"]:
         long, lat, time = load_traj_name(longer_name)
         long, lat = preprocess_long_lat(long, lat)
         long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-        process_ride = best_best_ride[metric_name][longlat].replace("/events_", " Vožnja ").replace(".csv", "").replace("Vehicle_", "Vozilo ")
+        process_ride = best_best_ride[metric_name][longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
     
         best_subs_for_longlat.append(translate_method(longlat) + "\n" + new_metric(metric_name) + " = " + format_e2(best_best_score[metric_name][longlat]) + "\n" + process_ride)
         best_longs_for_longlat.append(long)
@@ -717,9 +719,9 @@ for longlat in best_best_ride["euclidean"]:
     long, lat, time = load_traj_name(longer_name)
     long, lat = preprocess_long_lat(long, lat)
     long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-    process_ride = best_best_avg_ride[longlat].replace("/events_", " Vožnja ").replace(".csv", "").replace("Vehicle_", "Vozilo ")
+    process_ride = best_best_avg_ride[longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
     
-    best_subs_for_longlat.append(translate_method(longlat) + "\nProsjek = " + format_e2(best_best_avg_score[longlat]) +  "\n" + process_ride)
+    best_subs_for_longlat.append(translate_method(longlat) + "\nAverage = " + format_e2(best_best_avg_score[longlat]) +  "\n" + process_ride)
     best_longs_for_longlat.append(long)
     best_lats_for_longlat.append(lat) 
     best_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
@@ -729,13 +731,13 @@ for longlat in best_best_ride["euclidean"]:
         best_show_for_longlat.append(True) 
     else:
         ix2 = best_names_for_longlat.index(longer_name)
-        best_subs_for_longlat[ix2] = best_subs_for_longlat[ix2].replace("\n" + process_ride, "\nProsjek = " + format_e2(best_best_avg_score[longlat]) + "\n" + process_ride)
+        best_subs_for_longlat[ix2] = best_subs_for_longlat[ix2].replace("\n" + process_ride, "\nAverage = " + format_e2(best_best_avg_score[longlat]) + "\n" + process_ride)
         best_show_for_longlat.append(False)
 
     best_names_for_longlat.append(longer_name) 
  
     if best_best_avg_score[longlat] < best_scores_for_longlat_all[ix]: 
-        best_subs_for_longlat_all[ix] = translate_method(longlat) + "\nProsjek = " + format_e2(best_best_avg_score[longlat]) +  "\n" + process_ride
+        best_subs_for_longlat_all[ix] = translate_method(longlat) + "\nAverage = " + format_e2(best_best_avg_score[longlat]) +  "\n" + process_ride
         best_longs_for_longlat_all[ix] = long
         best_lats_for_longlat_all[ix] = lat
         best_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]]
@@ -746,7 +748,7 @@ for longlat in best_best_ride["euclidean"]:
             best_show_for_longlat_all[ix] = True
         else:
             ix2 = best_names_for_longlat_all.index(longer_name)
-            best_subs_for_longlat_all[ix2] = best_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nProsjek = " + format_e2(best_best_avg_score[longlat]) + "\n" + process_ride)
+            best_subs_for_longlat_all[ix2] = best_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nAverage = " + format_e2(best_best_avg_score[longlat]) + "\n" + process_ride)
             best_show_for_longlat_all[ix] = False
 
         best_names_for_longlat_all[ix] = longer_name
@@ -756,9 +758,9 @@ for longlat in best_best_ride["euclidean"]:
     long, lat, time = load_traj_name(longer_name)
     long, lat = preprocess_long_lat(long, lat)
     long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-    process_ride = best_best_xavg_ride[longlat].replace("/events_", " Vožnja ").replace(".csv", "").replace("Vehicle_", "Vozilo ")
+    process_ride = best_best_xavg_ride[longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
     
-    best_subs_for_longlat.append(translate_method(longlat) + "\nProsjek x = " + format_e2(best_best_xavg_score[longlat]) +  "\n" + process_ride)
+    best_subs_for_longlat.append(translate_method(longlat) + "\nAverage x = " + format_e2(best_best_xavg_score[longlat]) +  "\n" + process_ride)
     best_longs_for_longlat.append(long)
     best_lats_for_longlat.append(lat) 
     best_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
@@ -768,13 +770,13 @@ for longlat in best_best_ride["euclidean"]:
         best_show_for_longlat.append(True) 
     else:
         ix2 = best_names_for_longlat.index(longer_name)
-        best_subs_for_longlat[ix2] = best_subs_for_longlat[ix2].replace("\n" + process_ride, "\nProsjek x = " + format_e2(best_best_xavg_score[longlat]) + "\n" + process_ride)
+        best_subs_for_longlat[ix2] = best_subs_for_longlat[ix2].replace("\n" + process_ride, "\nAverage x = " + format_e2(best_best_xavg_score[longlat]) + "\n" + process_ride)
         best_show_for_longlat.append(False)
 
     best_names_for_longlat.append(longer_name) 
 
     if best_best_xavg_score[longlat] < best_scores_for_longlat_all[ix]: 
-        best_subs_for_longlat_all[ix] = translate_method(longlat) + "\nProsjek x = " + format_e2(best_best_xavg_score[longlat]) +  "\n" + process_ride
+        best_subs_for_longlat_all[ix] = translate_method(longlat) + "\nAverage x = " + format_e2(best_best_xavg_score[longlat]) +  "\n" + process_ride
         best_longs_for_longlat_all[ix] = long
         best_lats_for_longlat_all[ix] = lat
         best_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]]
@@ -785,7 +787,7 @@ for longlat in best_best_ride["euclidean"]:
             best_show_for_longlat_all[ix] = True
         else:
             ix2 = best_names_for_longlat_all.index(longer_name)
-            best_subs_for_longlat_all[ix2] = best_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nProsjek x = " + format_e2(best_best_xavg_score[longlat]) + "\n" + process_ride)
+            best_subs_for_longlat_all[ix2] = best_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nAverage x = " + format_e2(best_best_xavg_score[longlat]) + "\n" + process_ride)
             best_show_for_longlat_all[ix] = False
 
         best_names_for_longlat_all[ix] = longer_name
@@ -795,9 +797,9 @@ for longlat in best_best_ride["euclidean"]:
     long, lat, time = load_traj_name(longer_name)
     long, lat = preprocess_long_lat(long, lat)
     long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-    process_ride = best_best_yavg_ride[longlat].replace("/events_", " Vožnja ").replace(".csv", "").replace("Vehicle_", "Vozilo ")
+    process_ride = best_best_yavg_ride[longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
    
-    best_subs_for_longlat.append(translate_method(longlat) + "\nProsjek y = " + format_e2(best_best_yavg_score[longlat]) +  "\n" + process_ride)
+    best_subs_for_longlat.append(translate_method(longlat) + "\nAverage y = " + format_e2(best_best_yavg_score[longlat]) +  "\n" + process_ride)
     best_longs_for_longlat.append(long)
     best_lats_for_longlat.append(lat) 
     best_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
@@ -807,13 +809,13 @@ for longlat in best_best_ride["euclidean"]:
         best_show_for_longlat.append(True) 
     else:
         ix2 = best_names_for_longlat.index(longer_name)
-        best_subs_for_longlat[ix2] = best_subs_for_longlat[ix2].replace("\n" + process_ride, "\nProsjek y = " + format_e2(best_best_yavg_score[longlat]) + "\n" + process_ride)
+        best_subs_for_longlat[ix2] = best_subs_for_longlat[ix2].replace("\n" + process_ride, "\nAverage y = " + format_e2(best_best_yavg_score[longlat]) + "\n" + process_ride)
         best_show_for_longlat.append(False)
  
     best_names_for_longlat.append(longer_name) 
 
     if best_best_yavg_score[longlat] < best_scores_for_longlat_all[ix]: 
-        best_subs_for_longlat_all[ix] = translate_method(longlat) + "\nProsjek x = " + format_e2(best_best_yavg_score[longlat]) +  "\n" + process_ride
+        best_subs_for_longlat_all[ix] = translate_method(longlat) + "\nAverage x = " + format_e2(best_best_yavg_score[longlat]) +  "\n" + process_ride
         best_longs_for_longlat_all[ix] = long
         best_lats_for_longlat_all[ix] = lat
         best_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]]
@@ -824,7 +826,7 @@ for longlat in best_best_ride["euclidean"]:
             best_show_for_longlat_all[ix] = True
         else:
             ix2 = best_names_for_longlat_all.index(longer_name)
-            best_subs_for_longlat_all[ix2] = best_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nProsjek y = " + format_e2(best_best_yavg_score[longlat]) + "\n" + process_ride)
+            best_subs_for_longlat_all[ix2] = best_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nAverage y = " + format_e2(best_best_yavg_score[longlat]) + "\n" + process_ride)
             best_show_for_longlat_all[ix] = False
             
         best_names_for_longlat_all[ix] = longer_name
@@ -833,9 +835,9 @@ for longlat in best_best_ride["euclidean"]:
         os.makedirs("markov_rides")
     filename = "markov_rides/" + longlat + "_best.png"
 
-    composite_image(filename, best_show_for_longlat, best_longs_for_longlat, best_lats_for_longlat, 4, 2, best_other_longs_for_longlat, best_other_lats_for_longlat, ["Procjena"], True, best_subs_for_longlat)
+    composite_image(filename, best_show_for_longlat, best_longs_for_longlat, best_lats_for_longlat, 8, 1, best_other_longs_for_longlat, best_other_lats_for_longlat, ["Estimated"], True, best_subs_for_longlat)
     #print(row_str + "\\\\ \\hline")      
-composite_image("markov_rides/A_best.png" ,best_show_for_longlat_all, best_longs_for_longlat_all, best_lats_for_longlat_all, 4, 2, best_other_longs_for_longlat_all, best_other_lats_for_longlat_all, ["Procjena"], True, best_subs_for_longlat_all)
+composite_image("markov_rides/A_best.png" ,best_show_for_longlat_all, best_longs_for_longlat_all, best_lats_for_longlat_all, 8, 1, best_other_longs_for_longlat_all, best_other_lats_for_longlat_all, ["Estimated"], True, best_subs_for_longlat_all)
  
 print("Best occurence percent")   
 print(first_row + "\\\\ \\hline") 

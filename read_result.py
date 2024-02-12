@@ -1,4 +1,9 @@
-from utilities import *
+import os
+from utilities import load_object, preprocess_long_lat, scale_long_lat, process_time, fill_gap, format_e, translate_var
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
 all_subdirs = os.listdir() 
  
 def read_distance(title): 
@@ -27,7 +32,7 @@ def read_distance(title):
             longitudes = list(file_with_ride["fields_longitude"]) 
             latitudes = list(file_with_ride["fields_latitude"]) 
             longitudes, latitudes = preprocess_long_lat(longitudes, latitudes)
-            longitudes, latitudes = scale_long_lat(longitudes, latitudes, 0.1, 0.1, True)
+            longitudes, latitudes = (longitudes, latitudes, 0.1, 0.1, True)
             distance_int = [np.round(np.sqrt((longitudes[distance_index + 1] - longitudes[distance_index]) ** 2 + (latitudes[distance_index + 1] - latitudes[distance_index]) ** 2), 5) for distance_index in range(len(longitudes) - 1)]
             all_mine[subdir_name + "/cleaned_csv/" + some_file] = distance_int
     return end_read(title, all_x, all_mine)

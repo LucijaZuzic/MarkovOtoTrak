@@ -1,4 +1,6 @@
-from utilities import * 
+from utilities import load_object 
+import os 
+import numpy as np
 
 def save_table(str_save, name_save):
     if not os.path.isdir("distribution"):

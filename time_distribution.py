@@ -1,4 +1,8 @@
-from utilities import *
+from utilities import load_object, save_object, process_time, fix_prob, predict_prob, predict_prob_with_array
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
     
 all_subdirs = os.listdir() 
 
@@ -64,25 +68,18 @@ if flag_replace or not os.path.isfile("num_occurences/num_occurences_of_time"):
                     if next_next_time not in num_occurences_of_time_in_next_next_step[time][next_time]:
                         num_occurences_of_time_in_next_next_step[time][next_time][next_next_time] = 0
                     num_occurences_of_time_in_next_next_step[time][next_time][next_next_time] += 1
-
-    #print(num_occurences_of_time)
-    save_object("num_occurences/num_occurences_of_time", num_occurences_of_time)
-    #print(num_occurences_of_time.keys())
+ 
+    save_object("num_occurences/num_occurences_of_time", num_occurences_of_time) 
 
     plt.bar(num_occurences_of_time.keys(), num_occurences_of_time.values())
     plt.show()
-
-    #print(num_occurences_of_time_in_next_step)
+ 
     save_object("num_occurences/num_occurences_of_time_in_next_step", num_occurences_of_time_in_next_step)
-    #print(num_occurences_of_time_in_next_next_step)
     save_object("num_occurences/num_occurences_of_time_in_next_next_step", num_occurences_of_time_in_next_next_step)
 
     probability_of_time, probability_of_time_in_next_step, probability_of_time_in_next_next_step = fix_prob(num_occurences_of_time, num_occurences_of_time_in_next_step, num_occurences_of_time_in_next_next_step)
-    #print(probability_of_time)
     save_object("probability/probability_of_time", probability_of_time)
-    #print(probability_of_time_in_next_step)
     save_object("probability/probability_of_time_in_next_step", probability_of_time_in_next_step)
-    #print(probability_of_time_in_next_next_step)
     save_object("probability/probability_of_time_in_next_next_step", probability_of_time_in_next_next_step)
 
 probability_of_time = load_object("probability/probability_of_time") 
