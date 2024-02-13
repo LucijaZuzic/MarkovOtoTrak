@@ -2,10 +2,10 @@ from utilities import load_object
 import os 
 import numpy as np
 
-def save_table(str_save, name_save):
-    if not os.path.isdir("distribution"):
-        os.makedirs("distribution")
-    file_w = open("distribution/" + name_save + ".txt", "w")
+def save_table(key_num, str_save, name_save):
+    if not os.path.isdir("distribution/" + str(key_num) + "/"):
+        os.makedirs("distribution/" + str(key_num) + "/")
+    file_w = open("distribution/" + str(key_num) + "/" + str(key_num) + "_" + name_save + ".txt", "w")
     file_w.write(str_save)
     file_w.close()
 
@@ -49,7 +49,7 @@ def print_1d(dictio, mul, name_save):
     str_pr += "\\label{tab:" + name_save + "}\n"
     str_pr += "\\end{table}\n"
     if not name_save == "":
-        save_table(str_pr, name_save)
+        save_table(key_num, str_pr, name_save)
     return str_pr, str_pr_short, str_pr_shortest
 
 def print_2d(dictio, mul, name_save = ""):
@@ -82,7 +82,7 @@ def print_2d(dictio, mul, name_save = ""):
     str_pr += "\\label{tab:" + name_save + "}\n"
     str_pr += "\\end{table}\n"
     if not name_save == "":
-        save_table(str_pr, name_save)
+        save_table(key_num, str_pr, name_save)
     return str_pr, str_pr_short, str_pr_shortest
 
 def print_3d(dictio, mul, name_save): 
@@ -134,7 +134,7 @@ def print_3d(dictio, mul, name_save):
     str_pr += "\\label{tab:" + name_save + "}\n"
     str_pr += "\\end{table}\n"
     if not name_save == "":
-        save_table(str_pr, name_save)
+        save_table(key_num, str_pr, name_save)
     return str_pr, str_pr_short, str_pr_shortest
 
 def convert_keys(new_bins, maxval, i):
@@ -243,7 +243,7 @@ def get_bins(keys_list, probability_of, num_bins):
     new_bins = [keys_list[x] for x in new_bins_indexes]
     return new_bins
 
-def get_var(name_of):
+def get_var(key_num, name_of):
     print(name_of) 
 
     probability_of_in_next_next_step = load_object("probability/probability_of_" + name_of + "_in_next_next_step")   
@@ -274,13 +274,14 @@ def get_var(name_of):
         n3 = probability_of_in_next_next_step
         mul = 100
     else:
-        keys_new1 = get_bins(keys_list, probability_of, nbins)
-        keys_new2 = get_bins(keys_list2, probof2, nbins)
-        keys_new3 = get_bins(keys_list3, probof3, nbins)
-        keys_new = keys_new1
-        if name_of == "speed" or name_of == "distance":
-            keys_new = keys_new3
-        keys_new = get_bins_simple(keys_list, nbins)
+        if key_num == 0:
+            keys_new = get_bins_simple(keys_list, nbins)
+        if key_num == 1:
+            keys_new = get_bins(keys_list, probability_of, nbins)
+        if key_num == 2:
+            keys_new = get_bins(keys_list2, probof2, nbins)
+        if key_num == 3:
+            keys_new = get_bins(keys_list3, probof3, nbins) 
         n1 = summarize_dict(probability_of, keys_new, max(keys_list))
         n2 = summarize_2d_dict(probability_of_in_next_step, keys_new, max(keys_list))
         n3 = summarize_3d_dict(probability_of_in_next_next_step, keys_new, max(keys_list))
@@ -289,62 +290,63 @@ def get_var(name_of):
     p2, p2s, p2ss = print_2d(n2, mul, name_of + "_2d")
     p3, p3s, p3ss = print_3d(n3, mul, name_of + "_3d")
     repl_name = name_of.replace("_", " ").capitalize()
-    save_table("\chapter{" + repl_name + "}\n" + p1 + p2 + p3, name_of + "_all") 
+    save_table(key_num, "\chapter{" + repl_name + "}\n" + p1 + p2 + p3, name_of + "_all") 
     str_pr_short = "\chapter{" + repl_name + "}\n\\begin{table}\n\\centering\n" + p1s + p2s + p3s
     str_pr_short += "\\caption{" + repl_name + "}\n"
     str_pr_short += "\\label{tab:" + name_of + "}\n"
     str_pr_short += "\\end{table}\n"
-    save_table(str_pr_short, name_of + "_all_short")
+    save_table(key_num, str_pr_short, name_of + "_all_short")
     print(p1)
     print(p2)
     print(p3)
     return "\chapter{" + name_of.replace("_", " ").capitalize() + "}\n" + p1 + p2 + p3, str_pr_short, p1ss, p2ss, p3ss
 
-totally = ""
-totally_short = ""
-ncols = 2
-shortest_p1 = "\\begin{table}\n\\centering\n"
-shortest_p1 += "\\begin{tabular}{|" + "c|" * (ncols + 1) + "}\n\\hline\n"
+for key_num in range(4):
+    totally = ""
+    totally_short = ""
+    ncols = 2
+    shortest_p1 = "\\begin{table}\n\\centering\n"
+    shortest_p1 += "\\begin{tabular}{|" + "c|" * (ncols + 1) + "}\n\\hline\n"
 
-shortest_p2 = "\\begin{table}\n\\centering\n"
-shortest_p2 += "\\begin{tabular}{|" + "c|" * (ncols + 1) + "}\n\\hline\n"
+    shortest_p2 = "\\begin{table}\n\\centering\n"
+    shortest_p2 += "\\begin{tabular}{|" + "c|" * (ncols + 1) + "}\n\\hline\n"
 
-shortest_p3 = "\\begin{table}\n\\centering\n"
-shortest_p3 += "\\begin{tabular}{|" + "c|" * (ncols ** 2 + 1) + "}\n\\hline\n"
+    shortest_p3 = "\\begin{table}\n\\centering\n"
+    shortest_p3 += "\\begin{tabular}{|" + "c|" * (ncols ** 2 + 1) + "}\n\\hline\n"
 
-name_of_var = os.listdir("predicted")
-for v in name_of_var: 
-    if v == "predicted_time_half":
-        continue
-    if v == "predicted_time_ten":
-        continue
-    starting1 = "\\multicolumn{" + str(ncols + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
-    starting2 = "\\multicolumn{" + str(ncols + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
-    starting3 = "\\multicolumn{" + str(ncols ** 2 + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
-    t, ts, s1, s2, s3 = get_var(v.replace("predicted_", ""))
-    totally += t
-    totally_short += ts
-    shortest_p1 += starting1 + s1
-    shortest_p2 += starting2 + s2
-    shortest_p3 += starting3 + s3
-    
-shortest_p1 += "\\end{tabular}\n"
-shortest_p1 += "\\caption{1d}\n"
-shortest_p1 += "\\label{tab:1d}\n"
-shortest_p1 += "\\end{table}\n"
+    name_of_var = os.listdir("predicted")
+    for v in name_of_var: 
+        if v == "predicted_time_half":
+            continue
+        if v == "predicted_time_ten":
+            continue
+        starting1 = "\\multicolumn{" + str(ncols + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
+        starting2 = "\\multicolumn{" + str(ncols + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
+        starting3 = "\\multicolumn{" + str(ncols ** 2 + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
+        t, ts, s1, s2, s3 = get_var(key_num, v.replace("predicted_", ""))
+        totally += t
+        totally_short += ts
+        shortest_p1 += starting1 + s1
+        shortest_p2 += starting2 + s2
+        shortest_p3 += starting3 + s3
+        
+    shortest_p1 += "\\end{tabular}\n"
+    shortest_p1 += "\\caption{1d}\n"
+    shortest_p1 += "\\label{tab:1d}\n"
+    shortest_p1 += "\\end{table}\n"
 
-shortest_p2 += "\\end{tabular}\n"
-shortest_p2 += "\\caption{2d}\n"
-shortest_p2 += "\\label{tab:2d}\n"
-shortest_p2 += "\\end{table}\n"
+    shortest_p2 += "\\end{tabular}\n"
+    shortest_p2 += "\\caption{2d}\n"
+    shortest_p2 += "\\label{tab:2d}\n"
+    shortest_p2 += "\\end{table}\n"
 
-shortest_p3 += "\\end{tabular}\n"
-shortest_p3 += "\\caption{3d}\n"
-shortest_p3 += "\\label{tab:3d}\n"
-shortest_p3 += "\\end{table}\n"
+    shortest_p3 += "\\end{tabular}\n"
+    shortest_p3 += "\\caption{3d}\n"
+    shortest_p3 += "\\label{tab:3d}\n"
+    shortest_p3 += "\\end{table}\n"
 
-save_table(totally, "all_all")
-save_table(totally_short, "all_all_short")
-save_table(shortest_p1, "all_p1")
-save_table(shortest_p2, "all_p2")
-save_table(shortest_p3, "all_p3")
+    save_table(key_num, totally, "all_all")
+    save_table(key_num, totally_short, "all_all_short")
+    save_table(key_num, shortest_p1, "all_p1")
+    save_table(key_num, shortest_p2, "all_p2")
+    save_table(key_num, shortest_p3, "all_p3")

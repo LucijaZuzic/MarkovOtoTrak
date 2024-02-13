@@ -1,0 +1,14 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{3}{*}{$P(X_{i}|X_{i-1},X_{i-2})$} & \multicolumn{4}{|c|}{$X_{i-2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$V_{1}$} & \multicolumn{2}{|c|}{$V_{2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$X_{i}$} & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[1 \times 10^{-3}, 1.23>$ & $86.29\%$ & $13.71\%$ & $75.0\%$ & $25.0\%$\\ \hline
+$V_{2}=[1.23, 4.32]$ & $94.44\%$ & $5.56\%$ & $75.0\%$ & $25.0\%$\\ \hline
+\end{tabular}
+\caption{Time 3d}
+\label{tab:time_3d}
+\end{table}

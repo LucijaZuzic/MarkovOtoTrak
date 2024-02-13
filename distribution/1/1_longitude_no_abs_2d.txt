@@ -1,0 +1,12 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$P(X_{i}|X_{i-1})$ & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[-1.16 \times 10^{-2}, 6.6 \times 10^{-5}>$ & $98.69\%$ & $1.31\%$\\ \hline
+$V_{2}=[6.6 \times 10^{-5}, 9.45 \times 10^{-3}]$ & $1.11\%$ & $98.89\%$\\ \hline
+\end{tabular}
+\caption{Longitude no abs 2d}
+\label{tab:longitude_no_abs_2d}
+\end{table}

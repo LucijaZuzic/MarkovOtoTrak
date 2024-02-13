@@ -1,0 +1,27 @@
+\chapter{Time}
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$X_{i}$ & $[1 \times 10^{-3}, 9.96 \times 10^{-1}>$ & $[9.96 \times 10^{-1}, 4.32]$\\ \hline
+$P(X_{i})$ & $50.55\%$ & $49.45\%$\\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|}
+\hline
+$P(X_{i}|X_{i-1})$ & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[1 \times 10^{-3}, 9.96 \times 10^{-1}>$ & $45.08\%$ & $54.92\%$\\ \hline
+$V_{2}=[9.96 \times 10^{-1}, 4.32]$ & $89.85\%$ & $10.15\%$\\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{3}{*}{$P(X_{i}|X_{i-1},X_{i-2})$} & \multicolumn{4}{|c|}{$X_{i-2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$V_{1}$} & \multicolumn{2}{|c|}{$V_{2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$X_{i}$} & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[1 \times 10^{-3}, 9.96 \times 10^{-1}>$ & $35.34\%$ & $64.66\%$ & $36.37\%$ & $63.63\%$\\ \hline
+$V_{2}=[9.96 \times 10^{-1}, 4.32]$ & $68.94\%$ & $31.06\%$ & $99.99\%$ & $0.01\%$\\ \hline
+\end{tabular}
+\caption{Time}
+\label{tab:time}
+\end{table}

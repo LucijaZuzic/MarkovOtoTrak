@@ -1,0 +1,48 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multicolumn{5}{|c|}{Predicted direction}\\ \begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{3}{*}{$P(X_{i}|X_{i-1},X_{i-2})$} & \multicolumn{4}{|c|}{$X_{i-2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$V_{1}$} & \multicolumn{2}{|c|}{$V_{2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$X_{i}$} & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[0, 179>$ & $95.74\%$ & $4.26\%$ & $99.99\%$ & $0.01\%$\\ \hline
+$V_{2}=[179, 360]$ & $2.5\%$ & $97.5\%$ & $8.34\%$ & $91.66\%$\\ \hline
+\multicolumn{5}{|c|}{Predicted latitude no abs}\\ \begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{3}{*}{$P(X_{i}|X_{i-1},X_{i-2})$} & \multicolumn{4}{|c|}{$X_{i-2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$V_{1}$} & \multicolumn{2}{|c|}{$V_{2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$X_{i}$} & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[-4.78 \times 10^{-3}, 1.6 \times 10^{-5}>$ & $97.68\%$ & $2.32\%$ & $96.29\%$ & $3.71\%$\\ \hline
+$V_{2}=[1.6 \times 10^{-5}, 2.12 \times 10^{-2}]$ & $12.02\%$ & $87.98\%$ & $4.79\%$ & $95.21\%$\\ \hline
+\multicolumn{5}{|c|}{Predicted longitude no abs}\\ \begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{3}{*}{$P(X_{i}|X_{i-1},X_{i-2})$} & \multicolumn{4}{|c|}{$X_{i-2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$V_{1}$} & \multicolumn{2}{|c|}{$V_{2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$X_{i}$} & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[-1.16 \times 10^{-2}, -1.6 \times 10^{-5}>$ & $97.3\%$ & $2.7\%$ & $90.63\%$ & $9.37\%$\\ \hline
+$V_{2}=[-1.6 \times 10^{-5}, 9.45 \times 10^{-3}]$ & $4.36\%$ & $95.64\%$ & $5.2\%$ & $94.8\%$\\ \hline
+\multicolumn{5}{|c|}{Predicted speed}\\ \begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{3}{*}{$P(X_{i}|X_{i-1},X_{i-2})$} & \multicolumn{4}{|c|}{$X_{i-2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$V_{1}$} & \multicolumn{2}{|c|}{$V_{2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$X_{i}$} & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[0, 41>$ & $99.99\%$ & $0.01\%$ & $92.8\%$ & $7.21\%$\\ \hline
+$V_{2}=[41, 83]$ & $99.99\%$ & $0.01\%$ & $11.32\%$ & $88.68\%$\\ \hline
+\multicolumn{5}{|c|}{Predicted time}\\ \begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{3}{*}{$P(X_{i}|X_{i-1},X_{i-2})$} & \multicolumn{4}{|c|}{$X_{i-2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$V_{1}$} & \multicolumn{2}{|c|}{$V_{2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$X_{i}$} & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[1 \times 10^{-3}, 1.23>$ & $86.29\%$ & $13.71\%$ & $75.0\%$ & $25.0\%$\\ \hline
+$V_{2}=[1.23, 4.32]$ & $94.44\%$ & $5.56\%$ & $75.0\%$ & $25.0\%$\\ \hline
+\end{tabular}
+\caption{3d}
+\label{tab:3d}
+\end{table}

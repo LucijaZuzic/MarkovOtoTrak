@@ -1,0 +1,27 @@
+\chapter{Speed}
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$X_{i}$ & $[0, 1>$ & $[1, 83]$\\ \hline
+$P(X_{i})$ & $1.23\%$ & $98.77\%$\\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|}
+\hline
+$P(X_{i}|X_{i-1})$ & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[0, 1>$ & $69.87\%$ & $30.13\%$\\ \hline
+$V_{2}=[1, 83]$ & $0.45\%$ & $99.47\%$\\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{3}{*}{$P(X_{i}|X_{i-1},X_{i-2})$} & \multicolumn{4}{|c|}{$X_{i-2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$V_{1}$} & \multicolumn{2}{|c|}{$V_{2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$X_{i}$} & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[0, 1>$ & $74.43\%$ & $25.57\%$ & $61.39\%$ & $38.61\%$\\ \hline
+$V_{2}=[1, 83]$ & $6.41\%$ & $93.59\%$ & $4.16\%$ & $95.84\%$\\ \hline
+\end{tabular}
+\caption{Speed}
+\label{tab:speed}
+\end{table}

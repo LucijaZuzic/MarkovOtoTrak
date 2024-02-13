@@ -1,0 +1,27 @@
+\chapter{Direction}
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$X_{i}$ & $[0, 189>$ & $[189, 360]$\\ \hline
+$P(X_{i})$ & $50.27\%$ & $49.73\%$\\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|}
+\hline
+$P(X_{i}|X_{i-1})$ & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[0, 189>$ & $96.6\%$ & $3.4\%$\\ \hline
+$V_{2}=[189, 360]$ & $3.8\%$ & $96.2\%$\\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{3}{*}{$P(X_{i}|X_{i-1},X_{i-2})$} & \multicolumn{4}{|c|}{$X_{i-2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$V_{1}$} & \multicolumn{2}{|c|}{$V_{2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$X_{i}$} & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[0, 189>$ & $94.88\%$ & $5.12\%$ & $99.99\%$ & $0.01\%$\\ \hline
+$V_{2}=[189, 360]$ & $3.07\%$ & $96.93\%$ & $8.37\%$ & $91.63\%$\\ \hline
+\end{tabular}
+\caption{Direction}
+\label{tab:direction}
+\end{table}

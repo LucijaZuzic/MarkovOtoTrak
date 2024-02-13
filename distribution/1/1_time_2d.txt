@@ -1,0 +1,12 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$P(X_{i}|X_{i-1})$ & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[1 \times 10^{-3}, 9.96 \times 10^{-1}>$ & $45.08\%$ & $54.92\%$\\ \hline
+$V_{2}=[9.96 \times 10^{-1}, 4.32]$ & $89.85\%$ & $10.15\%$\\ \hline
+\end{tabular}
+\caption{Time 2d}
+\label{tab:time_2d}
+\end{table}

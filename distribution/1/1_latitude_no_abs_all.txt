@@ -1,0 +1,37 @@
+\chapter{Latitude no abs}
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$X_{i}$ & $[-4.78 \times 10^{-3}, 1.7 \times 10^{-5}>$ & $[1.7 \times 10^{-5}, 2.12 \times 10^{-2}]$\\ \hline
+$P(X_{i})$ & $50.15\%$ & $49.85\%$\\ \hline
+\end{tabular}
+\caption{Latitude no abs 1d}
+\label{tab:latitude_no_abs_1d}
+\end{table}
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$P(X_{i}|X_{i-1})$ & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[-4.78 \times 10^{-3}, 1.7 \times 10^{-5}>$ & $98.46\%$ & $1.54\%$\\ \hline
+$V_{2}=[1.7 \times 10^{-5}, 2.12 \times 10^{-2}]$ & $2.06\%$ & $97.94\%$\\ \hline
+\end{tabular}
+\caption{Latitude no abs 2d}
+\label{tab:latitude_no_abs_2d}
+\end{table}
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{3}{*}{$P(X_{i}|X_{i-1},X_{i-2})$} & \multicolumn{4}{|c|}{$X_{i-2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$V_{1}$} & \multicolumn{2}{|c|}{$V_{2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$X_{i}$} & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[-4.78 \times 10^{-3}, 1.7 \times 10^{-5}>$ & $96.77\%$ & $3.23\%$ & $96.43\%$ & $3.57\%$\\ \hline
+$V_{2}=[1.7 \times 10^{-5}, 2.12 \times 10^{-2}]$ & $13.04\%$ & $86.96\%$ & $3.55\%$ & $96.45\%$\\ \hline
+\end{tabular}
+\caption{Latitude no abs 3d}
+\label{tab:latitude_no_abs_3d}
+\end{table}

@@ -1,0 +1,27 @@
+\chapter{Longitude no abs}
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$X_{i}$ & $[-1.16 \times 10^{-2}, -1.6 \times 10^{-5}>$ & $[-1.6 \times 10^{-5}, 9.45 \times 10^{-3}]$\\ \hline
+$P(X_{i})$ & $43.71\%$ & $56.29\%$\\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|}
+\hline
+$P(X_{i}|X_{i-1})$ & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[-1.16 \times 10^{-2}, -1.6 \times 10^{-5}>$ & $98.3\%$ & $1.7\%$\\ \hline
+$V_{2}=[-1.6 \times 10^{-5}, 9.45 \times 10^{-3}]$ & $0.93\%$ & $99.07\%$\\ \hline
+\end{tabular}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{3}{*}{$P(X_{i}|X_{i-1},X_{i-2})$} & \multicolumn{4}{|c|}{$X_{i-2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$V_{1}$} & \multicolumn{2}{|c|}{$V_{2}$}\\ \cline{2-5}
+ & \multicolumn{2}{|c|}{$X_{i}$} & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[-1.16 \times 10^{-2}, -1.6 \times 10^{-5}>$ & $97.3\%$ & $2.7\%$ & $90.63\%$ & $9.37\%$\\ \hline
+$V_{2}=[-1.6 \times 10^{-5}, 9.45 \times 10^{-3}]$ & $4.36\%$ & $95.64\%$ & $5.2\%$ & $94.8\%$\\ \hline
+\end{tabular}
+\caption{Longitude no abs}
+\label{tab:longitude_no_abs}
+\end{table}

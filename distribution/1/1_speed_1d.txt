@@ -1,0 +1,10 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$X_{i}$ & $[0, 18>$ & $[18, 83]$\\ \hline
+$P(X_{i})$ & $50.7\%$ & $49.3\%$\\ \hline
+\end{tabular}
+\caption{Speed 1d}
+\label{tab:speed_1d}
+\end{table}

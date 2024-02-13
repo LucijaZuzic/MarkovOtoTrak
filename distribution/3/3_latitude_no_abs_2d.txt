@@ -1,0 +1,12 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$P(X_{i}|X_{i-1})$ & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[-4.78 \times 10^{-3}, -2.57 \times 10^{-3}>$ & $0.01\%$ & $99.99\%$\\ \hline
+$V_{2}=[-2.57 \times 10^{-3}, 2.12 \times 10^{-2}]$ & $0.01\%$ & $99.99\%$\\ \hline
+\end{tabular}
+\caption{Latitude no abs 2d}
+\label{tab:latitude_no_abs_2d}
+\end{table}

@@ -1,0 +1,23 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{Predicted direction}\\ \hline
+$X_{i}$ & $[0, 1>$ & $[1, 360]$\\ \hline
+$P(X_{i})$ & $0.27\%$ & $99.73\%$\\ \hline
+\multicolumn{3}{|c|}{Predicted latitude no abs}\\ \hline
+$X_{i}$ & $[-4.78 \times 10^{-3}, -2.57 \times 10^{-3}>$ & $[-2.57 \times 10^{-3}, 2.12 \times 10^{-2}]$\\ \hline
+$P(X_{i})$ & $0.01\%$ & $99.99\%$\\ \hline
+\multicolumn{3}{|c|}{Predicted longitude no abs}\\ \hline
+$X_{i}$ & $[-1.16 \times 10^{-2}, -5.3 \times 10^{-3}>$ & $[-5.3 \times 10^{-3}, 9.45 \times 10^{-3}]$\\ \hline
+$P(X_{i})$ & $0.01\%$ & $99.99\%$\\ \hline
+\multicolumn{3}{|c|}{Predicted speed}\\ \hline
+$X_{i}$ & $[0, 1>$ & $[1, 83]$\\ \hline
+$P(X_{i})$ & $1.23\%$ & $98.77\%$\\ \hline
+\multicolumn{3}{|c|}{Predicted time}\\ \hline
+$X_{i}$ & $[1 \times 10^{-3}, 2 \times 10^{-3}>$ & $[2 \times 10^{-3}, 4.32]$\\ \hline
+$P(X_{i})$ & $0.01\%$ & $99.99\%$\\ \hline
+\end{tabular}
+\caption{1d}
+\label{tab:1d}
+\end{table}

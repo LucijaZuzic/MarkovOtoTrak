@@ -1,0 +1,12 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$P(X_{i}|X_{i-1})$ & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[0, 1>$ & $69.87\%$ & $30.13\%$\\ \hline
+$V_{2}=[1, 83]$ & $0.45\%$ & $99.47\%$\\ \hline
+\end{tabular}
+\caption{Speed 2d}
+\label{tab:speed_2d}
+\end{table}

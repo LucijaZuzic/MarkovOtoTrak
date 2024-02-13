@@ -1,0 +1,10 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$X_{i}$ & $[1 \times 10^{-3}, 9.96 \times 10^{-1}>$ & $[9.96 \times 10^{-1}, 4.32]$\\ \hline
+$P(X_{i})$ & $50.55\%$ & $49.45\%$\\ \hline
+\end{tabular}
+\caption{Time 1d}
+\label{tab:time_1d}
+\end{table}

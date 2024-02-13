@@ -1,0 +1,10 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$X_{i}$ & $[1 \times 10^{-3}, 1.23>$ & $[1.23, 4.32]$\\ \hline
+$P(X_{i})$ & $87.99\%$ & $12.01\%$\\ \hline
+\end{tabular}
+\caption{Time 1d}
+\label{tab:time_1d}
+\end{table}

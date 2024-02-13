@@ -1,0 +1,10 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$X_{i}$ & $[-4.78 \times 10^{-3}, -2.57 \times 10^{-3}>$ & $[-2.57 \times 10^{-3}, 2.12 \times 10^{-2}]$\\ \hline
+$P(X_{i})$ & $0.01\%$ & $99.99\%$\\ \hline
+\end{tabular}
+\caption{Latitude no abs 1d}
+\label{tab:latitude_no_abs_1d}
+\end{table}
