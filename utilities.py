@@ -6,9 +6,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
  
 def new_metric(metric_name):
-    new_metric_name = {"simpson x": "Simpson x", "trapz x": "Trapez x", 
-              "simpson y": "Simpson y", "trapz y": "Trapez y",
-              "euclidean": "Euklidska"}
+    new_metric_name = {"simpson x": "Simpson x", "trapz x": "Trapz x", 
+              "simpson y": "Simpson y", "trapz y": "Trapz y",
+              "euclidean": "Euclidean"}
     if metric_name in new_metric_name:
         return new_metric_name[metric_name]
     else:
@@ -101,7 +101,7 @@ def scale_long_lat(long_list, lat_list, xmax = 0, ymax = 0, keep_aspect_ratio = 
     if xmax != 0 and ymax == 0 and not keep_aspect_ratio:
         ymax = y_diff 
     if xmax != 0 and ymax != 0 and keep_aspect_ratio and xmax != ymax:
-        ymax = xmax # ymax = xmax or xmax = ymax or keep_aspect_ratio = False or return
+        ymax = xmax  
     long_list2 = [(x - min(long_list)) / xmax for x in long_list]
     lat_list2 = [(y - min(lat_list)) / ymax for y in lat_list]
     return long_list2, lat_list2  
@@ -231,9 +231,7 @@ def predict_prob_with_array(probability, probability_in_next_step, probability_i
             if delta_x > 180:
                 delta_x = 360 - delta_x
         delta_series.append(delta_x) 
-    #print(match_score / n, match_score / no_empty, min(delta_series), np.quantile(delta_series, 0.25), np.quantile(delta_series, 0.5), np.quantile(delta_series, 0.75), max(delta_series), np.average(delta_series), np.std(delta_series), np.var(delta_series))
-    #plt.hist(delta_series)
-    #plt.show() 
+        
     return x, n, match_score, no_empty, delta_series
  
 def fix_prob(num_occurences, num_occurences_in_next_step, num_occurences_in_next_next_step, fix = True):
@@ -305,8 +303,8 @@ def format_e2(n):
         return str(np.round(n, 5))
     
 def composite_image(filename, show, long1, lat1, nrow, ncol, long_other = [], lat_other = [], legends = [], mark_start = False, subtitles = []):  
-    random_colors_legend = random_colors(len(legends) + 2) 
-    plt.rcParams.update({'font.size': 22})
+    random_colors_legend = ["green", "blue", "red"]
+    plt.rcParams.update({'font.size': 28})
     plt.figure(figsize=(15 * ncol, 15 * nrow)) 
     numseen = 0
     for ix in range(len(show)):  
@@ -345,8 +343,8 @@ def composite_image(filename, show, long1, lat1, nrow, ncol, long_other = [], la
     composite_image_reverse(filename, show, long1, lat1, ncol, nrow, long_other, lat_other, legends, mark_start, subtitles)
     
 def composite_image_reverse(filename, show, long1, lat1, nrow, ncol, long_other = [], lat_other = [], legends = [], mark_start = False, subtitles = []):  
-    random_colors_legend = random_colors(len(legends) + 2) 
-    plt.rcParams.update({'font.size': 22})
+    random_colors_legend = ["green", "blue", "red"]
+    plt.rcParams.update({'font.size': 28})
     plt.figure(figsize=(15 * ncol, 15 * nrow)) 
     numseen = 0 
     for ix in range(len(show)):  

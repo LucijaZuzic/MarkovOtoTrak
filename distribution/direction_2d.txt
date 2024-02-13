@@ -1,0 +1,12 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$P(X_{i}|X_{i-1})$ & \multicolumn{2}{|c|}{$X_{i}$}\\ \hline
+$X_{i-1}$ & $V_{1}$ & $V_{2}$\\ \hline
+$V_{1}=[0, 180>$ & $96.27\%$ & $3.72\%$\\ \hline
+$V_{2}=[180, 360]$ & $3.57\%$ & $96.43\%$\\ \hline
+\end{tabular}
+\caption{Direction 2d}
+\label{tab:direction_2d}
+\end{table}

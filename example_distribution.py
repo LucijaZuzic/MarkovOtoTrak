@@ -244,8 +244,7 @@ def get_bins(keys_list, probability_of, num_bins):
     return new_bins
 
 def get_var(name_of):
-    print(name_of)
-    #predicted = load_object("predicted/predicted_" + name_of)   
+    print(name_of) 
 
     probability_of_in_next_next_step = load_object("probability/probability_of_" + name_of + "_in_next_next_step")   
     probability_of_in_next_step = load_object("probability/probability_of_" + name_of + "_in_next_step")   

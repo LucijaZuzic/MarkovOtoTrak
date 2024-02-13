@@ -1,0 +1,10 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$X_{i}$ & $[0, 180>$ & $[180, 360]$\\ \hline
+$P(X_{i})$ & $47.68\%$ & $52.32\%$\\ \hline
+\end{tabular}
+\caption{Direction 1d}
+\label{tab:direction_1d}
+\end{table}

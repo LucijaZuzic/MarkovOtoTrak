@@ -55,10 +55,6 @@ for vehicle in distance_predicted:
                 continue
             all_metrics[metric_name] = True
             for longlat in distance_predicted[vehicle][event][metric_name]:
-                #if "ones" in longlat:
-                    #continue
-                if "actual" in longlat:
-                    continue
                 long = longlat.split("-")[0] 
                 lat = long.replace("long", "lat").replace("x", "y")
                 all_longs[long] = True
@@ -323,43 +319,36 @@ for longlat in dict(sorted(sum_rows.items(), key=lambda item: item[1])):
         row_str += "$" + str(np.round(count_worst_by_avg[longlat] / sum(list(count_worst_by_avg.values())) * 100, 2)) + "\\%$ & "
         row_str += "$" + str(np.round(sum_rows[longlat] / sum_sum_cols * 100, 2)) + "\\%$ \\\\ \\hline"
         print(row_str)
-  
-#print("Worst ride") 
-first_row = ""
-for metric_name in worst_worst_ride:
-    first_row += metric_name + " & "         
-#print(first_row + "\\\\ \\hline") 
-
-worst_scores_for_longlat_all = []  
-worst_subs_for_longlat_all = [] 
+   
+worst_scores_for_longlat_all = []   
 worst_longs_for_longlat_all = [] 
 worst_lats_for_longlat_all = []    
 worst_other_longs_for_longlat_all = [] 
 worst_other_lats_for_longlat_all = []  
-worst_names_for_longlat_all = []  
-worst_show_for_longlat_all = []  
+worst_methods_for_longlat_all = []    
+worst_metrics_for_longlat_all = []    
+worst_rides_for_longlat_all = []    
 
-for metric_name in range(len(worst_worst_ride) + 3):
-    worst_scores_for_longlat_all.append(100000)
-    worst_subs_for_longlat_all.append("")
+for metric_name in range(len(worst_worst_ride)):
+    worst_scores_for_longlat_all.append(-1000000) 
     worst_longs_for_longlat_all.append([])
     worst_lats_for_longlat_all.append([])
     worst_other_longs_for_longlat_all.append([])
-    worst_other_lats_for_longlat_all.append([]) 
-    worst_names_for_longlat_all.append("") 
-    worst_show_for_longlat_all.append(True) 
+    worst_other_lats_for_longlat_all.append([])  
+    worst_methods_for_longlat_all.append("")    
+    worst_metrics_for_longlat_all.append("")      
+    worst_rides_for_longlat_all.append("")      
 
-for longlat in worst_worst_ride["euclidean"]: 
-    worst_worst_of = 1000000 
+for longlat in worst_worst_ride["euclidean"]:  
     
-    row_str = translate_method(longlat) + " & "  
-    worst_subs_for_longlat = [] 
+    row_str = translate_method(longlat) + " & "   
     worst_longs_for_longlat = [] 
     worst_lats_for_longlat = []    
     worst_other_longs_for_longlat = [] 
     worst_other_lats_for_longlat = []  
-    worst_names_for_longlat = []  
-    worst_show_for_longlat = []  
+    worst_methods_for_longlat = []    
+    worst_metrics_for_longlat = []    
+    worst_rides_for_longlat = []    
     
     ix = 0
     for metric_name in worst_worst_ride: 
@@ -369,165 +358,57 @@ for longlat in worst_worst_ride["euclidean"]:
         long, lat = preprocess_long_lat(long, lat)
         long, lat = scale_long_lat(long, lat, 0.1, 0.1)
         process_ride = worst_worst_ride[metric_name][longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
-    
-        worst_subs_for_longlat.append(translate_method(longlat) + "\n" + new_metric(metric_name) + " = " + format_e2(worst_worst_score[metric_name][longlat]) + "\n" + process_ride)
+        
+        worst_methods_for_longlat.append(translate_method(longlat))
+        worst_metrics_for_longlat.append(new_metric(metric_name) + " = " + format_e2(worst_worst_score[metric_name][longlat]))
+        worst_rides_for_longlat.append(process_ride) 
         worst_longs_for_longlat.append(long)
         worst_lats_for_longlat.append(lat) 
         worst_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
-        worst_other_lats_for_longlat.append([lat_dict[longer_name][longlat.split("-")[1]]])
-
-        if longer_name not in worst_names_for_longlat: 
-            worst_show_for_longlat.append(True) 
-        else:
-            ix2 = worst_names_for_longlat.index(longer_name)
-            worst_subs_for_longlat[ix2] = worst_subs_for_longlat[ix2].replace("\n" + process_ride, "\n" + new_metric(metric_name) + " = " + format_e2(worst_worst_score[metric_name][longlat]) + "\n" + process_ride)
-            worst_show_for_longlat.append(False) 
-
-        worst_names_for_longlat.append(longer_name) 
+        worst_other_lats_for_longlat.append([lat_dict[longer_name][longlat.split("-")[1]]])  
       
-        if worst_worst_score[metric_name][longlat] < worst_scores_for_longlat_all[ix]:
-            worst_subs_for_longlat_all[ix] = translate_method(longlat) + "\n" + new_metric(metric_name) + " = " + format_e2(worst_worst_score[metric_name][longlat]) + "\n" + process_ride
+        if worst_worst_score[metric_name][longlat] > worst_scores_for_longlat_all[ix]:
+            worst_methods_for_longlat_all[ix] = translate_method(longlat)
+            worst_metrics_for_longlat_all[ix] = new_metric(metric_name) + " = " + format_e2(worst_worst_score[metric_name][longlat])
+            worst_rides_for_longlat_all[ix] = process_ride 
             worst_longs_for_longlat_all[ix] = long 
             worst_lats_for_longlat_all[ix] = lat  
             worst_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]] 
             worst_other_lats_for_longlat_all[ix] = [lat_dict[longer_name][longlat.split("-")[1]]] 
-            worst_scores_for_longlat_all[ix] = worst_worst_score[metric_name][longlat]
-
-            if longer_name not in worst_names_for_longlat_all:
-                worst_show_for_longlat_all[ix] = True
-            else:
-                ix2 = worst_names_for_longlat_all.index(longer_name)
-                worst_subs_for_longlat_all[ix2] = worst_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\n" + new_metric(metric_name) + " = " + format_e2(worst_worst_score[metric_name][longlat]) + "\n" + process_ride)
-                worst_show_for_longlat_all[ix] = False
-
-            worst_names_for_longlat_all[ix] = longer_name
+            worst_scores_for_longlat_all[ix] = worst_worst_score[metric_name][longlat] 
      
         ix += 1
-      
-    longer_name = worst_worst_avg_ride[longlat].replace("/", "/cleaned_csv/")
-    long, lat, time = load_traj_name(longer_name)
-    long, lat = preprocess_long_lat(long, lat)
-    long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-    process_ride = worst_worst_avg_ride[longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
-    
-    worst_subs_for_longlat.append(translate_method(longlat) + "\nAverage = " + format_e2(worst_worst_avg_score[longlat]) +  "\n" + process_ride)
-    worst_longs_for_longlat.append(long)
-    worst_lats_for_longlat.append(lat) 
-    worst_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
-    worst_other_lats_for_longlat.append([lat_dict[longer_name][longlat.split("-")[1]]])
-
-    if longer_name not in worst_names_for_longlat: 
-        worst_show_for_longlat.append(True) 
-    else:
-        ix2 = worst_names_for_longlat.index(longer_name)
-        worst_subs_for_longlat[ix2] = worst_subs_for_longlat[ix2].replace("\n" + process_ride, "\nAverage = " + format_e2(worst_worst_avg_score[longlat]) + "\n" + process_ride)
-        worst_show_for_longlat.append(False)
-
-    worst_names_for_longlat.append(longer_name) 
-    
-    if worst_worst_avg_score[longlat] < worst_scores_for_longlat_all[ix]: 
-        worst_subs_for_longlat_all[ix] = translate_method(longlat) + "\nAverage = " + format_e2(worst_worst_avg_score[longlat]) +  "\n" + process_ride
-        worst_longs_for_longlat_all[ix] = long
-        worst_lats_for_longlat_all[ix] = lat
-        worst_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]]
-        worst_other_lats_for_longlat_all[ix] = [lat_dict[longer_name][longlat.split("-")[1]]] 
-        worst_scores_for_longlat_all[ix] = worst_worst_avg_score[longlat]
-
-        if longer_name not in worst_names_for_longlat_all:
-            worst_show_for_longlat_all[ix] = True
-        else:
-            ix2 = worst_names_for_longlat_all.index(longer_name)
-            worst_subs_for_longlat_all[ix2] = worst_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nAverage = " + format_e2(worst_worst_avg_score[longlat]) + "\n" + process_ride)
-            worst_show_for_longlat_all[ix] = False
-
-        worst_names_for_longlat_all[ix] = longer_name
-  
-    ix += 1
-    longer_name = worst_worst_xavg_ride[longlat].replace("/", "/cleaned_csv/")
-    long, lat, time = load_traj_name(longer_name)
-    long, lat = preprocess_long_lat(long, lat)
-    long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-    process_ride = worst_worst_xavg_ride[longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
-    
-    worst_subs_for_longlat.append(translate_method(longlat) + "\nAverage x = " + format_e2(worst_worst_xavg_score[longlat]) +  "\n" + process_ride)
-    worst_longs_for_longlat.append(long)
-    worst_lats_for_longlat.append(lat) 
-    worst_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
-    worst_other_lats_for_longlat.append([lat_dict[longer_name][longlat.split("-")[1]]])
-
-    if longer_name not in worst_names_for_longlat: 
-        worst_show_for_longlat.append(True) 
-    else:
-        ix2 = worst_names_for_longlat.index(longer_name)
-        worst_subs_for_longlat[ix2] = worst_subs_for_longlat[ix2].replace("\n" + process_ride, "\nAverage x = " + format_e2(worst_worst_xavg_score[longlat]) + "\n" + process_ride)
-        worst_show_for_longlat.append(False)
-
-    worst_names_for_longlat.append(longer_name) 
-
-    if worst_worst_xavg_score[longlat] < worst_scores_for_longlat_all[ix]: 
-        worst_subs_for_longlat_all[ix] = translate_method(longlat) + "\nAverage x = " + format_e2(worst_worst_xavg_score[longlat]) +  "\n" + process_ride
-        worst_longs_for_longlat_all[ix] = long
-        worst_lats_for_longlat_all[ix] = lat
-        worst_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]]
-        worst_other_lats_for_longlat_all[ix] = [lat_dict[longer_name][longlat.split("-")[1]]] 
-        worst_scores_for_longlat_all[ix] = worst_worst_xavg_score[longlat]
-
-        if longer_name not in worst_names_for_longlat_all:
-            worst_show_for_longlat_all[ix] = True
-        else:
-            ix2 = worst_names_for_longlat_all.index(longer_name)
-            worst_subs_for_longlat_all[ix2] = worst_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nAverage x = " + format_e2(worst_worst_xavg_score[longlat]) + "\n" + process_ride)
-            worst_show_for_longlat_all[ix] = False
-
-        worst_names_for_longlat_all[ix] = longer_name
-
-    ix += 1
-    longer_name = worst_worst_yavg_ride[longlat].replace("/", "/cleaned_csv/")
-    long, lat, time = load_traj_name(longer_name)
-    long, lat = preprocess_long_lat(long, lat)
-    long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-    process_ride = worst_worst_yavg_ride[longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
-   
-    worst_subs_for_longlat.append(translate_method(longlat) + "\nAverage y = " + format_e2(worst_worst_yavg_score[longlat]) +  "\n" + process_ride)
-    worst_longs_for_longlat.append(long)
-    worst_lats_for_longlat.append(lat) 
-    worst_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
-    worst_other_lats_for_longlat.append([lat_dict[longer_name][longlat.split("-")[1]]])
-
-    if longer_name not in worst_names_for_longlat: 
-        worst_show_for_longlat.append(True) 
-    else:
-        ix2 = worst_names_for_longlat.index(longer_name)
-        worst_subs_for_longlat[ix2] = worst_subs_for_longlat[ix2].replace("\n" + process_ride, "\nAverage y = " + format_e2(worst_worst_yavg_score[longlat]) + "\n" + process_ride)
-        worst_show_for_longlat.append(False)
-
-    worst_names_for_longlat.append(longer_name) 
- 
-    if worst_worst_yavg_score[longlat] < worst_scores_for_longlat_all[ix]: 
-        worst_subs_for_longlat_all[ix] = translate_method(longlat) + "\nAverage x = " + format_e2(worst_worst_yavg_score[longlat]) +  "\n" + process_ride
-        worst_longs_for_longlat_all[ix] = long
-        worst_lats_for_longlat_all[ix] = lat
-        worst_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]]
-        worst_other_lats_for_longlat_all[ix] = [lat_dict[longer_name][longlat.split("-")[1]]] 
-        worst_scores_for_longlat_all[ix] = worst_worst_yavg_score[longlat]
-
-        if longer_name not in worst_names_for_longlat_all:
-            worst_show_for_longlat_all[ix] = True
-        else:
-            ix2 = worst_names_for_longlat_all.index(longer_name)
-            worst_subs_for_longlat_all[ix2] = worst_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nAverage y = " + format_e2(worst_worst_yavg_score[longlat]) + "\n" + process_ride)
-            worst_show_for_longlat_all[ix] = False
-
-        worst_names_for_longlat_all[ix] = longer_name
-
+       
     if not os.path.isdir("markov_rides"):
         os.makedirs("markov_rides")
     filename = "markov_rides/" + longlat + "_worst.png"
+ 
+    worst_subs_for_longlat = []
+    worst_show_for_longlat = []
+    for ix_val1 in range(len(worst_methods_for_longlat)):
+        worst_subs_for_longlat.append(worst_methods_for_longlat[ix_val1] + "\n")
+        for ix_val2 in range(len(worst_methods_for_longlat)):
+            if worst_methods_for_longlat[ix_val1] == worst_methods_for_longlat[ix_val2] and worst_rides_for_longlat[ix_val1] == worst_rides_for_longlat[ix_val2]:
+                worst_subs_for_longlat[-1] = worst_subs_for_longlat[-1] + worst_metrics_for_longlat[ix_val2] + "\n" 
+        worst_subs_for_longlat[-1] = worst_subs_for_longlat[-1] + worst_rides_for_longlat[ix_val1] + "\n" 
+        worst_show_for_longlat.append(worst_subs_for_longlat.index(worst_subs_for_longlat[-1]) == ix_val1)
 
     composite_image(filename, worst_show_for_longlat, worst_longs_for_longlat, worst_lats_for_longlat, 8, 1, worst_other_longs_for_longlat, worst_other_lats_for_longlat, ["Estimated"], True, worst_subs_for_longlat)
-    #print(row_str + "\\\\ \\hline")      
-composite_image("markov_rides/A_worst.png" ,worst_show_for_longlat_all, worst_longs_for_longlat_all, worst_lats_for_longlat_all, 8, 1, worst_other_longs_for_longlat_all, worst_other_lats_for_longlat_all, ["Estimated"], True, worst_subs_for_longlat_all)
  
+worst_subs_for_longlat_all = []
+worst_show_for_longlat_all = []
+for ix_val1 in range(len(worst_methods_for_longlat_all)):
+    worst_subs_for_longlat_all.append(worst_methods_for_longlat_all[ix_val1] + "\n")
+    num_match = 0
+    for ix_val2 in range(len(worst_methods_for_longlat_all)):
+        if worst_methods_for_longlat_all[ix_val1] == worst_methods_for_longlat_all[ix_val2] and worst_rides_for_longlat_all[ix_val1] == worst_rides_for_longlat_all[ix_val2]:
+            num_match += 1
+            worst_subs_for_longlat_all[-1] = worst_subs_for_longlat_all[-1] + worst_metrics_for_longlat_all[ix_val2] + "\n" 
+    worst_subs_for_longlat_all[-1] = worst_subs_for_longlat_all[-1] + worst_rides_for_longlat_all[ix_val1] + "\n" 
+    worst_show_for_longlat_all.append(worst_subs_for_longlat_all.index(worst_subs_for_longlat_all[-1]) == ix_val1)
+
+composite_image("markov_rides/A_worst.png", worst_show_for_longlat_all, worst_longs_for_longlat_all, worst_lats_for_longlat_all, 8, 1, worst_other_longs_for_longlat_all, worst_other_lats_for_longlat_all, ["Estimated"], True, worst_subs_for_longlat_all)
+
 print("Best occurence") 
 first_row = ""
 sum_cols = dict()
@@ -634,43 +515,36 @@ for longlat in dict(sorted(sum_rows.items(), key=lambda item: item[1], reverse =
         row_str += "$" + str(np.round(count_best_by_avg[longlat] / sum(list(count_best_by_avg.values())) * 100, 2)) + "\\%$ & "
         row_str += "$" + str(np.round(sum_rows[longlat] / sum_sum_cols * 100, 2)) + "\\%$ \\\\ \\hline"
         print(row_str)
-  
-#print("Best ride") 
-first_row = ""
-for metric_name in best_best_ride:
-    first_row += metric_name + " & "         
-#print(first_row + "\\\\ \\hline") 
-
-best_scores_for_longlat_all = []  
-best_subs_for_longlat_all = [] 
+    
+best_scores_for_longlat_all = []   
 best_longs_for_longlat_all = [] 
 best_lats_for_longlat_all = []    
 best_other_longs_for_longlat_all = [] 
 best_other_lats_for_longlat_all = []  
-best_names_for_longlat_all = []  
-best_show_for_longlat_all = []  
+best_methods_for_longlat_all = []    
+best_metrics_for_longlat_all = []    
+best_rides_for_longlat_all = []    
 
-for metric_name in range(len(best_best_ride) + 3):
-    best_scores_for_longlat_all.append(100000)
-    best_subs_for_longlat_all.append("")
+for metric_name in range(len(best_best_ride)):
+    best_scores_for_longlat_all.append(1000000) 
     best_longs_for_longlat_all.append([])
     best_lats_for_longlat_all.append([])
     best_other_longs_for_longlat_all.append([])
-    best_other_lats_for_longlat_all.append([]) 
-    best_names_for_longlat_all.append("") 
-    best_show_for_longlat_all.append(True) 
+    best_other_lats_for_longlat_all.append([])  
+    best_methods_for_longlat_all.append("")    
+    best_metrics_for_longlat_all.append("")      
+    best_rides_for_longlat_all.append("")      
 
-for longlat in best_best_ride["euclidean"]: 
-    best_best_of = 1000000 
+for longlat in best_best_ride["euclidean"]:  
     
-    row_str = translate_method(longlat) + " & "  
-    best_subs_for_longlat = [] 
+    row_str = translate_method(longlat) + " & "   
     best_longs_for_longlat = [] 
     best_lats_for_longlat = []    
     best_other_longs_for_longlat = [] 
     best_other_lats_for_longlat = []  
-    best_names_for_longlat = []  
-    best_show_for_longlat = []  
+    best_methods_for_longlat = []    
+    best_metrics_for_longlat = []    
+    best_rides_for_longlat = []    
     
     ix = 0
     for metric_name in best_best_ride: 
@@ -680,165 +554,57 @@ for longlat in best_best_ride["euclidean"]:
         long, lat = preprocess_long_lat(long, lat)
         long, lat = scale_long_lat(long, lat, 0.1, 0.1)
         process_ride = best_best_ride[metric_name][longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
-    
-        best_subs_for_longlat.append(translate_method(longlat) + "\n" + new_metric(metric_name) + " = " + format_e2(best_best_score[metric_name][longlat]) + "\n" + process_ride)
+        
+        best_methods_for_longlat.append(translate_method(longlat))
+        best_metrics_for_longlat.append(new_metric(metric_name) + " = " + format_e2(best_best_score[metric_name][longlat]))
+        best_rides_for_longlat.append(process_ride) 
         best_longs_for_longlat.append(long)
         best_lats_for_longlat.append(lat) 
         best_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
-        best_other_lats_for_longlat.append([lat_dict[longer_name][longlat.split("-")[1]]])
-
-        if longer_name not in best_names_for_longlat: 
-            best_show_for_longlat.append(True) 
-        else:
-            ix2 = best_names_for_longlat.index(longer_name)
-            best_subs_for_longlat[ix2] = best_subs_for_longlat[ix2].replace("\n" + process_ride, "\n" + new_metric(metric_name) + " = " + format_e2(best_best_score[metric_name][longlat]) + "\n" + process_ride)
-            best_show_for_longlat.append(False) 
-
-        best_names_for_longlat.append(longer_name) 
+        best_other_lats_for_longlat.append([lat_dict[longer_name][longlat.split("-")[1]]])  
       
         if best_best_score[metric_name][longlat] < best_scores_for_longlat_all[ix]:
-            best_subs_for_longlat_all[ix] = translate_method(longlat) + "\n" + new_metric(metric_name) + " = " + format_e2(best_best_score[metric_name][longlat]) + "\n" + process_ride
+            best_methods_for_longlat_all[ix] = translate_method(longlat)
+            best_metrics_for_longlat_all[ix] = new_metric(metric_name) + " = " + format_e2(best_best_score[metric_name][longlat])
+            best_rides_for_longlat_all[ix] = process_ride 
             best_longs_for_longlat_all[ix] = long 
             best_lats_for_longlat_all[ix] = lat  
             best_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]] 
             best_other_lats_for_longlat_all[ix] = [lat_dict[longer_name][longlat.split("-")[1]]] 
-            best_scores_for_longlat_all[ix] = best_best_score[metric_name][longlat]
-
-            if longer_name not in best_names_for_longlat_all:
-                best_show_for_longlat_all[ix] = True
-            else:
-                ix2 = best_names_for_longlat_all.index(longer_name)
-                best_subs_for_longlat_all[ix2] = best_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\n" + new_metric(metric_name) + " = " + format_e2(best_best_score[metric_name][longlat]) + "\n" + process_ride)
-                best_show_for_longlat_all[ix] = False
-
-            best_names_for_longlat_all[ix] = longer_name
+            best_scores_for_longlat_all[ix] = best_best_score[metric_name][longlat] 
      
         ix += 1
-      
-    longer_name = best_best_avg_ride[longlat].replace("/", "/cleaned_csv/")
-    long, lat, time = load_traj_name(longer_name)
-    long, lat = preprocess_long_lat(long, lat)
-    long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-    process_ride = best_best_avg_ride[longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
-    
-    best_subs_for_longlat.append(translate_method(longlat) + "\nAverage = " + format_e2(best_best_avg_score[longlat]) +  "\n" + process_ride)
-    best_longs_for_longlat.append(long)
-    best_lats_for_longlat.append(lat) 
-    best_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
-    best_other_lats_for_longlat.append([lat_dict[longer_name][longlat.split("-")[1]]])
-
-    if longer_name not in best_names_for_longlat: 
-        best_show_for_longlat.append(True) 
-    else:
-        ix2 = best_names_for_longlat.index(longer_name)
-        best_subs_for_longlat[ix2] = best_subs_for_longlat[ix2].replace("\n" + process_ride, "\nAverage = " + format_e2(best_best_avg_score[longlat]) + "\n" + process_ride)
-        best_show_for_longlat.append(False)
-
-    best_names_for_longlat.append(longer_name) 
- 
-    if best_best_avg_score[longlat] < best_scores_for_longlat_all[ix]: 
-        best_subs_for_longlat_all[ix] = translate_method(longlat) + "\nAverage = " + format_e2(best_best_avg_score[longlat]) +  "\n" + process_ride
-        best_longs_for_longlat_all[ix] = long
-        best_lats_for_longlat_all[ix] = lat
-        best_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]]
-        best_other_lats_for_longlat_all[ix] = [lat_dict[longer_name][longlat.split("-")[1]]] 
-        best_scores_for_longlat_all[ix] = best_best_avg_score[longlat]
-
-        if longer_name not in best_names_for_longlat_all:
-            best_show_for_longlat_all[ix] = True
-        else:
-            ix2 = best_names_for_longlat_all.index(longer_name)
-            best_subs_for_longlat_all[ix2] = best_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nAverage = " + format_e2(best_best_avg_score[longlat]) + "\n" + process_ride)
-            best_show_for_longlat_all[ix] = False
-
-        best_names_for_longlat_all[ix] = longer_name
-  
-    ix += 1
-    longer_name = best_best_xavg_ride[longlat].replace("/", "/cleaned_csv/")
-    long, lat, time = load_traj_name(longer_name)
-    long, lat = preprocess_long_lat(long, lat)
-    long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-    process_ride = best_best_xavg_ride[longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
-    
-    best_subs_for_longlat.append(translate_method(longlat) + "\nAverage x = " + format_e2(best_best_xavg_score[longlat]) +  "\n" + process_ride)
-    best_longs_for_longlat.append(long)
-    best_lats_for_longlat.append(lat) 
-    best_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
-    best_other_lats_for_longlat.append([lat_dict[longer_name][longlat.split("-")[1]]])
-
-    if longer_name not in best_names_for_longlat: 
-        best_show_for_longlat.append(True) 
-    else:
-        ix2 = best_names_for_longlat.index(longer_name)
-        best_subs_for_longlat[ix2] = best_subs_for_longlat[ix2].replace("\n" + process_ride, "\nAverage x = " + format_e2(best_best_xavg_score[longlat]) + "\n" + process_ride)
-        best_show_for_longlat.append(False)
-
-    best_names_for_longlat.append(longer_name) 
-
-    if best_best_xavg_score[longlat] < best_scores_for_longlat_all[ix]: 
-        best_subs_for_longlat_all[ix] = translate_method(longlat) + "\nAverage x = " + format_e2(best_best_xavg_score[longlat]) +  "\n" + process_ride
-        best_longs_for_longlat_all[ix] = long
-        best_lats_for_longlat_all[ix] = lat
-        best_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]]
-        best_other_lats_for_longlat_all[ix] = [lat_dict[longer_name][longlat.split("-")[1]]] 
-        best_scores_for_longlat_all[ix] = best_best_xavg_score[longlat]
-
-        if longer_name not in best_names_for_longlat_all:
-            best_show_for_longlat_all[ix] = True
-        else:
-            ix2 = best_names_for_longlat_all.index(longer_name)
-            best_subs_for_longlat_all[ix2] = best_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nAverage x = " + format_e2(best_best_xavg_score[longlat]) + "\n" + process_ride)
-            best_show_for_longlat_all[ix] = False
-
-        best_names_for_longlat_all[ix] = longer_name
-
-    ix += 1
-    longer_name = best_best_yavg_ride[longlat].replace("/", "/cleaned_csv/")
-    long, lat, time = load_traj_name(longer_name)
-    long, lat = preprocess_long_lat(long, lat)
-    long, lat = scale_long_lat(long, lat, 0.1, 0.1)
-    process_ride = best_best_yavg_ride[longlat].replace("/events_", " Ride ").replace(".csv", "").replace("Vehicle_", "Vehicle ")
-   
-    best_subs_for_longlat.append(translate_method(longlat) + "\nAverage y = " + format_e2(best_best_yavg_score[longlat]) +  "\n" + process_ride)
-    best_longs_for_longlat.append(long)
-    best_lats_for_longlat.append(lat) 
-    best_other_longs_for_longlat.append([long_dict[longer_name][longlat.split("-")[0]]])
-    best_other_lats_for_longlat.append([lat_dict[longer_name][longlat.split("-")[1]]])
-
-    if longer_name not in best_names_for_longlat: 
-        best_show_for_longlat.append(True) 
-    else:
-        ix2 = best_names_for_longlat.index(longer_name)
-        best_subs_for_longlat[ix2] = best_subs_for_longlat[ix2].replace("\n" + process_ride, "\nAverage y = " + format_e2(best_best_yavg_score[longlat]) + "\n" + process_ride)
-        best_show_for_longlat.append(False)
- 
-    best_names_for_longlat.append(longer_name) 
-
-    if best_best_yavg_score[longlat] < best_scores_for_longlat_all[ix]: 
-        best_subs_for_longlat_all[ix] = translate_method(longlat) + "\nAverage x = " + format_e2(best_best_yavg_score[longlat]) +  "\n" + process_ride
-        best_longs_for_longlat_all[ix] = long
-        best_lats_for_longlat_all[ix] = lat
-        best_other_longs_for_longlat_all[ix] = [long_dict[longer_name][longlat.split("-")[0]]]
-        best_other_lats_for_longlat_all[ix] = [lat_dict[longer_name][longlat.split("-")[1]]] 
-        best_scores_for_longlat_all[ix] = best_best_yavg_score[longlat]
-
-        if longer_name not in best_names_for_longlat_all:
-            best_show_for_longlat_all[ix] = True
-        else:
-            ix2 = best_names_for_longlat_all.index(longer_name)
-            best_subs_for_longlat_all[ix2] = best_subs_for_longlat_all[ix2].replace("\n" + process_ride, "\nAverage y = " + format_e2(best_best_yavg_score[longlat]) + "\n" + process_ride)
-            best_show_for_longlat_all[ix] = False
-            
-        best_names_for_longlat_all[ix] = longer_name
-
+       
     if not os.path.isdir("markov_rides"):
         os.makedirs("markov_rides")
     filename = "markov_rides/" + longlat + "_best.png"
 
+    best_subs_for_longlat = []
+    best_show_for_longlat = []
+    for ix_val1 in range(len(best_methods_for_longlat)):
+        best_subs_for_longlat.append(best_methods_for_longlat[ix_val1] + "\n")
+        for ix_val2 in range(len(best_methods_for_longlat)):
+            if best_methods_for_longlat[ix_val1] == best_methods_for_longlat[ix_val2] and best_rides_for_longlat[ix_val1] == best_rides_for_longlat[ix_val2]:
+                best_subs_for_longlat[-1] = best_subs_for_longlat[-1] + best_metrics_for_longlat[ix_val2] + "\n" 
+        best_subs_for_longlat[-1] = best_subs_for_longlat[-1] + best_rides_for_longlat[ix_val1] + "\n" 
+        best_show_for_longlat.append(best_subs_for_longlat.index(best_subs_for_longlat[-1]) == ix_val1)
+
     composite_image(filename, best_show_for_longlat, best_longs_for_longlat, best_lats_for_longlat, 8, 1, best_other_longs_for_longlat, best_other_lats_for_longlat, ["Estimated"], True, best_subs_for_longlat)
-    #print(row_str + "\\\\ \\hline")      
-composite_image("markov_rides/A_best.png" ,best_show_for_longlat_all, best_longs_for_longlat_all, best_lats_for_longlat_all, 8, 1, best_other_longs_for_longlat_all, best_other_lats_for_longlat_all, ["Estimated"], True, best_subs_for_longlat_all)
  
+best_subs_for_longlat_all = []
+best_show_for_longlat_all = []
+for ix_val1 in range(len(best_methods_for_longlat_all)):
+    best_subs_for_longlat_all.append(best_methods_for_longlat_all[ix_val1] + "\n")
+    num_match = 0
+    for ix_val2 in range(len(best_methods_for_longlat_all)):
+        if best_methods_for_longlat_all[ix_val1] == best_methods_for_longlat_all[ix_val2] and best_rides_for_longlat_all[ix_val1] == best_rides_for_longlat_all[ix_val2]:
+            num_match += 1
+            best_subs_for_longlat_all[-1] = best_subs_for_longlat_all[-1] + best_metrics_for_longlat_all[ix_val2] + "\n" 
+    best_subs_for_longlat_all[-1] = best_subs_for_longlat_all[-1] + best_rides_for_longlat_all[ix_val1] + "\n" 
+    best_show_for_longlat_all.append(best_subs_for_longlat_all.index(best_subs_for_longlat_all[-1]) == ix_val1)
+
+composite_image("markov_rides/A_best.png", best_show_for_longlat_all, best_longs_for_longlat_all, best_lats_for_longlat_all, 8, 1, best_other_longs_for_longlat_all, best_other_lats_for_longlat_all, ["Estimated"], True, best_subs_for_longlat_all)
+
 print("Best occurence percent")   
 print(first_row + "\\\\ \\hline") 
 for longlat in dict(sorted(sum_else.items(), key=lambda item: item[1], reverse = True)): 

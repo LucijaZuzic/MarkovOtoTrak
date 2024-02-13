@@ -1,8 +1,8 @@
+from utilities import load_object, save_object, compare_traj_and_sample, load_traj_name, preprocess_long_lat, scale_long_lat, process_time, get_sides_from_angle, fill_gap
 import os
 import numpy as np
 import pandas as pd
-from utilities import load_object, save_object, compare_traj_and_sample, load_traj_name, preprocess_long_lat, scale_long_lat, process_time, get_sides_from_angle, fill_gap
-     
+
 predicted_time = load_object("predicted/predicted_time")    
 predicted_longitude_no_abs = load_object("predicted/predicted_longitude_no_abs")  
 predicted_latitude_no_abs = load_object("predicted/predicted_latitude_no_abs")  
@@ -126,9 +126,9 @@ for subdir_name in all_subdirs:
         long_no_abs_cumulative[longer_file_name] = [longitudes[0]]
         lat_no_abs_cumulative[longer_file_name] = [latitudes[0]]
         for index_long in range(len(longitudes_no_abs_no_gap)):
-            long_no_abs_cumulative[longer_file_name].append(long_no_abs_cumulative[longer_file_name][-1])
-            lat_no_abs_cumulative[longer_file_name].append(lat_no_abs_cumulative[longer_file_name][-1])
- 
+            long_no_abs_cumulative[longer_file_name].append(long_no_abs_cumulative[longer_file_name][-1] + longitudes_no_abs_no_gap[index_long])
+            lat_no_abs_cumulative[longer_file_name].append(lat_no_abs_cumulative[longer_file_name][-1] + latitudes_no_abs_no_gap[index_long])
+            
         longitude_from_speed_time_heading[longer_file_name] = [longitudes[0]]  
         latitude_from_speed_time_heading[longer_file_name] = [latitudes[0]]   
         for index_long in range(len(time_no_gap)): 
@@ -231,8 +231,7 @@ for subdir_name in all_subdirs:
                     if distance_predicted[subdir_name][some_file][metric_name][longit + "-" + latit] > worst_match_for_metric_long[metric_name][longit]:
                         worst_match_for_metric_long[metric_name][longit] = distance_predicted[subdir_name][some_file][metric_name][longit + "-" + latit]
                         worst_match_name_for_metric_long[metric_name][longit] = subdir_name + "/cleaned_csv/" + some_file
-                        
-            #print(metric_name, best_name)
+                         
             if best_name != '':
                     count_best_longit_latit[best_name] += 1
                     count_best_longit[best_name.split("-")[0]] += 1

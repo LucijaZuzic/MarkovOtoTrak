@@ -1,0 +1,10 @@
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$X_{i}$ & $[-1.16 \times 10^{-2}, -1.09 \times 10^{-3}>$ & $[-1.09 \times 10^{-3}, 9.45 \times 10^{-3}]$\\ \hline
+$P(X_{i})$ & $5.23\%$ & $94.77\%$\\ \hline
+\end{tabular}
+\caption{Longitude no abs 1d}
+\label{tab:longitude_no_abs_1d}
+\end{table}
