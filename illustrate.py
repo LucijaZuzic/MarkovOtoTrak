@@ -40,35 +40,191 @@ for subdir_name in actual_traj:
             lr = some_file
             
 print(min_len, lv, lr)
- 
+start_ix, end_ix = 0, 3
+print(actual_traj[lv][lr][0][0], actual_traj[lv][lr][1][0])
+print(long_dict[lv + "/cleaned_csv/" + lr]["long no abs"][0], lat_dict[lv + "/cleaned_csv/" + lr]["lat no abs"][0])
+print(len(long_dict[lv + "/cleaned_csv/" + lr]["long no abs"]), len(actual_traj[lv][lr][0]))
+plt.axis('equal')
+plt.plot(actual_traj[lv][lr][0][:10], actual_traj[lv][lr][1][:10], c = "b")
+plt.plot(long_dict[lv + "/cleaned_csv/" + lr]["long no abs"][:10], lat_dict[lv + "/cleaned_csv/" + lr]["lat no abs"][:10], c = "g")
+plt.plot(long_dict[lv + "/cleaned_csv/" + lr]["long speed dir"][:10], lat_dict[lv + "/cleaned_csv/" + lr]["lat speed dir"][:10], c = "r")
+plt.plot(long_dict[lv + "/cleaned_csv/" + lr]["long speed ones dir"][:10], lat_dict[lv + "/cleaned_csv/" + lr]["lat speed ones dir"][:10], c = "k")
+plt.show()
+plt.close()
+
+plt.figure(figsize=(15, 5))
 plt.rcParams['font.size'] = 20
 plt.rcParams['font.family'] = "serif"
 plt.rcParams["mathtext.fontset"] = "dejavuserif"
-plt.plot(actual_traj[lv][lr][0][:3], actual_traj[lv][lr][1][:3], c = "b")
-for xval_ix in range(len(actual_traj[lv][lr][0][:3]) - 1):
+plt.axis('equal')
+plt.plot(actual_traj[lv][lr][0][start_ix:end_ix], actual_traj[lv][lr][1][start_ix:end_ix], c = "b")
+for xval_ix in range(start_ix, end_ix):
     xval = actual_traj[lv][lr][0][xval_ix]
     yval = actual_traj[lv][lr][1][xval_ix]
     xval_next = actual_traj[lv][lr][0][xval_ix + 1]
     yval_next = actual_traj[lv][lr][1][xval_ix + 1]
     
-    yvals = np.arange(yval, yval_next, (yval_next - yval) / 1000)
+    yvals = np.arange(min(yval, yval_next), max(yval, yval_next) + 10 ** -20, (abs(yval_next - yval) + 10 ** -20) / 1000)
     xvals_first = [xval for val in yvals]
     xvals_second = [xval_next for val in yvals]
-    xvals = np.arange(xval, xval_next, (xval_next - xval) / 1000)
+    xvals = np.arange(min(xval, xval_next), max(xval, xval_next) + 10 ** -20, (abs(xval_next - xval) + 10 ** -20) / 1000)
     yvals_first = [yval for val in xvals]
     yvals_second = [yval_next for val in xvals]
-    #plt.plot(xvals_first, yvals, c = "r")
-    plt.plot(xvals_second, yvals, c = "r")
-    plt.plot(xvals, yvals_first, c = "r")
-    plt.text((xval + xval_next) / 2 - abs(xval - xval_next) / 4, yval + abs(yval - yval_next) / 8, "$x_{" + str(xval_ix + 2) + "}-x_{" + str(xval_ix + 1) + "}$")
+ 
     if xval_ix == 0:
-        plt.text(xval_next + abs(xval - xval_next) / 16, (yval + yval_next) / 2, "$y_{" + str(xval_ix + 2) + "}-y_{" + str(xval_ix + 1) + "}$")
+        plt.text((xval + xval_next) / 2 - abs(xval - xval_next) / 12, yval + abs(yval - yval_next) / 6, "$\Delta x_{" + str(xval_ix + 1) + "} = x_{" + str(xval_ix + 2) + "}-x_{" + str(xval_ix + 1) + "}$")
     else:
-        plt.text(xval_next - abs(xval - xval_next) / 3, (yval + yval_next) / 2, "$y_{" + str(xval_ix + 2) + "}-y_{" + str(xval_ix + 1) + "}$")
+        plt.text((xval + xval_next) / 2 - abs(xval - xval_next) / 5, yval_next - abs(yval - yval_next) / 3, "$\Delta x_{" + str(xval_ix + 1) + "} = x_{" + str(xval_ix + 2) + "}-x_{" + str(xval_ix + 1) + "}$")
 
-    #plt.plot(xvals, yvals_second, c = "r")
+    if xval_ix == 0:
+        plt.text(xval_next + abs(xval - xval_next) / 40, (yval + yval_next) / 2 - abs(yval - yval_next) / 6, "$\Delta y_{" + str(xval_ix + 1) + "} = y_{" + str(xval_ix + 2) + "}-y_{" + str(xval_ix + 1) + "}$")
+    else:
+        plt.text(xval - abs(xval - xval_next) / 4, (yval + yval_next) / 2 - abs(yval - yval_next) / 8, "$\Delta y_{" + str(xval_ix + 1) + "} = y_{" + str(xval_ix + 2) + "}-y_{" + str(xval_ix + 1) + "}$")
+
+    if xval_ix == 0:
+        plt.plot(xvals_second, yvals, c = "r")
+        plt.plot(xvals, yvals_first, c = "r")
+    else:
+        plt.plot(xvals_first, yvals, c = "r")
+        plt.plot(xvals, yvals_second, c = "r")
+
     print(len(xvals_first), yval, yval_next) 
 
+plt.title("Example")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.show()
+plt.close()
+
+plt.figure(figsize=(15, 5))
+plt.rcParams['font.size'] = 20
+plt.rcParams['font.family'] = "serif"
+plt.rcParams["mathtext.fontset"] = "dejavuserif"
+plt.axis('equal')
+plt.plot(long_dict[lv + "/cleaned_csv/" + lr]["long no abs"][start_ix:end_ix], lat_dict[lv + "/cleaned_csv/" + lr]["lat no abs"][start_ix:end_ix], c = "b")
+for xval_ix in range(start_ix, end_ix):
+    xval = long_dict[lv + "/cleaned_csv/" + lr]["long no abs"][xval_ix]
+    yval = lat_dict[lv + "/cleaned_csv/" + lr]["lat no abs"][xval_ix]
+    xval_next = long_dict[lv + "/cleaned_csv/" + lr]["long no abs"][xval_ix + 1]
+    yval_next = lat_dict[lv + "/cleaned_csv/" + lr]["lat no abs"][xval_ix + 1]
+    
+    yvals = np.arange(min(yval, yval_next), max(yval, yval_next) + 10 ** -20, (abs(yval_next - yval) + 10 ** -20) / 1000)
+    xvals_first = [xval for val in yvals]
+    xvals_second = [xval_next for val in yvals]
+    xvals = np.arange(min(xval, xval_next), max(xval, xval_next) + 10 ** -20, (abs(xval_next - xval) + 10 ** -20) / 1000)
+    yvals_first = [yval for val in xvals]
+    yvals_second = [yval_next for val in xvals]
+ 
+    if xval_ix == 0:
+        plt.text((xval + xval_next) / 2 - abs(xval - xval_next) / 12, yval + abs(yval - yval_next) / 6, "$x_{" + str(xval_ix + 2) + "} = x_{" + str(xval_ix + 1) + "} + \Delta x_{" + str(xval_ix + 1) + "}$")
+    else:
+        plt.text((xval + xval_next) / 2 - abs(xval - xval_next) / 5, yval_next - abs(yval - yval_next) / 3, "$x_{" + str(xval_ix + 2) + "} = x_{" + str(xval_ix + 1) + "} + \Delta x_{" + str(xval_ix + 1) + "}$")
+
+    if xval_ix == 0:
+        plt.text(xval_next + abs(xval - xval_next) / 40, (yval + yval_next) / 2 - abs(yval - yval_next) / 6, "$y_{" + str(xval_ix + 2) + "} = y_{" + str(xval_ix + 1) + "} + \Delta y_{" + str(xval_ix + 1) + "}$")
+    else:
+        plt.text(xval - abs(xval - xval_next) / 4, (yval + yval_next) / 2 - abs(yval - yval_next) / 8, "$y_{" + str(xval_ix + 2) + "} = y_{" + str(xval_ix + 1) + "} + \Delta y_{" + str(xval_ix + 1) + "}$")
+
+    if xval_ix == 0:
+        plt.plot(xvals_second, yvals, c = "r")
+        plt.plot(xvals, yvals_first, c = "r")
+    else:
+        plt.plot(xvals_first, yvals, c = "r")
+        plt.plot(xvals, yvals_second, c = "r")
+
+    print(len(xvals_first), yval, yval_next) 
+
+plt.title("Example")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.show()
+plt.close()
+
+plt.figure(figsize=(15, 5))
+plt.rcParams['font.size'] = 20
+plt.rcParams['font.family'] = "serif"
+plt.rcParams["mathtext.fontset"] = "dejavuserif"
+plt.axis('equal')
+plt.plot(long_dict[lv + "/cleaned_csv/" + lr]["long speed dir"][start_ix:end_ix], lat_dict[lv + "/cleaned_csv/" + lr]["lat speed dir"][start_ix:end_ix], c = "b")
+for xval_ix in range(start_ix, end_ix):
+    xval = long_dict[lv + "/cleaned_csv/" + lr]["long speed dir"][xval_ix]
+    yval = lat_dict[lv + "/cleaned_csv/" + lr]["lat speed dir"][xval_ix]
+    xval_next = long_dict[lv + "/cleaned_csv/" + lr]["long speed dir"][xval_ix + 1]
+    yval_next = lat_dict[lv + "/cleaned_csv/" + lr]["lat speed dir"][xval_ix + 1]
+    
+    yvals = np.arange(min(yval, yval_next), max(yval, yval_next) + 10 ** -20, (abs(yval_next - yval) + 10 ** -20) / 1000)
+    xvals_first = [xval for val in yvals]
+    xvals_second = [xval_next for val in yvals]
+    xvals = np.arange(min(xval, xval_next), max(xval, xval_next) + 10 ** -20, (abs(xval_next - xval) + 10 ** -20) / 1000)
+    yvals_first = [yval for val in xvals]
+    yvals_second = [yval_next for val in xvals]
+ 
+    if xval_ix == 0:
+        plt.text((xval + xval_next) / 2 - abs(xval - xval_next) / 12, yval + abs(yval - yval_next) / 6, "$x_{" + str(xval_ix + 2) + "} = x_{" + str(xval_ix + 1) + "} + \Delta x_{" + str(xval_ix + 1) + "}$")
+    else:
+        plt.text((xval + xval_next) / 2 - abs(xval - xval_next) / 5, yval_next - abs(yval - yval_next) / 3, "$\Delta x_{" + str(xval_ix + 1) + "} = x_{" + str(xval_ix + 2) + "}-x_{" + str(xval_ix + 1) + "}$")
+
+    if xval_ix == 0:
+        plt.text(xval_next + abs(xval - xval_next) / 40, (yval + yval_next) / 2 - abs(yval - yval_next) / 6, "$\Delta y_{" + str(xval_ix + 1) + "} = y_{" + str(xval_ix + 2) + "}-y_{" + str(xval_ix + 1) + "}$")
+    else:
+        plt.text(xval - abs(xval - xval_next) / 4, (yval + yval_next) / 2 - abs(yval - yval_next) / 8, "$\Delta y_{" + str(xval_ix + 1) + "} = y_{" + str(xval_ix + 2) + "}-y_{" + str(xval_ix + 1) + "}$")
+
+    if xval_ix == 0:
+        plt.plot(xvals_second, yvals, c = "r")
+        plt.plot(xvals, yvals_first, c = "r")
+    else:
+        plt.plot(xvals_first, yvals, c = "r")
+        plt.plot(xvals, yvals_second, c = "r")
+
+    print(len(xvals_first), yval, yval_next) 
+
+plt.title("Example")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.show()
+plt.close()
+
+plt.figure(figsize=(15, 5))
+plt.rcParams['font.size'] = 20
+plt.rcParams['font.family'] = "serif"
+plt.rcParams["mathtext.fontset"] = "dejavuserif"
+plt.axis('equal')
+plt.plot(long_dict[lv + "/cleaned_csv/" + lr]["long speed ones dir"][start_ix:end_ix], lat_dict[lv + "/cleaned_csv/" + lr]["lat speed ones dir"][start_ix:end_ix], c = "b")
+for xval_ix in range(start_ix, end_ix):
+    xval = long_dict[lv + "/cleaned_csv/" + lr]["long speed ones dir"][xval_ix]
+    yval = lat_dict[lv + "/cleaned_csv/" + lr]["lat speed ones dir"][xval_ix]
+    xval_next = long_dict[lv + "/cleaned_csv/" + lr]["long speed ones dir"][xval_ix + 1]
+    yval_next = lat_dict[lv + "/cleaned_csv/" + lr]["lat speed ones dir"][xval_ix + 1]
+    
+    yvals = np.arange(min(yval, yval_next), max(yval, yval_next) + 10 ** -20, (abs(yval_next - yval) + 10 ** -20) / 1000)
+    xvals_first = [xval for val in yvals]
+    xvals_second = [xval_next for val in yvals]
+    xvals = np.arange(min(xval, xval_next), max(xval, xval_next) + 10 ** -20, (abs(xval_next - xval) + 10 ** -20) / 1000)
+    yvals_first = [yval for val in xvals]
+    yvals_second = [yval_next for val in xvals]
+ 
+    if xval_ix == 0:
+        plt.text((xval + xval_next) / 2 - abs(xval - xval_next) / 12, yval + abs(yval - yval_next) / 6, "$x_{" + str(xval_ix + 2) + "} = x_{" + str(xval_ix + 1) + "} + \Delta x_{" + str(xval_ix + 1) + "}$")
+    else:
+        plt.text((xval + xval_next) / 2 - abs(xval - xval_next) / 5, yval_next - abs(yval - yval_next) / 3, "$\Delta x_{" + str(xval_ix + 1) + "} = x_{" + str(xval_ix + 2) + "}-x_{" + str(xval_ix + 1) + "}$")
+
+    if xval_ix == 0:
+        plt.text(xval_next + abs(xval - xval_next) / 40, (yval + yval_next) / 2 - abs(yval - yval_next) / 6, "$\Delta y_{" + str(xval_ix + 1) + "} = y_{" + str(xval_ix + 2) + "}-y_{" + str(xval_ix + 1) + "}$")
+    else:
+        plt.text(xval - abs(xval - xval_next) / 4, (yval + yval_next) / 2 - abs(yval - yval_next) / 8, "$\Delta y_{" + str(xval_ix + 1) + "} = y_{" + str(xval_ix + 2) + "}-y_{" + str(xval_ix + 1) + "}$")
+
+    if xval_ix == 0:
+        plt.plot(xvals_second, yvals, c = "r")
+        plt.plot(xvals, yvals_first, c = "r")
+    else:
+        plt.plot(xvals_first, yvals, c = "r")
+        plt.plot(xvals, yvals_second, c = "r")
+
+    print(len(xvals_first), yval, yval_next) 
+
+plt.title("Example")
+plt.xlabel("x")
+plt.ylabel("y")
 plt.show()
 plt.close()
 

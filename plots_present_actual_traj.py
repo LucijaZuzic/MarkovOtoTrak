@@ -213,6 +213,7 @@ def plot_trapezoid_left(f, g, x, str_pr, filename):
 def plot_all(fx, fy, gx, gy, maxnum, filename):  
     plt.rcParams['font.size'] = 15 
     plt.figure(figsize=(10, 7))
+    plt.axis('equal')
     for i in range(len(fx[:maxnum])):  
         plt.plot([fx[i], gx[i]], [fy[i], gy[i]], color='k')
         if i == 0:
@@ -220,7 +221,7 @@ def plot_all(fx, fy, gx, gy, maxnum, filename):
                 plt.text(fx[i] - 0.0002, fy[i] + 0.00007,'$f_{' + str(i + 1) + '}$', size=15, color='r')
                 plt.text(gx[i] - 0.0002, gy[i] - 0.00006, '$g_{' + str(i + 1) + '}$', size=15, color='b')
             else:
-                plt.text(fx[i] - 0.0002, fy[i] - 0.00007,'$f_{' + str(i + 1) + '}$', size=15, color='r')
+                plt.text(fx[i] - 0.0002, fy[i] - 0.0001,'$f_{' + str(i + 1) + '}$', size=15, color='r')
                 plt.text(gx[i] - 0.0002, gy[i] + 0.00006, '$g_{' + str(i + 1) + '}$', size=15, color='b')
         else:
             if fy[i] > gy[i]:
@@ -235,11 +236,11 @@ def plot_all(fx, fy, gx, gy, maxnum, filename):
             else:
                 if i < 3:
                     if i % 2:
-                        plt.text(fx[i] - 0.00007, fy[i] - 0.00007,'$f_{' + str(i + 1) + '}$', size=15, color='r')
+                        plt.text(fx[i] - 0.00007, fy[i] - 0.0001,'$f_{' + str(i + 1) + '}$', size=15, color='r')
                     else:
-                        plt.text(fx[i] + 0.00007, fy[i] - 0.00007,'$f_{' + str(i + 1) + '}$', size=15, color='r') 
+                        plt.text(fx[i] + 0.00007, fy[i] - 0.0001,'$f_{' + str(i + 1) + '}$', size=15, color='r') 
                 else:    
-                    plt.text(fx[i], fy[i] - 0.00007,'$f_{' + str(i + 1) + '}$', size=15, color='r')
+                    plt.text(fx[i], fy[i] - 0.0001,'$f_{' + str(i + 1) + '}$', size=15, color='r')
                 plt.text(gx[i] - 0.0001, gy[i] + 0.00006, '$g_{' + str(i + 1) + '}$', size=15, color='b')
     plt.plot(fx[:maxnum], fy[:maxnum], c = "r")
     plt.plot(gx[:maxnum], gy[:maxnum], c = "b")
