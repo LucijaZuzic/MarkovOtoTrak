@@ -71,7 +71,11 @@ rides_all = []
 
 actual_traj = load_object("actual/actual_traj")
 
-for subdir_name in actual_traj:  
+int_veh = sorted([int(v.split("_")[1]) for v in actual_traj.keys()])
+
+for i in int_veh:  
+
+    subdir_name = "Vehicle_" + str(i)
 
     test_rides_veh = []
     train_rides_veh = []

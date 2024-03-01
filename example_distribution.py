@@ -301,52 +301,53 @@ def get_var(key_num, name_of):
     print(p3)
     return "\chapter{" + name_of.replace("_", " ").capitalize() + "}\n" + p1 + p2 + p3, str_pr_short, p1ss, p2ss, p3ss
 
-for key_num in range(4):
-    totally = ""
-    totally_short = ""
-    ncols = 2
-    shortest_p1 = "\\begin{table}\n\\centering\n"
-    shortest_p1 += "\\begin{tabular}{|" + "c|" * (ncols + 1) + "}\n\\hline\n"
+def run_tables():
+    for key_num in range(4):
+        totally = ""
+        totally_short = ""
+        ncols = 2
+        shortest_p1 = "\\begin{table}\n\\centering\n"
+        shortest_p1 += "\\begin{tabular}{|" + "c|" * (ncols + 1) + "}\n\\hline\n"
 
-    shortest_p2 = "\\begin{table}\n\\centering\n"
-    shortest_p2 += "\\begin{tabular}{|" + "c|" * (ncols + 1) + "}\n\\hline\n"
+        shortest_p2 = "\\begin{table}\n\\centering\n"
+        shortest_p2 += "\\begin{tabular}{|" + "c|" * (ncols + 1) + "}\n\\hline\n"
 
-    shortest_p3 = "\\begin{table}\n\\centering\n"
-    shortest_p3 += "\\begin{tabular}{|" + "c|" * (ncols ** 2 + 1) + "}\n\\hline\n"
+        shortest_p3 = "\\begin{table}\n\\centering\n"
+        shortest_p3 += "\\begin{tabular}{|" + "c|" * (ncols ** 2 + 1) + "}\n\\hline\n"
 
-    name_of_var = os.listdir("predicted")
-    for v in name_of_var: 
-        if v == "predicted_time_half":
-            continue
-        if v == "predicted_time_ten":
-            continue
-        starting1 = "\\multicolumn{" + str(ncols + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
-        starting2 = "\\multicolumn{" + str(ncols + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
-        starting3 = "\\multicolumn{" + str(ncols ** 2 + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
-        t, ts, s1, s2, s3 = get_var(key_num, v.replace("predicted_", ""))
-        totally += t
-        totally_short += ts
-        shortest_p1 += starting1 + s1
-        shortest_p2 += starting2 + s2
-        shortest_p3 += starting3 + s3
-        
-    shortest_p1 += "\\end{tabular}\n"
-    shortest_p1 += "\\caption{1d}\n"
-    shortest_p1 += "\\label{tab:1d}\n"
-    shortest_p1 += "\\end{table}\n"
+        name_of_var = os.listdir("predicted")
+        for v in name_of_var: 
+            if v == "predicted_time_half":
+                continue
+            if v == "predicted_time_ten":
+                continue
+            starting1 = "\\multicolumn{" + str(ncols + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
+            starting2 = "\\multicolumn{" + str(ncols + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
+            starting3 = "\\multicolumn{" + str(ncols ** 2 + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
+            t, ts, s1, s2, s3 = get_var(key_num, v.replace("predicted_", ""))
+            totally += t
+            totally_short += ts
+            shortest_p1 += starting1 + s1
+            shortest_p2 += starting2 + s2
+            shortest_p3 += starting3 + s3
+            
+        shortest_p1 += "\\end{tabular}\n"
+        shortest_p1 += "\\caption{1d}\n"
+        shortest_p1 += "\\label{tab:1d}\n"
+        shortest_p1 += "\\end{table}\n"
 
-    shortest_p2 += "\\end{tabular}\n"
-    shortest_p2 += "\\caption{2d}\n"
-    shortest_p2 += "\\label{tab:2d}\n"
-    shortest_p2 += "\\end{table}\n"
+        shortest_p2 += "\\end{tabular}\n"
+        shortest_p2 += "\\caption{2d}\n"
+        shortest_p2 += "\\label{tab:2d}\n"
+        shortest_p2 += "\\end{table}\n"
 
-    shortest_p3 += "\\end{tabular}\n"
-    shortest_p3 += "\\caption{3d}\n"
-    shortest_p3 += "\\label{tab:3d}\n"
-    shortest_p3 += "\\end{table}\n"
+        shortest_p3 += "\\end{tabular}\n"
+        shortest_p3 += "\\caption{3d}\n"
+        shortest_p3 += "\\label{tab:3d}\n"
+        shortest_p3 += "\\end{table}\n"
 
-    save_table(key_num, totally, "all_all")
-    save_table(key_num, totally_short, "all_all_short")
-    save_table(key_num, shortest_p1, "all_p1")
-    save_table(key_num, shortest_p2, "all_p2")
-    save_table(key_num, shortest_p3, "all_p3")
+        save_table(key_num, totally, "all_all")
+        save_table(key_num, totally_short, "all_all_short")
+        save_table(key_num, shortest_p1, "all_p1")
+        save_table(key_num, shortest_p2, "all_p2")
+        save_table(key_num, shortest_p3, "all_p3")

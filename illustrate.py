@@ -1,8 +1,19 @@
-from utilities import translate_var, translate_method, load_object, fill_gap, load_traj_name, scale_long_lat, process_time, preprocess_long_lat
+from utilities import load_object
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
+
+def translate_category(long):
+    translate_name = {
+        "long no abs": "x and y offset",  
+        "long speed dir": "speed, heading and time", 
+        "long speed ones dir": "speed, heading and a 1s time interval", 
+    }
+    if long in translate_name:
+        return translate_name[long]
+    else:
+        return long
 
 def return_pattern(xval_ix, category):
     if category == "actual":
@@ -83,11 +94,15 @@ def plot_an_arr(arrx, arry, start_ix, category):
                 plt.text(xval_next - 6 * xoffset, yval + yoffset, "$\\theta_{" + str(xval_ix + 1) + "}$")
             else:
                 plt.text(xval + 3 * xoffset, yval_next - 2 * yoffset, "$\\theta_{" + str(xval_ix + 1) + "}$")
-        
-    plt.title("Example")
+    if "actual" not in category:
+        plt.title("Estimating a trajectory using " + translate_category(category))
+    else:
+        plt.title("Calculating x and y offset")
     plt.xlabel("x")
     plt.ylabel("y")
-    plt.show()
+    if not os.path.isdir("illustrate/"):
+        os.makedirs("illustrate")
+    plt.savefig("illustrate/" + category + ".png", bbox_inches = "tight")
     plt.close()
   
 actual_traj = load_object("actual/actual_traj")
