@@ -3,15 +3,25 @@ import os
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
 import math
+import numpy as np
 
 all_subdirs = os.listdir() 
 
 def flatten(all_x, all_mine):
+ 
+    int_veh = sorted([int(v.split("/")[0].split("_")[1]) for v in all_mine.keys()])
+
+    filenamessorted = []
+    for i in set(int_veh):
+        for filename in all_x:
+            if "Vehicle_" + str(i) + "/cle" in filename:
+                filenamessorted.append(filename)
+
     all_flat_x = []
     all_flat_mine = []
     filenames = []
     filenames_length = []
-    for filename in all_x:
+    for filename in filenamessorted:
         for val in all_x[filename]:
             all_flat_x.append(val)
         for val in all_mine[filename]:
@@ -59,73 +69,7 @@ def plot_rmse(file_extension, var_name, actual, predictions, filenames, filename
         plt.ylabel(var_name)
         plt.savefig("rmse/" + file_extension + "_Vehicle_" + vehicle + "_Ride_" + ride + "_all.png", bbox_inches = "tight")
         plt.close()
-
-def plot_rmse_prrr(file_extension, var_name, actual, predictions, filenames, filenames_length):
-    if not os.path.isdir("rmse"):
-        os.makedirs("rmse")
- 
-    plt.figure(figsize = (20, 6 * len(filenames)), dpi = 80)
-    plt.rcParams.update({'font.size': 22})
-    
-    total_len_rides = 0
-    last_vehicle = "" 
-    length_of_vehicle = []
-    for ix_ride in range(len(filenames_length)):
-        len_ride = filenames_length[ix_ride]
-        actual_ride = actual[total_len_rides:total_len_rides + len_ride]
-        predictions_ride = predictions[total_len_rides:total_len_rides + len_ride]
-        total_len_rides += len_ride
-        split_filename = filenames[ix_ride].split("/")
-        vehicle = split_filename[0].replace("Vehicle_", "")
-        ride = split_filename[-1].replace("events_", "").replace(".csv", "")
-        print(len(filenames_length) // 2 + len(filenames_length) % 2, ix_ride + 1)
-        plt.subplot(len(filenames_length) // 2 + len(filenames_length) % 2, 2, ix_ride + 1)
-        plt.plot(range(len(actual_ride)), actual_ride, color = "b") 
-        plt.plot(range(len(predictions_ride)), predictions_ride, color = "orange") 
-        plt.legend(['Actual', 'Predicted'], loc = "upper left", ncol = 2)
-        plt.title("Actual and predicted values " + var_name + "\nVehicle " + vehicle + " Ride " + ride)
-        plt.xlabel("Point index")
-        plt.ylabel(var_name)
-        if vehicle != last_vehicle:
-            length_of_vehicle.append(0) 
-        length_of_vehicle[-1] += 1
-        last_vehicle = vehicle
-    plt.savefig("rmse/" + file_extension + "_all.png", bbox_inches = "tight")
-    plt.close()
-
-    print(length_of_vehicle)
-
-    total_len_rides = 0
-    last_vehicle = filenames[0].split("/")[0].replace("Vehicle_", "")
-    ix_vehicle = 0
-    ix_ride_zero = 0
-    for ix_ride in range(len(filenames_length)):
-        len_ride = filenames_length[ix_ride]
-        actual_ride = actual[total_len_rides:total_len_rides + len_ride]
-        predictions_ride = predictions[total_len_rides:total_len_rides + len_ride]
-        total_len_rides += len_ride
-        split_filename = filenames[ix_ride].split("/")
-        vehicle = split_filename[0].replace("Vehicle_", "")
-        ride = split_filename[-1].replace("events_", "").replace(".csv", "")
-        if vehicle != last_vehicle:
-            if ix_vehicle != 0:
-                plt.savefig("rmse/" + file_extension + "_Vehicle_" + vehicle + "_all.png", bbox_inches = "tight")
-                plt.close()
-            ix_vehicle += 1
-            plt.figure(figsize = (20, 6 * length_of_vehicle[ix_vehicle]), dpi = 80)
-            plt.rcParams.update({'font.size': 22}) 
-            ix_ride_zero = 0
-        last_vehicle = vehicle
-        print(vehicle, last_vehicle, ix_vehicle, length_of_vehicle[ix_vehicle], length_of_vehicle[ix_vehicle] // 2 + length_of_vehicle[ix_vehicle] % 2, ix_ride_zero + 1)
-        plt.subplot(length_of_vehicle[ix_vehicle] // 2 + length_of_vehicle[ix_vehicle] % 2, 2, ix_ride_zero + 1)
-        ix_ride_zero += 1
-        plt.plot(range(len(actual_ride)), actual_ride, color = "b") 
-        plt.plot(range(len(predictions_ride)), predictions_ride, color = "orange") 
-        plt.legend(['Actual', 'Predicted'], loc = "upper left", ncol = 2)
-        plt.title("Actual and predicted values " + var_name + "\nVehicle " + vehicle + " Ride " + ride)
-        plt.xlabel("Point index")
-        plt.ylabel(var_name)
-
+  
 all_x_heading, all_mine_heading, filenames_heading, filenames_length_heading = read_var("direction")
 all_x_latitude_no_abs, all_mine_latitude_no_abs, filenames_latitude_no_abs, filenames_length_latitude_no_abs = read_var("latitude_no_abs")
 all_x_longitude_no_abs, all_mine_longitude_no_abs, filenames_longitude_no_abs, filenames_length_longitude_no_abs = read_var("longitude_no_abs")

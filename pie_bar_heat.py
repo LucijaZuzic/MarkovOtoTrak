@@ -37,9 +37,14 @@ def dict_to_pie(dicti, title, type):
         os.makedirs("pie")
 
     plt.figure(figsize = (5, 5), dpi = 80)
-    plt.rcParams.update({'font.size': 22})
+    plt.rcParams['font.size'] = 20
+    plt.rcParams['font.family'] = "serif"
+    plt.rcParams["mathtext.fontset"] = "dejavuserif"
     plt.title(translate_title(title, type))
-    plt.pie(list(dicti.values()), labels = list(dicti.keys()), autopct = '%1.2f%%')
+    vals = list(dicti.values())
+    labs = list(dicti.keys())
+    labs = ["$" + lab + "$" for lab in labs]
+    plt.pie(x = vals, labels = labs, autopct = '%1.2f%%')
     plt.savefig("pie/" + title + ".png", bbox_inches = "tight")
     plt.close()
 
@@ -59,13 +64,15 @@ def dict_to_bar(dicti, title, type):
     yarr = [dicti[x] / sum_dicti * 100 for x in xarr]
 
     tick_pos = [i for i in range(0, len(xarr), max(1, len(xarr) // 5))]
-    tick_labels = [str(xarr[i]).replace("undefined", "") for i in tick_pos]
+    tick_labels = ["$" + str(xarr[i]).replace("undefined", "") + "$" for i in tick_pos]
     
     mul_fact = 3
     if "direction" in title or "speed" in title:
         mul_fact = 1
     plt.figure(figsize = (5 * mul_fact, 2 * mul_fact), dpi = 80)
-    plt.rcParams.update({'font.size': 22})
+    plt.rcParams['font.size'] = 20
+    plt.rcParams['font.family'] = "serif"
+    plt.rcParams["mathtext.fontset"] = "dejavuserif"
     plt.title(translate_title(title, type))
     plt.bar(range(len(yarr)), yarr)
     for i in range(len(yarr)):
@@ -99,7 +106,7 @@ def dict_to_heatmap(dicti, title, type):
             else:
                 data_heat[-1].append(10 ** -20)
 
-    xlabels = [x.replace("undefined", "") for x in xarr]
+    xlabels = ["$" + x.replace("undefined", "") + "$" for x in xarr]
 
     data_heat = pd.DataFrame(data_heat, columns = xlabels, index = xlabels)
 
@@ -107,7 +114,9 @@ def dict_to_heatmap(dicti, title, type):
     if "direction" in title or "speed" in title:
         mul_fact = 1
     plt.figure(figsize = (5 * mul_fact, 5 * mul_fact), dpi = 80)
-    plt.rcParams.update({'font.size': 22})
+    plt.rcParams['font.size'] = 20
+    plt.rcParams['font.family'] = "serif"
+    plt.rcParams["mathtext.fontset"] = "dejavuserif"
     ax = sns.heatmap(data_heat, annot = True, fmt = '.2f')
     for t in ax.texts: t.set_text(t.get_text() + " %")
     plt.title(translate_title(title, type))
@@ -142,9 +151,9 @@ def dict_to_heatmap2d(dicti, title, type):
                 else:
                     data_heat[-1].append(10 ** -20)
 
-    ylabels = [x.replace("undefined", "") for x in xarr2d] 
+    ylabels = ["$" + x.replace("undefined", "") + "$" for x in xarr2d] 
 
-    xlabels = [x.replace("undefined", "") for x in xarr] 
+    xlabels = ["$" + x.replace("undefined", "") + "$" for x in xarr] 
 
     data_heat = pd.DataFrame(data_heat, columns = xlabels, index = ylabels)
 
@@ -152,7 +161,9 @@ def dict_to_heatmap2d(dicti, title, type):
     if "direction" in title or "speed" in title:
         mul_fact = 1
     plt.figure(figsize = (5 * mul_fact, 5 * mul_fact), dpi = 80)
-    plt.rcParams.update({'font.size': 22})
+    plt.rcParams['font.size'] = 20
+    plt.rcParams['font.family'] = "serif"
+    plt.rcParams["mathtext.fontset"] = "dejavuserif"
     ax = sns.heatmap(data_heat, annot = True, fmt = '.2f')
     for t in ax.texts: t.set_text(t.get_text() + " %")
     plt.title(translate_title(title, type))
