@@ -286,7 +286,6 @@ def mosaic_one(rides, name, method_long = "", method_lat = ""):
     plt.rcParams['font.family'] = "serif"
     plt.rcParams["mathtext.fontset"] = "dejavuserif"
     plt.axis("equal")
-    plt.axis("off") 
 
     test_ride = rides[0]
   
