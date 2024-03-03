@@ -8,8 +8,8 @@ from example_distribution import get_bins, get_bins_simple, summarize_dict, summ
     
 translate_prob = {
              "direction": "Heading ($\degree$)",  
-             "latitude_no_abs": "y offset ($\degree$ lat.)",  
-             "longitude_no_abs": "x offset ($\degree$ long.)",   
+             "latitude_no_abs": "$y$ offset ($\degree$ lat.)",  
+             "longitude_no_abs": "$x$ offset ($\degree$ long.)",   
              "time": "Time (s)",
              "speed": "Speed (km/h)", 
              }
