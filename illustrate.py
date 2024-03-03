@@ -6,9 +6,9 @@ import os
 
 def translate_category(long):
     translate_name = {
-        "long no abs": "x and y offset",  
-        "long speed dir": "speed, heading and time", 
-        "long speed ones dir": "speed, heading and a 1s time interval", 
+        "long no abs": "$x$ and $y$ offset",  
+        "long speed dir": "speed, heading, and time", 
+        "long speed ones dir": "speed, heading, and a 1s time interval", 
     }
     if long in translate_name:
         return translate_name[long]
@@ -97,7 +97,7 @@ def plot_an_arr(arrx, arry, start_ix, category):
     if "actual" not in category:
         plt.title("Estimating a trajectory using " + translate_category(category))
     else:
-        plt.title("Calculating x and y offset")
+        plt.title("Calculating $x$ and $y$ offset")
     plt.xlabel("x")
     plt.ylabel("y")
     if not os.path.isdir("illustrate/"):
@@ -146,37 +146,3 @@ plot_an_arr(actual_traj[lv][lr][0], actual_traj[lv][lr][1], 3, "actual")
 
 for longlat in all_longlats:
     plot_an_arr(long_dict[lv + "/cleaned_csv/" + lr][longlat[0]], lat_dict[lv + "/cleaned_csv/" + lr][longlat[1]], 3, longlat[0])
-  
-if False:
-    plt.plot(actual_traj[lv][lr][0], actual_traj[lv][lr][1])
-
-    for ix_longlat in range(len(all_longlats)):
-        plt.plot(long_dict[lv + "/cleaned_csv/" + lr][all_longlats[ix_longlat][0]], lat_dict[lv + "/cleaned_csv/" + lr][all_longlats[ix_longlat][1]])
-
-    plt.show()
-    plt.close()
-
-    plt.plot(predicted_time[lv + "/cleaned_csv/" + lr])
-    plt.plot(actual_time[lv + "/cleaned_csv/" + lr])
-    plt.show()
-    plt.close()
-
-    plt.plot(predicted_longitude_no_abs[lv + "/cleaned_csv/" + lr])
-    plt.plot(actual_longitude_no_abs[lv + "/cleaned_csv/" + lr])
-    plt.show()
-    plt.close()
-
-    plt.plot(predicted_latitude_no_abs[lv + "/cleaned_csv/" + lr])
-    plt.plot(actual_latitude_no_abs[lv + "/cleaned_csv/" + lr])
-    plt.show()
-    plt.close()
-
-    plt.plot(predicted_direction[lv + "/cleaned_csv/" + lr])
-    plt.plot(actual_direction[lv + "/cleaned_csv/" + lr])
-    plt.show()
-    plt.close()
-
-    plt.plot(predicted_speed[lv + "/cleaned_csv/" + lr])
-    plt.plot(actual_speed[lv + "/cleaned_csv/" + lr])
-    plt.show()
-    plt.close()
