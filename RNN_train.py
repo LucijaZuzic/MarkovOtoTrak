@@ -6,9 +6,9 @@ from RNN_utilities import get_XY, create_GRU, create_LSTM, create_RNN, print_pre
 
 num_props = 1
  
-ws_range = range(2, 19, 4)
+ws_range = range(2, 7)
 
-hidden_range = range(120, 220, 20)
+hidden_range = range(20, 120, 20)
 
 model_list = ["LSTM", "RNN", "GRU"] 
 
@@ -37,8 +37,6 @@ for filename in os.listdir("actual_train"):
 
             x_train_all = np.array(x_train_all)
             y_train_all = np.array(y_train_all)
-
-            print(np.shape(x_train_all), np.shape(y_train_all))
             
             x_test_all = []
             y_test_all = []
@@ -71,13 +69,13 @@ for filename in os.listdir("actual_train"):
             for hidden_use in hidden_range:
  
                 if model_name == "RNN":
-                    demo_model = create_RNN(hidden_use, 1, (ws_use, num_props)) 
+                    demo_model = create_RNN(hidden_use, ws_use, (ws_use, num_props)) 
 
                 if model_name == "GRU": 
-                    demo_model = create_GRU(hidden_use, 1, (ws_use, num_props)) 
+                    demo_model = create_GRU(hidden_use, ws_use, (ws_use, num_props)) 
 
                 if model_name == "LSTM": 
-                    demo_model = create_LSTM(hidden_use, 1, (ws_use, num_props)) 
+                    demo_model = create_LSTM(hidden_use, ws_use, (ws_use, num_props)) 
             
                 if not os.path.isdir("train_net/" + varname + "/models/" + model_name):
                     os.makedirs("train_net/" + varname + "/models/" + model_name)

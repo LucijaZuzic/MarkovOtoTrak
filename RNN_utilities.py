@@ -6,10 +6,9 @@ import numpy as np
 def print_predictions(actual, predicted, name_file):
     
     strpr = "actual;predicted\n"
-
-    for ix in range(len(actual)):  
-
-        strpr += str(actual[ix]) + ";" + str(predicted[ix]) + "\n"
+    for ix1 in range(len(actual)):
+        for ix2 in range(len(actual[ix1])):
+            strpr += str(actual[ix1][ix2]) + ";" + str(predicted[ix1][ix2]) + "\n"
 
     file_processed = open(name_file, "w")
     file_processed.write(strpr.replace("[", "").replace("]", ""))

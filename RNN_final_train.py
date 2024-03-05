@@ -48,8 +48,6 @@ for varname in os.listdir("train_net"):
  
         hidden_use = hidden_array[val_RMSE.index(min(val_RMSE))]
         ws_use = ws_array[val_RMSE.index(min(val_RMSE))]
-        
-        print(ws_use, hidden_use, min(val_RMSE))
             
         x_train_all = []
         y_train_all = []
@@ -64,8 +62,6 @@ for varname in os.listdir("train_net"):
 
         x_train_all = np.array(x_train_all)
         y_train_all = np.array(y_train_all)
-
-        print(np.shape(x_train_all), np.shape(y_train_all))
         
         x_test_all = []
         y_test_all = []
@@ -110,13 +106,13 @@ for varname in os.listdir("train_net"):
         y_train_val_all = np.array(y_train_val_all)
 
         if model_name == "RNN":
-            demo_model = create_RNN(hidden_use, 1, (ws_use, num_props)) 
+            demo_model = create_RNN(hidden_use, ws_use, (ws_use, num_props)) 
 
         if model_name == "GRU": 
-            demo_model = create_GRU(hidden_use, 1, (ws_use, num_props)) 
+            demo_model = create_GRU(hidden_use, ws_use, (ws_use, num_props)) 
 
         if model_name == "LSTM": 
-            demo_model = create_LSTM(hidden_use, 1, (ws_use, num_props)) 
+            demo_model = create_LSTM(hidden_use, ws_use, (ws_use, num_props)) 
     
         if not os.path.isdir("final_train_net/" + varname + "/models/" + model_name):
             os.makedirs("final_train_net/" + varname + "/models/" + model_name)
