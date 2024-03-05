@@ -6,17 +6,14 @@ from RNN_utilities import get_XY, create_GRU, create_LSTM, create_RNN, print_pre
 
 num_props = 1
  
-ws_range = range(3, 7)
+ws_range = range(2, 7)
 
 hidden_range = range(20, 120, 20)
 
-model_list = ["LSTM"] 
+model_list = ["LSTM", "RNN", "GRU"] 
 
 for filename in os.listdir("actual_train"):
 
-    if "speed" not in filename:
-        continue
-    
     varname = filename.replace("actual_train_", "")
 
     file_object_train = load_object("actual_train/actual_train_" + varname)
