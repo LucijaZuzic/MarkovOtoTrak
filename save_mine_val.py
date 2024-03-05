@@ -6,7 +6,6 @@ import pandas as pd
 all_subdirs = os.listdir() 
  
 def read_heading(): 
-    all_x = load_object("predicted/predicted_direction")
     all_mine = dict()
     for subdir_name in all_subdirs: 
         if not os.path.isdir(subdir_name) or "Vehicle" not in subdir_name:
@@ -19,12 +18,12 @@ def read_heading():
         gap_rides_filenames = set()
         if os.path.isfile(subdir_name + "/gap_rides_filenames"):
             gap_rides_filenames = load_object(subdir_name + "/gap_rides_filenames")
-        train_rides = set()
-        if os.path.isfile(subdir_name + "/train_rides"):
-            train_rides= load_object(subdir_name + "/train_rides")
+        val_rides = set()
+        if os.path.isfile(subdir_name + "/val_rides"):
+            val_rides = load_object(subdir_name + "/val_rides")
             
         for some_file in all_files:  
-            if subdir_name + "/cleaned_csv/" + some_file in bad_rides_filenames or subdir_name + "/cleaned_csv/" + some_file in gap_rides_filenames or some_file in train_rides: 
+            if subdir_name + "/cleaned_csv/" + some_file in bad_rides_filenames or subdir_name + "/cleaned_csv/" + some_file in gap_rides_filenames or some_file not in val_rides: 
                 continue
         
             file_with_ride = pd.read_csv(subdir_name + "/cleaned_csv/" + some_file)
@@ -32,13 +31,12 @@ def read_heading():
             direction_int = [np.round(direction, 0) for direction in directions]
             all_mine[subdir_name + "/cleaned_csv/" + some_file] = direction_int
     
-    if not os.path.isdir("actual/"):
-        os.makedirs("actual/")
+    if not os.path.isdir("actual_val/"):
+        os.makedirs("actual_val/")
     
-    save_object("actual/actual_direction", all_mine)
+    save_object("actual_val/actual_val_direction", all_mine)
  
 def read_latitude_no_abs(): 
-    all_x = load_object("predicted/predicted_latitude_no_abs")
     all_mine = dict()
     for subdir_name in all_subdirs: 
         if not os.path.isdir(subdir_name) or "Vehicle" not in subdir_name:
@@ -51,12 +49,12 @@ def read_latitude_no_abs():
         gap_rides_filenames = set()
         if os.path.isfile(subdir_name + "/gap_rides_filenames"):
             gap_rides_filenames = load_object(subdir_name + "/gap_rides_filenames")
-        train_rides = set()
-        if os.path.isfile(subdir_name + "/train_rides"):
-            train_rides= load_object(subdir_name + "/train_rides")
+        val_rides = set()
+        if os.path.isfile(subdir_name + "/val_rides"):
+            val_rides = load_object(subdir_name + "/val_rides")
             
         for some_file in all_files:  
-            if subdir_name + "/cleaned_csv/" + some_file in bad_rides_filenames or subdir_name + "/cleaned_csv/" + some_file in gap_rides_filenames or some_file in train_rides: 
+            if subdir_name + "/cleaned_csv/" + some_file in bad_rides_filenames or subdir_name + "/cleaned_csv/" + some_file in gap_rides_filenames or some_file not in val_rides: 
                 continue
         
             file_with_ride = pd.read_csv(subdir_name + "/cleaned_csv/" + some_file)
@@ -67,13 +65,12 @@ def read_latitude_no_abs():
             latitude_int = [np.round(latitudes[latitude_index + 1] - latitudes[latitude_index], 10) for latitude_index in range(len(latitudes) - 1)]
             all_mine[subdir_name + "/cleaned_csv/" + some_file] = latitude_int
    
-    if not os.path.isdir("actual/"):
-        os.makedirs("actual/")
+    if not os.path.isdir("actual_val/"):
+        os.makedirs("actual_val/")
     
-    save_object("actual/actual_latitude_no_abs", all_mine)
+    save_object("actual_val/actual_val_latitude_no_abs", all_mine)
   
 def read_longitude_no_abs(): 
-    all_x = load_object("predicted/predicted_longitude_no_abs")
     all_mine = dict()
     for subdir_name in all_subdirs: 
         if not os.path.isdir(subdir_name) or "Vehicle" not in subdir_name:
@@ -86,12 +83,12 @@ def read_longitude_no_abs():
         gap_rides_filenames = set()
         if os.path.isfile(subdir_name + "/gap_rides_filenames"):
             gap_rides_filenames = load_object(subdir_name + "/gap_rides_filenames")
-        train_rides = set()
-        if os.path.isfile(subdir_name + "/train_rides"):
-            train_rides= load_object(subdir_name + "/train_rides")
+        val_rides = set()
+        if os.path.isfile(subdir_name + "/val_rides"):
+            val_rides = load_object(subdir_name + "/val_rides")
             
         for some_file in all_files:  
-            if subdir_name + "/cleaned_csv/" + some_file in bad_rides_filenames or subdir_name + "/cleaned_csv/" + some_file in gap_rides_filenames or some_file in train_rides: 
+            if subdir_name + "/cleaned_csv/" + some_file in bad_rides_filenames or subdir_name + "/cleaned_csv/" + some_file in gap_rides_filenames or some_file not in val_rides: 
                 continue
         
             file_with_ride = pd.read_csv(subdir_name + "/cleaned_csv/" + some_file)
@@ -102,13 +99,12 @@ def read_longitude_no_abs():
             longitude_int = [np.round(longitudes[longitude_index + 1] - longitudes[longitude_index], 10) for longitude_index in range(len(longitudes) - 1)]
             all_mine[subdir_name + "/cleaned_csv/" + some_file] = longitude_int
     
-    if not os.path.isdir("actual/"):
-        os.makedirs("actual/")
+    if not os.path.isdir("actual_val/"):
+        os.makedirs("actual_val/")
     
-    save_object("actual/actual_longitude_no_abs", all_mine)
+    save_object("actual_val/actual_val_longitude_no_abs", all_mine)
   
 def read_speed(): 
-    all_x = load_object("predicted/predicted_speed")
     all_mine = dict()
     for subdir_name in all_subdirs: 
         if not os.path.isdir(subdir_name) or "Vehicle" not in subdir_name:
@@ -121,12 +117,12 @@ def read_speed():
         gap_rides_filenames = set()
         if os.path.isfile(subdir_name + "/gap_rides_filenames"):
             gap_rides_filenames = load_object(subdir_name + "/gap_rides_filenames")
-        train_rides = set()
-        if os.path.isfile(subdir_name + "/train_rides"):
-            train_rides= load_object(subdir_name + "/train_rides")
+        val_rides = set()
+        if os.path.isfile(subdir_name + "/val_rides"):
+            val_rides = load_object(subdir_name + "/val_rides")
             
         for some_file in all_files:  
-            if subdir_name + "/cleaned_csv/" + some_file in bad_rides_filenames or subdir_name + "/cleaned_csv/" + some_file in gap_rides_filenames or some_file in train_rides: 
+            if subdir_name + "/cleaned_csv/" + some_file in bad_rides_filenames or subdir_name + "/cleaned_csv/" + some_file in gap_rides_filenames or some_file not in val_rides: 
                 continue
         
             file_with_ride = pd.read_csv(subdir_name + "/cleaned_csv/" + some_file)
@@ -134,13 +130,12 @@ def read_speed():
             speed_int = [np.round(speed, 0) for speed in speeds] 
             all_mine[subdir_name + "/cleaned_csv/" + some_file] = speed_int
     
-    if not os.path.isdir("actual/"):
-        os.makedirs("actual/")
+    if not os.path.isdir("actual_val/"):
+        os.makedirs("actual_val/")
     
-    save_object("actual/actual_speed", all_mine)
+    save_object("actual_val/actual_val_speed", all_mine)
 
 def read_time(): 
-    all_x = load_object("predicted/predicted_time")
     all_mine = dict()
     for subdir_name in all_subdirs: 
         if not os.path.isdir(subdir_name) or "Vehicle" not in subdir_name:
@@ -153,12 +148,12 @@ def read_time():
         gap_rides_filenames = set()
         if os.path.isfile(subdir_name + "/gap_rides_filenames"):
             gap_rides_filenames = load_object(subdir_name + "/gap_rides_filenames")
-        train_rides = set()
-        if os.path.isfile(subdir_name + "/train_rides"):
-            train_rides= load_object(subdir_name + "/train_rides")
+        val_rides = set()
+        if os.path.isfile(subdir_name + "/val_rides"):
+            val_rides = load_object(subdir_name + "/val_rides")
             
         for some_file in all_files:  
-            if subdir_name + "/cleaned_csv/" + some_file in bad_rides_filenames or subdir_name + "/cleaned_csv/" + some_file in gap_rides_filenames or some_file in train_rides: 
+            if subdir_name + "/cleaned_csv/" + some_file in bad_rides_filenames or subdir_name + "/cleaned_csv/" + some_file in gap_rides_filenames or some_file not in val_rides: 
                 continue
         
             file_with_ride = pd.read_csv(subdir_name + "/cleaned_csv/" + some_file)
@@ -170,10 +165,10 @@ def read_time():
                         time_int[time_index] = 10 ** -20 
             all_mine[subdir_name + "/cleaned_csv/" + some_file] = time_int
     
-    if not os.path.isdir("actual/"):
-        os.makedirs("actual/")
+    if not os.path.isdir("actual_val/"):
+        os.makedirs("actual_val/")
     
-    save_object("actual/actual_time", all_mine)
+    save_object("actual_val/actual_val_time", all_mine)
  
 read_heading()
 read_latitude_no_abs()
