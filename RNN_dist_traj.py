@@ -103,7 +103,8 @@ for subdir_name in distance_predicted:
     for some_file in distance_predicted[subdir_name]:
         name = subdir_name + "/cleaned_csv/" + some_file
         for metric in choose_best_new:
-            for dist_name in distance_predicted[subdir_name][some_file][metric]:
+            for dist_name_half in distance_predicted_new[metric]["RNN"]:
+                dist_name = dist_name_half + "-" + dist_name_half.replace("long", "lat")
                 if distance_predicted[subdir_name][some_file][metric][dist_name] < choose_best_new[metric][name][2]:
                     choose_best_new[metric][name] = ("Markov", dist_name, distance_predicted[subdir_name][some_file][metric][dist_name])
 
