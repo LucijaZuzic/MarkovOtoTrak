@@ -4,7 +4,6 @@ import math
 from sklearn.metrics import mean_squared_error
 from utilities import load_object
 
-
 for varname in os.listdir("train_net"):
     
     print(varname)
@@ -106,7 +105,7 @@ for varname in os.listdir("train_net"):
         if is_a_nan:
             final_train_RMSE.append(1000000)
         else: 
-            final_train_RMSE.append(math.sqrt(mean_squared_error(final_train_data["actual"], train_data["predicted"])) / (max(all_mine_flat) - min(all_mine_flat)))
+            final_train_RMSE.append(math.sqrt(mean_squared_error(final_train_data["actual"], final_train_data["predicted"])) / (max(all_mine_flat) - min(all_mine_flat)))
         
         is_a_nan = False
         for val in final_test_data["predicted"]:
@@ -117,8 +116,8 @@ for varname in os.listdir("train_net"):
         if is_a_nan:
             final_test_RMSE.append(1000000)
         else: 
-            final_test_RMSE.append(math.sqrt(mean_squared_error(final_test_data["actual"], test_data["predicted"])) / (max(all_mine_flat) - min(all_mine_flat)))
+            final_test_RMSE.append(math.sqrt(mean_squared_error(final_test_data["actual"], final_test_data["predicted"])) / (max(all_mine_flat) - min(all_mine_flat)))
         
-    print(final_test_RMSE)
     print(final_train_RMSE)
     print(final_val_RMSE)
+    print(final_test_RMSE)
