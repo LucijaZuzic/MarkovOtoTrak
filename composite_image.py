@@ -303,7 +303,7 @@ def mosaic_one(rides, name, method_long = "", method_lat = ""):
     vehicle = split_file_veh[0].replace("Vehicle_", "")
     ride = split_file_veh[-1].replace("events_", "").replace(".csv", "")
 
-    title_new = "Vehicle " + vehicle + " Ride " + ride + "\n"
+    title_new = "Vehicle " + vehicle + " Ride " + ride + "\nMarkov chain\n"
     if method_long != "":
         title_new += translate_category(method_long) + "\n" 
         for metric in distance_predicted[split_file_veh[0]][split_file_veh[-1]]:
@@ -362,6 +362,8 @@ if not os.path.isdir("mosaic//test"):
     os.makedirs("mosaic//test")
 
 test_rides_all = []
+only_train_rides_all = []
+val_rides_all = []
 train_rides_all = []
 rides_all = []
 
@@ -373,14 +375,20 @@ for i in int_veh:
 
     subdir_name = "Vehicle_" + str(i)
 
+    val_rides = set()
+    if os.path.isfile(subdir_name + "/val_rides"):
+        val_rides = load_object(subdir_name + "/val_rides")
+
     test_rides_veh = []
+    only_train_rides_veh = []
+    val_rides_veh = []
     train_rides_veh = []
     rides_veh = []
         
     for some_file in actual_traj[subdir_name]:  
 
         longitudes, latitudes, is_test = actual_traj[subdir_name][some_file]
-
+ 
         if is_test == "test":
             for ix_longlat in range(len(all_longlats)):
                 mosaic_one([[longitudes, latitudes, subdir_name + "/cleaned_csv/" + some_file]], "mosaic/test/" + subdir_name + "_" + some_file.replace(".csv", "") + "_" + all_longlats[ix_longlat][0] + "_" + all_longlats[ix_longlat][1] + "_test_mosaic.png", all_longlats[ix_longlat][0], all_longlats[ix_longlat][1])
@@ -389,7 +397,13 @@ for i in int_veh:
         else:
             train_rides_all.append([longitudes, latitudes, subdir_name + "/cleaned_csv/" + some_file])
             train_rides_veh.append([longitudes, latitudes, subdir_name + "/cleaned_csv/" + some_file])
-
+            if some_file in val_rides:
+                val_rides_all.append([longitudes, latitudes, subdir_name + "/cleaned_csv/" + some_file])
+                val_rides_veh.append([longitudes, latitudes, subdir_name + "/cleaned_csv/" + some_file])
+            else:
+                only_train_rides_all.append([longitudes, latitudes, subdir_name + "/cleaned_csv/" + some_file])
+                only_train_rides_veh.append([longitudes, latitudes, subdir_name + "/cleaned_csv/" + some_file])
+ 
         rides_veh.append([longitudes, latitudes, subdir_name + "/cleaned_csv/" + some_file])
         rides_all.append([longitudes, latitudes, subdir_name + "/cleaned_csv/" + some_file])
 
@@ -398,6 +412,12 @@ for i in int_veh:
 
     if len(train_rides_veh):
         mosaic(train_rides_veh, "mosaic/" + subdir_name + "_train_mosaic.png")
+        
+    if len(only_train_rides_veh):
+        mosaic(only_train_rides_veh, "mosaic/" + subdir_name + "_only_train_mosaic.png")
+
+    if len(val_rides_veh):
+        mosaic(val_rides_veh, "mosaic/" + subdir_name + "_val_mosaic.png")
 
     if len(rides_veh):
         mosaic(rides_veh, "mosaic/" + subdir_name + "_all_mosaic.png")
@@ -414,6 +434,12 @@ if len(test_rides_all):
 
 if len(train_rides_all):
     mosaic(train_rides_all, "mosaic/all_train_mosaic.png")
+        
+if len(only_train_rides_all):
+    mosaic(only_train_rides_all, "mosaic/all_only_train_mosaic.png")
+
+if len(val_rides_all):
+    mosaic(val_rides_all, "mosaic/all_val_mosaic.png")
 
 if len(rides_all):
     mosaic(rides_all, "mosaic/all_all_mosaic.png")

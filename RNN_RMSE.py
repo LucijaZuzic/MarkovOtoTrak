@@ -3,6 +3,7 @@ import os
 import math
 from sklearn.metrics import mean_squared_error
 from utilities import load_object
+import numpy as np
 
 for varname in os.listdir("train_net"):
     
@@ -121,3 +122,6 @@ for varname in os.listdir("train_net"):
     print(final_train_RMSE)
     print(final_val_RMSE)
     print(final_test_RMSE)
+
+    for val in final_test_RMSE:
+        print(np.round(val * 100, 2))
