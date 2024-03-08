@@ -26,7 +26,7 @@ step_val = 10 ** -2
 angle_orig = np.pi / 5
 
 plt.figure(figsize=(10, 10), dpi = 80)
-plt.rcParams['font.size'] = 20
+plt.rcParams['font.size'] = 38
 plt.rcParams['font.family'] = "serif"
 plt.rcParams["mathtext.fontset"] = "dejavuserif"
 plt.axis("equal")
@@ -47,7 +47,7 @@ plt.plot(x3, y3, c = "k")
 plt.text(max(y1 , x1) * 2 / 3, 1.6 * yoff, "$\\theta$")
 x4, y4 = make_arc(yoff, xoff, radi_use * 5 / 6, angle_orig, np.pi / 2 + step_val / 5, step_val)
 plt.plot(x4, y4, c = "k")
-plt.text(1.45 * xoff, 2.6 * yoff, "$90\degree - \\theta$") 
+plt.text(1.6 * xoff, 3.5 * yoff, "$90\degree - \\theta$") 
 plt.title("Subtracting the heading from $90\degree$")
 if not os.path.isdir("illustrate/"):
     os.makedirs("illustrate")
@@ -55,7 +55,7 @@ plt.savefig("illustrate/90.png", bbox_inches = "tight")
 plt.close()
 
 plt.figure(figsize=(10, 10), dpi = 80)
-plt.rcParams['font.size'] = 20
+plt.rcParams['font.size'] = 26
 plt.rcParams['font.family'] = "serif"
 plt.rcParams["mathtext.fontset"] = "dejavuserif"
 plt.axis("equal")
@@ -83,7 +83,7 @@ x6, y6 = make_arc(yoff, xoff + radi_use, radi_use * 5 / 6, np.pi - angle_orig, n
 plt.plot(x6, y6, c = "k")
 plt.text(radi_use + max(y1 , x1) * 2 / 3, 1.7 * yoff, "$\\theta$")
 plt.text(xoff + radi_use - max(y1 , x1) * 2 / 3 + xoff / 2, 1.7 * yoff, "$\\theta$")
-plt.text(radi_use - 1.7 * xoff, yoff + 0.7 * radi_use, "$180\degree - \\theta$") 
+plt.text(radi_use - 2.2 * xoff, yoff + 0.75 * radi_use, "$180\degree - \\theta$") 
 x7, y7 = make_arc(yoff, xoff + radi_use, radi_use / 2, angle_orig / 2, np.pi - angle_orig / 2, step_val)
 plt.plot(x7, y7, c = "k", linestyle = "dashed")
 make_arrow(x7[0], y7[0], radi_use / 6, angle = np.pi * 27 / 16, isdashed = True)
@@ -94,7 +94,7 @@ plt.savefig("illustrate/180.png", bbox_inches = "tight")
 plt.close()
   
 plt.figure(figsize=(10, 10), dpi = 80)
-plt.rcParams['font.size'] = 20
+plt.rcParams['font.size'] = 27
 plt.rcParams['font.family'] = "serif"
 plt.rcParams["mathtext.fontset"] = "dejavuserif"
 plt.axis("equal")
@@ -121,7 +121,7 @@ x6, y6 = make_arc(yoff + radi_use, xoff + radi_use, radi_use * 5 / 6, 2 * np.pi 
 plt.plot(x6, y6, c = "k")
 plt.text(radi_use + 1.2 * xoff, radi_use * 3 / 4 + yoff, "$\\theta$")
 plt.text(radi_use + 1.2 * xoff, radi_use * 7 / 4 - yoff * 2.3, "$\\theta$")
-plt.text(radi_use / 3, 3 * yoff + radi_use, "$360\degree - \\theta$")
+plt.text(radi_use / 3.9, 3 * yoff + radi_use, "$360\degree - \\theta$")
 x7, y7 = make_arc(yoff + radi_use, xoff + radi_use, radi_use / 2, angle_orig / 2, 2 * np.pi - angle_orig / 2, step_val)
 plt.plot(x7, y7, c = "k", linestyle = "dashed")
 make_arrow(x7[0], y7[0], radi_use / 6, angle = np.pi * 15 / 8, isdashed = True)
