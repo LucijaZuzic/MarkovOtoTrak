@@ -3,6 +3,7 @@ import os
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
 import math
+import numpy as np
 from sklearn.metrics import r2_score
 
 all_subdirs = os.listdir() 
@@ -76,20 +77,20 @@ all_x_longitude_no_abs, all_mine_longitude_no_abs, filenames_longitude_no_abs, f
 all_x_speed, all_mine_speed, filenames_speed, filenames_length_speed = read_var("speed")
 all_x_time, all_mine_time, filenames_time, filenames_length_time = read_var("time")
 
-plot_rmse("heading", "Heading ($\degree$)", all_mine_heading, all_x_heading, filenames_heading, filenames_length_heading)
-plot_rmse("latitude", "x offset ($\degree$ long.)", all_mine_latitude_no_abs, all_x_latitude_no_abs, filenames_latitude_no_abs, filenames_length_latitude_no_abs)
-plot_rmse("longitude", "y offset ($\degree$ lat.)", all_mine_longitude_no_abs, all_x_longitude_no_abs, filenames_longitude_no_abs, filenames_length_longitude_no_abs)
-plot_rmse("speed", "Speed (km/h)", all_mine_speed, all_x_speed, filenames_speed, filenames_length_speed)
-plot_rmse("time", "Time (s)", all_mine_time, all_x_time, filenames_time, filenames_length_time)
+#plot_rmse("heading", "Heading ($\degree$)", all_mine_heading, all_x_heading, filenames_heading, filenames_length_heading)
+#plot_rmse("latitude", "x offset ($\degree$ long.)", all_mine_latitude_no_abs, all_x_latitude_no_abs, filenames_latitude_no_abs, filenames_length_latitude_no_abs)
+#plot_rmse("longitude", "y offset ($\degree$ lat.)", all_mine_longitude_no_abs, all_x_longitude_no_abs, filenames_longitude_no_abs, filenames_length_longitude_no_abs)
+#plot_rmse("speed", "Speed (km/h)", all_mine_speed, all_x_speed, filenames_speed, filenames_length_speed)
+#plot_rmse("time", "Time (s)", all_mine_time, all_x_time, filenames_time, filenames_length_time)
 
-#print("heading", max(all_mine_heading),min(all_mine_heading), math.sqrt(mean_squared_error(all_mine_heading, all_x_heading)) / (max(all_mine_heading) - min(all_mine_heading)))
-#print("latitude", max(all_mine_latitude_no_abs),min(all_mine_latitude_no_abs), math.sqrt(mean_squared_error(all_mine_latitude_no_abs, all_x_latitude_no_abs)) / (max(all_mine_latitude_no_abs) - min(all_mine_latitude_no_abs)))
-#print("longitude", max(all_mine_longitude_no_abs),min(all_mine_longitude_no_abs), math.sqrt(mean_squared_error(all_mine_longitude_no_abs, all_x_longitude_no_abs)) / (max(all_mine_longitude_no_abs) - min(all_mine_longitude_no_abs)))
-#print("speed", max(all_mine_speed),min(all_mine_speed), math.sqrt(mean_squared_error(all_mine_speed, all_x_speed)) / (max(all_mine_speed) - min(all_mine_speed)))
-#print("time", max(all_mine_time),min(all_mine_time), math.sqrt(mean_squared_error(all_mine_time, all_x_time)) / (max(all_mine_time) - min(all_mine_time)))
+print("heading", max(all_mine_heading),min(all_mine_heading), np.round(math.sqrt(mean_squared_error(all_mine_heading, all_x_heading)) / (max(all_mine_heading) - min(all_mine_heading)) * 100, 2))
+print("latitude", max(all_mine_latitude_no_abs),min(all_mine_latitude_no_abs), np.round(math.sqrt(mean_squared_error(all_mine_latitude_no_abs, all_x_latitude_no_abs)) / (max(all_mine_latitude_no_abs) - min(all_mine_latitude_no_abs)) * 100, 2))
+print("longitude", max(all_mine_longitude_no_abs),min(all_mine_longitude_no_abs), np.round(math.sqrt(mean_squared_error(all_mine_longitude_no_abs, all_x_longitude_no_abs)) / (max(all_mine_longitude_no_abs) - min(all_mine_longitude_no_abs)) * 100, 2))
+print("speed", max(all_mine_speed),min(all_mine_speed), np.round(math.sqrt(mean_squared_error(all_mine_speed, all_x_speed)) / (max(all_mine_speed) - min(all_mine_speed)) * 100, 2))
+print("time", max(all_mine_time),min(all_mine_time), np.round(math.sqrt(mean_squared_error(all_mine_time, all_x_time)) / (max(all_mine_time) - min(all_mine_time)) * 100, 2))
 
-print("heading", max(all_mine_heading),min(all_mine_heading), r2_score(all_mine_heading, all_x_heading))
-print("latitude", max(all_mine_latitude_no_abs),min(all_mine_latitude_no_abs), r2_score(all_mine_latitude_no_abs, all_x_latitude_no_abs))
-print("longitude", max(all_mine_longitude_no_abs),min(all_mine_longitude_no_abs), r2_score(all_mine_longitude_no_abs, all_x_longitude_no_abs))
-print("speed", max(all_mine_speed),min(all_mine_speed), r2_score(all_mine_speed, all_x_speed))
-print("time", max(all_mine_time),min(all_mine_time), r2_score(all_mine_time, all_x_time))
+print("heading", max(all_mine_heading),min(all_mine_heading), np.round(r2_score(all_mine_heading, all_x_heading) * 100, 2))
+print("latitude", max(all_mine_latitude_no_abs),min(all_mine_latitude_no_abs), np.round(r2_score(all_mine_latitude_no_abs, all_x_latitude_no_abs) * 100, 2))
+print("longitude", max(all_mine_longitude_no_abs),min(all_mine_longitude_no_abs), np.round(r2_score(all_mine_longitude_no_abs, all_x_longitude_no_abs) * 100, 2))
+print("speed", max(all_mine_speed),min(all_mine_speed), np.round(r2_score(all_mine_speed, all_x_speed) * 100, 2))
+print("time", max(all_mine_time),min(all_mine_time), np.round(r2_score(all_mine_time, all_x_time) * 100, 2))
