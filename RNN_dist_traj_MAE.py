@@ -1,6 +1,6 @@
 import numpy as np
 from utilities import load_object
-from sklearn.metrics import r2_score
+from sklearn.metrics import mean_absolute_error
  
 predicted_all = load_object("RNN_result/predicted_all")
 y_test_all = load_object("RNN_result/y_test_all")
@@ -11,23 +11,23 @@ actual_lat = load_object("RNN_result/actual_lat")
 predicted_long = load_object("RNN_result/predicted_long")
 predicted_lat = load_object("RNN_result/predicted_lat")
 
-r2_time = dict()
-r2_pred = dict()
-r2_pred_wt = dict()
-r2_long_pred = dict()
-r2_long_pred_wt = dict()
-r2_lat_pred = dict()
-r2_lat_pred_wt = dict()
+mean_absolute_error_time = dict()
+mean_absolute_error_pred = dict()
+mean_absolute_error_pred_wt = dict()
+mean_absolute_error_long_pred = dict()
+mean_absolute_error_long_pred_wt = dict()
+mean_absolute_error_lat_pred = dict()
+mean_absolute_error_lat_pred_wt = dict()
   
 for model_name in predicted_long:
 
-    r2_time[model_name] = dict()
-    r2_pred[model_name] = dict()
-    r2_pred_wt[model_name] = dict()
-    r2_long_pred[model_name] = dict()
-    r2_long_pred_wt[model_name] = dict()
-    r2_lat_pred[model_name] = dict()
-    r2_lat_pred_wt[model_name] = dict()
+    mean_absolute_error_time[model_name] = dict()
+    mean_absolute_error_pred[model_name] = dict()
+    mean_absolute_error_pred_wt[model_name] = dict()
+    mean_absolute_error_long_pred[model_name] = dict()
+    mean_absolute_error_long_pred_wt[model_name] = dict()
+    mean_absolute_error_lat_pred[model_name] = dict()
+    mean_absolute_error_lat_pred_wt[model_name] = dict()
 
     for dist_name in predicted_long[model_name]: 
 
@@ -109,13 +109,13 @@ for model_name in predicted_long:
                 predicted_lat_nt.append([predicted_lat_one[ix_use_len]])
                 predicted_lat_time.append([predicted_lat_one[ix_use_len], time_predicted_cumulative[ix_use_len]])
 
-        r2_time[model_name][dist_name] = r2_score(actual_tm, predicted_tm)
-        r2_pred[model_name][dist_name] = r2_score(actual_long_lat, predicted_long_lat)
-        r2_pred_wt[model_name][dist_name] = r2_score(actual_long_lat_time, predicted_long_lat_time)
-        r2_long_pred[model_name][dist_name] = r2_score(actual_long_nt, predicted_long_nt)
-        r2_long_pred_wt[model_name][dist_name] = r2_score(actual_long_time, predicted_long_time)
-        r2_lat_pred[model_name][dist_name] = r2_score(actual_lat_nt, predicted_lat_nt)
-        r2_lat_pred_wt[model_name][dist_name] = r2_score(actual_lat_time, predicted_lat_time)
+        mean_absolute_error_time[model_name][dist_name] = mean_absolute_error(actual_tm, predicted_tm)
+        mean_absolute_error_pred[model_name][dist_name] = mean_absolute_error(actual_long_lat, predicted_long_lat)
+        mean_absolute_error_pred_wt[model_name][dist_name] = mean_absolute_error(actual_long_lat_time, predicted_long_lat_time)
+        mean_absolute_error_long_pred[model_name][dist_name] = mean_absolute_error(actual_long_nt, predicted_long_nt)
+        mean_absolute_error_long_pred_wt[model_name][dist_name] = mean_absolute_error(actual_long_time, predicted_long_time)
+        mean_absolute_error_lat_pred[model_name][dist_name] = mean_absolute_error(actual_lat_nt, predicted_lat_nt)
+        mean_absolute_error_lat_pred_wt[model_name][dist_name] = mean_absolute_error(actual_lat_time, predicted_lat_time)
  
 long_dict = load_object("Markov_result/long_dict")
 lat_dict = load_object("Markov_result/lat_dict")
@@ -123,13 +123,13 @@ actual_traj = load_object("actual/actual_traj")
 actual_time = load_object("actual/actual_time")
 predicted_time = load_object("predicted/predicted_time")
 
-r2_time["Markov"] = dict()
-r2_pred["Markov"] = dict()
-r2_pred_wt["Markov"] = dict()
-r2_long_pred["Markov"] = dict()
-r2_long_pred_wt["Markov"] = dict()
-r2_lat_pred["Markov"] = dict()
-r2_lat_pred_wt["Markov"] = dict()
+mean_absolute_error_time["Markov"] = dict()
+mean_absolute_error_pred["Markov"] = dict()
+mean_absolute_error_pred_wt["Markov"] = dict()
+mean_absolute_error_long_pred["Markov"] = dict()
+mean_absolute_error_long_pred_wt["Markov"] = dict()
+mean_absolute_error_lat_pred["Markov"] = dict()
+mean_absolute_error_lat_pred_wt["Markov"] = dict()
 
 for dist_name in long_dict[list(long_dict.keys())[0]]:  
 
@@ -187,48 +187,48 @@ for dist_name in long_dict[list(long_dict.keys())[0]]:
             predicted_lat_nt.append([lat_dict[longer_file_name][dist_name.replace("long", "lat")][ix_use_len]])
             predicted_lat_time.append([lat_dict[longer_file_name][dist_name.replace("long", "lat")][ix_use_len], time_predicted_cumulative[ix_use_len]])
 
-    r2_time["Markov"][dist_name] = r2_score(actual_tm, predicted_tm)
-    r2_pred["Markov"][dist_name] = r2_score(actual_long_lat, predicted_long_lat)
-    r2_pred_wt["Markov"][dist_name] = r2_score(actual_long_lat_time, predicted_long_lat_time)
-    r2_long_pred["Markov"][dist_name] = r2_score(actual_long_nt, predicted_long_nt)
-    r2_long_pred_wt["Markov"][dist_name] = r2_score(actual_long_time, predicted_long_time)
-    r2_lat_pred["Markov"][dist_name] = r2_score(actual_lat_nt, predicted_lat_nt)
-    r2_lat_pred_wt["Markov"][dist_name] = r2_score(actual_lat_time, predicted_lat_time)
+    mean_absolute_error_time["Markov"][dist_name] = mean_absolute_error(actual_tm, predicted_tm)
+    mean_absolute_error_pred["Markov"][dist_name] = mean_absolute_error(actual_long_lat, predicted_long_lat)
+    mean_absolute_error_pred_wt["Markov"][dist_name] = mean_absolute_error(actual_long_lat_time, predicted_long_lat_time)
+    mean_absolute_error_long_pred["Markov"][dist_name] = mean_absolute_error(actual_long_nt, predicted_long_nt)
+    mean_absolute_error_long_pred_wt["Markov"][dist_name] = mean_absolute_error(actual_long_time, predicted_long_time)
+    mean_absolute_error_lat_pred["Markov"][dist_name] = mean_absolute_error(actual_lat_nt, predicted_lat_nt)
+    mean_absolute_error_lat_pred_wt["Markov"][dist_name] = mean_absolute_error(actual_lat_time, predicted_lat_time)
 
 def_translate = {"long no abs": "$x$ and $y$ offset", "long speed dir": "Speed and heading", "long speed ones dir": "Speed and heading, $1$ $\\mathrm{s}$"}
 
-print("r2_time")
-for model_name in r2_time: 
-    for dist_name in r2_time[model_name]:
-        print(model_name, "&", "$" + str(np.round(r2_time[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("mean_absolute_error_time")
+for model_name in mean_absolute_error_time: 
+    for dist_name in mean_absolute_error_time[model_name]:
+        print(model_name, "&", "$" + str(np.round(mean_absolute_error_time[model_name][dist_name], 6)) + "$ \\\\ \\hline")
         break
 
-print("r2_pred")
-for model_name in r2_pred: 
-    for dist_name in r2_pred[model_name]:
-        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(r2_pred[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("mean_absolute_error_pred")
+for model_name in mean_absolute_error_pred: 
+    for dist_name in mean_absolute_error_pred[model_name]:
+        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(mean_absolute_error_pred[model_name][dist_name], 6)) + "$ \\\\ \\hline")
 
-print("r2_pred_wt")
-for model_name in r2_pred_wt: 
-    for dist_name in r2_pred_wt[model_name]:
-        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(r2_pred_wt[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("mean_absolute_error_pred_wt")
+for model_name in mean_absolute_error_pred_wt: 
+    for dist_name in mean_absolute_error_pred_wt[model_name]:
+        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(mean_absolute_error_pred_wt[model_name][dist_name], 6)) + "$ \\\\ \\hline")
 
-print("r2_long_pred")
-for model_name in r2_long_pred: 
-    for dist_name in r2_long_pred[model_name]:
-        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(r2_long_pred[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("mean_absolute_error_long_pred")
+for model_name in mean_absolute_error_long_pred: 
+    for dist_name in mean_absolute_error_long_pred[model_name]:
+        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(mean_absolute_error_long_pred[model_name][dist_name], 6)) + "$ \\\\ \\hline")
 
-print("r2_long_pred_wt")
-for model_name in r2_long_pred_wt: 
-    for dist_name in r2_long_pred_wt[model_name]:
-        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(r2_long_pred_wt[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("mean_absolute_error_long_pred_wt")
+for model_name in mean_absolute_error_long_pred_wt: 
+    for dist_name in mean_absolute_error_long_pred_wt[model_name]:
+        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(mean_absolute_error_long_pred_wt[model_name][dist_name], 6)) + "$ \\\\ \\hline")
 
-print("r2_lat_pred")
-for model_name in r2_lat_pred: 
-    for dist_name in r2_lat_pred[model_name]:
-        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(r2_lat_pred[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("mean_absolute_error_lat_pred")
+for model_name in mean_absolute_error_lat_pred: 
+    for dist_name in mean_absolute_error_lat_pred[model_name]:
+        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(mean_absolute_error_lat_pred[model_name][dist_name], 6)) + "$ \\\\ \\hline")
 
-print("r2_lat_pred_wt")
-for model_name in r2_lat_pred_wt: 
-    for dist_name in r2_lat_pred_wt[model_name]:
-        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(r2_lat_pred_wt[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("mean_absolute_error_lat_pred_wt")
+for model_name in mean_absolute_error_lat_pred_wt: 
+    for dist_name in mean_absolute_error_lat_pred_wt[model_name]:
+        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(mean_absolute_error_lat_pred_wt[model_name][dist_name], 6)) + "$ \\\\ \\hline")

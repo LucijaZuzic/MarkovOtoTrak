@@ -1,7 +1,7 @@
 from utilities import load_object
 import os
 import matplotlib.pyplot as plt
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 import math
 import numpy as np
 from sklearn.metrics import r2_score
@@ -94,3 +94,9 @@ print("latitude", max(all_mine_latitude_no_abs),min(all_mine_latitude_no_abs), n
 print("longitude", max(all_mine_longitude_no_abs),min(all_mine_longitude_no_abs), np.round(r2_score(all_mine_longitude_no_abs, all_x_longitude_no_abs) * 100, 2))
 print("speed", max(all_mine_speed),min(all_mine_speed), np.round(r2_score(all_mine_speed, all_x_speed) * 100, 2))
 print("time", max(all_mine_time),min(all_mine_time), np.round(r2_score(all_mine_time, all_x_time) * 100, 2))
+
+print("heading", max(all_mine_heading),min(all_mine_heading), np.round(mean_absolute_error(all_mine_heading, all_x_heading), 6))
+print("latitude", max(all_mine_latitude_no_abs),min(all_mine_latitude_no_abs), np.round(mean_absolute_error(all_mine_latitude_no_abs, all_x_latitude_no_abs), 6))
+print("longitude", max(all_mine_longitude_no_abs),min(all_mine_longitude_no_abs), np.round(mean_absolute_error(all_mine_longitude_no_abs, all_x_longitude_no_abs), 6))
+print("speed", max(all_mine_speed),min(all_mine_speed), np.round(mean_absolute_error(all_mine_speed, all_x_speed), 6))
+print("time", max(all_mine_time),min(all_mine_time), np.round(mean_absolute_error(all_mine_time, all_x_time), 6))
