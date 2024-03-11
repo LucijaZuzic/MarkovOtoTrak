@@ -9,9 +9,9 @@ from pytorch_utilities import get_XY, print_predictions, PyTorchGRUModel, PyTorc
 
 num_props = 1
  
-ws_range = range(2, 3)
+ws_range = range(2, 7)
 
-hidden_range = range(20, 40, 20)
+hidden_range = range(20, 120, 20)
 
 model_list = ["LSTM", "RNN", "GRU"] 
 
