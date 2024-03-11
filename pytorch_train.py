@@ -117,11 +117,9 @@ for filename in os.listdir("actual_train"):
 
                     predict_train_all = pytorch_model(torch.tensor(x_train_all).float())
 
-                    print(predict_train_all)
+                    predict_val_all = pytorch_model(torch.tensor(x_val_all).float())
 
-                    predict_val_all = pytorch_model(torch.tensor(x_test_all).float())
-
-                    predict_test_all = pytorch_model(torch.tensor(x_val_all).float())
+                    predict_test_all = pytorch_model(torch.tensor(x_test_all).float())
                     
                     print_predictions(y_train_all, predict_train_all, "train_pytorch/" + varname + "/predictions/train/" + model_name + "/" + varname + "_" + model_name + "_ws_" + str(ws_use) + "_hidden_" + str(hidden_use) + "_train.csv") 
                     

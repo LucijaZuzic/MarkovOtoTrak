@@ -10,7 +10,7 @@ def print_predictions(actual, predicted, name_file):
             strpr += str(actual[ix1][ix2]) + ";" + str(predicted[ix1][ix2]) + "\n"
 
     file_processed = open(name_file, "w")
-    file_processed.write(strpr.replace("[", "").replace("]", ""))
+    file_processed.write(strpr.replace("[", "").replace("]", "").replace("tensor(", "").replace(")", ""))
     file_processed.close()
 
 def get_XY(dat, time_steps, len_skip = -1, len_output = -1):
@@ -45,7 +45,7 @@ class PyTorchGRUModel(nn.Module):
         _, gru_output = self.gru(x)
 
         # Extract the last hidden state from the GRU output
-        last_hidden_state = gru_output[-1, :]
+        last_hidden_state = gru_output[:, :]
 
         # Dense layer with linear activation
         output = self.fc(last_hidden_state)
@@ -55,7 +55,7 @@ class PyTorchGRUModel(nn.Module):
 class PyTorchLSTMModel(nn.Module):
     def __init__(self, input_size, hidden_units, dense_units):
         super(PyTorchLSTMModel, self).__init__()
-        print(input_size)
+        
         # LSTM layer
         self.lstm = nn.LSTM(input_size=input_size, hidden_size=hidden_units, batch_first=True)
 
@@ -67,7 +67,7 @@ class PyTorchLSTMModel(nn.Module):
         lstm_output, _ = self.lstm(x)
 
         # Extract the last hidden state from the LSTM output
-        last_hidden_state = lstm_output[-1, :]
+        last_hidden_state = lstm_output[:, :]
 
         # Dense layer with linear activation
         output = self.fc(last_hidden_state)
@@ -89,7 +89,7 @@ class PyTorchRNNModel(nn.Module):
         rnn_output, _ = self.rnn(x)
 
         # Extract the last hidden state from the SimpleRNN output
-        last_hidden_state = rnn_output[-1, :]
+        last_hidden_state = rnn_output[:, :]
 
         # Dense layer with linear activation
         output = self.fc(last_hidden_state)
