@@ -45,9 +45,9 @@ def create_GRU(hidden_units, dense_units, input_shape, act_layer = "linear"):
     model.compile(loss = 'mean_squared_error', optimizer = 'adam')
     return model
 
-def create_LSTM(hidden_units, dense_units, input_shape, act_layer = "linear"):
+def create_LSTM(hidden_units, dense_units, input_shape, act_layer = "linear", act_layer2 = "linear"):
     model = Sequential() 
-    model.add(LSTM(hidden_units, input_shape = input_shape, activation = "linear"))
+    model.add(LSTM(hidden_units, input_shape = input_shape, activation = "linear", recurrent_activation = act_layer2))
     model.add(Dense(units = dense_units, activation = act_layer))
     model.compile(loss = 'mean_squared_error', optimizer = 'adam')
     return model

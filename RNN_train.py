@@ -75,7 +75,10 @@ for filename in os.listdir("actual_train"):
                     demo_model = create_GRU(hidden_use, ws_use, (ws_use, num_props)) 
 
                 if model_name == "LSTM": 
-                    demo_model = create_LSTM(hidden_use, ws_use, (ws_use, num_props)) 
+                    if "direction" in varname: 
+                        demo_model = create_LSTM(hidden_use, ws_use, (ws_use, num_props), act_layer2 = "softmax")
+                    else:
+                        demo_model = create_LSTM(hidden_use, ws_use, (ws_use, num_props))
             
                 if not os.path.isdir("train_net/" + varname + "/models/" + model_name):
                     os.makedirs("train_net/" + varname + "/models/" + model_name)
