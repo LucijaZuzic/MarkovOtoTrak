@@ -2,7 +2,6 @@ import pandas as pd
 import os  
 from utilities import load_object, save_object, get_sides_from_angle
 from RNN_utilities import get_XY
-import matplotlib.pyplot as plt
 
 def change_angle(angle, name_file):
     
