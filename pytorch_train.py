@@ -13,7 +13,7 @@ ws_range = range(2, 7)
 
 hidden_range = range(20, 120, 20)
 
-model_list = ["LSTM", "RNN"] 
+model_list = ["GRU"] 
 
 for filename in os.listdir("actual_train"):
 

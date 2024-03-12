@@ -42,7 +42,7 @@ class PyTorchGRUModel(nn.Module):
 
     def forward(self, x):
         # GRU layer
-        _, gru_output = self.gru(x)
+        gru_output, _ = self.gru(x)
 
         # Extract the last hidden state from the GRU output
         last_hidden_state = gru_output[:, :]
