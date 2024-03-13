@@ -13,14 +13,11 @@ ws_range = range(2, 7)
 
 hidden_range = range(20, 120, 20)
 
-model_list = ["GRU"] 
+model_list = ["GRU", "LSTM", "RNN"] 
 
 for filename in os.listdir("actual_train"):
 
     varname = filename.replace("actual_train_", "")
-
-    if "direction" in varname:
-        continue
 
     file_object_train = load_object("actual_train/actual_train_" + varname)
     file_object_val = load_object("actual_val/actual_val_" + varname)
