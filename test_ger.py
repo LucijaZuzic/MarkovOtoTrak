@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import numpy as np
 from pytorch_utilities import get_XY 
-from utilities import load_object
+from utilities import load_object, save_object
 import numpy as np
 from pytorch_utilities import print_predictions
 import torch
@@ -244,6 +244,11 @@ for filename in os.listdir("actual_train"):
         if not os.path.isdir("train_attention/" + varname + "/predictions/val/" + model_name):
             os.makedirs("train_attention/" + varname + "/predictions/val/" + model_name)
         
+        save_object("train_attention/" + varname + "/models/" + model_name + "/" + varname + "_" + model_name + "_ws_" + str(ws_use) + "_train_losses", train_losses)
+
+        save_object("train_attention/" + varname + "/models/" + model_name + "/" + varname + "_" + model_name + "_ws_" + str(ws_use) + "_val_losses", val_losses)
+
+        model.seq2seq.eval()
         torch.save(model.seq2seq.state_dict(), "train_attention/" + varname + "/models/" + model_name + "/" + varname + "_" + model_name + "_ws_" + str(ws_use) + ".pth")
 
         with torch.no_grad():
