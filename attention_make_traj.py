@@ -39,7 +39,7 @@ for varname in os.listdir("train_attention"):
   
             file_object_test = load_object("actual/actual_" + varname)
 
-            ws_use = int(filename.replace(".csv", "").split("_")[-4])
+            ws_use = int(filename.replace(".csv", "").split("_")[-2])
             ws_all[varname][model_name] = ws_use
  
             len_total = 0
