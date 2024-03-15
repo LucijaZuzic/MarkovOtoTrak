@@ -57,7 +57,7 @@ def my_token(xv, yv, name_file):
 num_props = 1
  
 ws_range = [1]
-resave = False
+resave = True
 if resave:
     for filename in os.listdir("actual_train"):
 
@@ -116,9 +116,9 @@ if resave:
             if not os.path.isdir("tokenized_data/" + varname):
                 os.makedirs("tokenized_data/" + varname)
 
-            my_token(x_train_all, y_train_all, "tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv")
+            my_token(x_train_all, y_train_all, "tokenized_data/" + varname + "/" + varname + "_train_" + str(ws_use) + ".csv")
             my_token(x_val_all, y_val_all, "tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv")
-            my_token(x_test_all, y_test_all, "tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv")
+            my_token(x_test_all, y_test_all, "tokenized_data/" + varname + "/" + varname + "_test_" + str(ws_use) + ".csv")
         
 for filename in os.listdir("actual_train"):
     for ws_use in ws_range:
