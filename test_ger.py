@@ -57,72 +57,73 @@ def my_token(xv, yv, name_file):
 num_props = 1
  
 ws_range = [1]
- 
-for filename in os.listdir("actual_train"):
+resave = False
+if resave:
+    for filename in os.listdir("actual_train"):
 
-    varname = filename.replace("actual_train_", "")
+        varname = filename.replace("actual_train_", "")
 
-    file_object_train = load_object("actual_train/actual_train_" + varname)
-    file_object_val = load_object("actual_val/actual_val_" + varname)
-    file_object_test = load_object("actual/actual_" + varname)
+        file_object_train = load_object("actual_train/actual_train_" + varname)
+        file_object_val = load_object("actual_val/actual_val_" + varname)
+        file_object_test = load_object("actual/actual_" + varname)
 
-    for ws_use in ws_range:
-        
-        x_train_all = []
-        y_train_all = []
-
-        for k in file_object_train:
-
-            x_train_part, y_train_part = get_XY(file_object_train[k], ws_use)
+        for ws_use in ws_range:
             
-            for ix in range(len(x_train_part)):
-                x_train_all.append(x_train_part[ix]) 
-                y_train_all.append(y_train_part[ix])
+            x_train_all = []
+            y_train_all = []
 
-        x_train_all = np.array(x_train_all)
-        y_train_all = np.array(y_train_all)
-        
-        x_test_all = []
-        y_test_all = []
+            for k in file_object_train:
 
-        for k in file_object_test:
+                x_train_part, y_train_part = get_XY(file_object_train[k], ws_use)
+                
+                for ix in range(len(x_train_part)):
+                    x_train_all.append(x_train_part[ix]) 
+                    y_train_all.append(y_train_part[ix])
 
-            x_test_part, y_test_part = get_XY(file_object_test[k], ws_use)
+            x_train_all = np.array(x_train_all)
+            y_train_all = np.array(y_train_all)
             
-            for ix in range(len(x_test_part)):
-                x_test_all.append(x_test_part[ix]) 
-                y_test_all.append(y_test_part[ix])
+            x_test_all = []
+            y_test_all = []
 
-        x_test_all = np.array(x_test_all)
-        y_test_all = np.array(y_test_all)
-        
-        x_val_all = []
-        y_val_all = []
+            for k in file_object_test:
 
-        for k in file_object_val:
+                x_test_part, y_test_part = get_XY(file_object_test[k], ws_use)
+                
+                for ix in range(len(x_test_part)):
+                    x_test_all.append(x_test_part[ix]) 
+                    y_test_all.append(y_test_part[ix])
 
-            x_val_part, y_val_part = get_XY(file_object_val[k], ws_use)
+            x_test_all = np.array(x_test_all)
+            y_test_all = np.array(y_test_all)
             
-            for ix in range(len(x_val_part)):
-                x_val_all.append(x_val_part[ix]) 
-                y_val_all.append(y_val_part[ix])
+            x_val_all = []
+            y_val_all = []
 
-        x_val_all = np.array(x_val_all)
-        y_val_all = np.array(y_val_all)
+            for k in file_object_val:
 
-        print(np.shape(x_train_all))
+                x_val_part, y_val_part = get_XY(file_object_val[k], ws_use)
+                
+                for ix in range(len(x_val_part)):
+                    x_val_all.append(x_val_part[ix]) 
+                    y_val_all.append(y_val_part[ix])
 
-        if not os.path.isdir("tokenized_data/" + varname):
-            os.makedirs("tokenized_data/" + varname)
+            x_val_all = np.array(x_val_all)
+            y_val_all = np.array(y_val_all)
 
-        my_token(x_train_all, y_train_all, "tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv")
-        my_token(x_val_all, y_val_all, "tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv")
-        my_token(x_test_all, y_test_all, "tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv")
+            print(np.shape(x_train_all))
 
+            if not os.path.isdir("tokenized_data/" + varname):
+                os.makedirs("tokenized_data/" + varname)
+
+            my_token(x_train_all, y_train_all, "tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv")
+            my_token(x_val_all, y_val_all, "tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv")
+            my_token(x_test_all, y_test_all, "tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv")
         
 for filename in os.listdir("actual_train"):
     for ws_use in ws_range:
         varname = filename.replace("actual_train_", "")
+
         src_field, trg_field = build_fields()
         train_set, val_set, test_set = get_datasets(train_path="tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv", 
                                                     val_path="tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv", 
@@ -255,7 +256,7 @@ for filename in os.listdir("actual_train"):
 
             y_train_all = []
             predict_train_all = []
-            pd_train = pd.read_csv("tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv", sep = ">")
+            pd_train = pd.read_csv("tokenized_data/" + varname + "/" + varname + "_train_" + str(ws_use) + ".csv", sep = ">")
             for i, ex in enumerate(list(pd_train["x"])):
                 translation, _, _, _ = translate_sentence(
                     sentence=str(ex),
@@ -291,7 +292,7 @@ for filename in os.listdir("actual_train"):
     
             y_test_all = []
             predict_test_all = []
-            pd_test = pd.read_csv("tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv", sep = ">")
+            pd_test = pd.read_csv("tokenized_data/" + varname + "/" + varname + "_test_" + str(ws_use) + ".csv", sep = ">")
             for i, ex in enumerate(list(pd_test["x"])):
                 translation, _, _, _ = translate_sentence(
                     sentence=str(ex),
