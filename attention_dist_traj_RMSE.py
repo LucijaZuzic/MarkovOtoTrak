@@ -1,7 +1,8 @@
 import numpy as np
 from utilities import load_object
-from sklearn.metrics import r2_score
-
+import math
+from sklearn.metrics import mean_squared_error
+ 
 predicted_all = load_object("pytorch_result/predicted_all")
 y_test_all = load_object("pytorch_result/y_test_all")
 ws_all = load_object("pytorch_result/ws_all")
@@ -11,23 +12,23 @@ actual_lat = load_object("pytorch_result/actual_lat")
 predicted_long = load_object("pytorch_result/predicted_long")
 predicted_lat = load_object("pytorch_result/predicted_lat")
 
-r2_time = dict()
-r2_pred = dict()
-r2_pred_wt = dict()
-r2_long_pred = dict()
-r2_long_pred_wt = dict()
-r2_lat_pred = dict()
-r2_lat_pred_wt = dict()
+RMSE_time = dict()
+RMSE_pred = dict()
+RMSE_pred_wt = dict()
+RMSE_long_pred = dict()
+RMSE_long_pred_wt = dict()
+RMSE_lat_pred = dict()
+RMSE_lat_pred_wt = dict()
   
 for model_name in predicted_long:
 
-    r2_time[model_name] = dict()
-    r2_pred[model_name] = dict()
-    r2_pred_wt[model_name] = dict()
-    r2_long_pred[model_name] = dict()
-    r2_long_pred_wt[model_name] = dict()
-    r2_lat_pred[model_name] = dict()
-    r2_lat_pred_wt[model_name] = dict()
+    RMSE_time[model_name] = dict()
+    RMSE_pred[model_name] = dict()
+    RMSE_pred_wt[model_name] = dict()
+    RMSE_long_pred[model_name] = dict()
+    RMSE_long_pred_wt[model_name] = dict()
+    RMSE_lat_pred[model_name] = dict()
+    RMSE_lat_pred_wt[model_name] = dict()
 
     for dist_name in predicted_long[model_name]: 
 
@@ -109,14 +110,14 @@ for model_name in predicted_long:
                 predicted_lat_nt.append([predicted_lat_one[ix_use_len]])
                 predicted_lat_time.append([predicted_lat_one[ix_use_len], time_predicted_cumulative[ix_use_len]])
 
-        r2_time[model_name][dist_name] = r2_score(actual_tm, predicted_tm)
-        r2_pred[model_name][dist_name] = r2_score(actual_long_lat, predicted_long_lat)
-        r2_pred_wt[model_name][dist_name] = r2_score(actual_long_lat_time, predicted_long_lat_time)
-        r2_long_pred[model_name][dist_name] = r2_score(actual_long_nt, predicted_long_nt)
-        r2_long_pred_wt[model_name][dist_name] = r2_score(actual_long_time, predicted_long_time)
-        r2_lat_pred[model_name][dist_name] = r2_score(actual_lat_nt, predicted_lat_nt)
-        r2_lat_pred_wt[model_name][dist_name] = r2_score(actual_lat_time, predicted_lat_time)
-
+        RMSE_time[model_name][dist_name] = math.sqrt(mean_squared_error(actual_tm, predicted_tm))
+        RMSE_pred[model_name][dist_name] = math.sqrt(mean_squared_error(actual_long_lat, predicted_long_lat))
+        RMSE_pred_wt[model_name][dist_name] = math.sqrt(mean_squared_error(actual_long_lat_time, predicted_long_lat_time))
+        RMSE_long_pred[model_name][dist_name] = math.sqrt(mean_squared_error(actual_long_nt, predicted_long_nt))
+        RMSE_long_pred_wt[model_name][dist_name] = math.sqrt(mean_squared_error(actual_long_time, predicted_long_time))
+        RMSE_lat_pred[model_name][dist_name] = math.sqrt(mean_squared_error(actual_lat_nt, predicted_lat_nt))
+        RMSE_lat_pred_wt[model_name][dist_name] = math.sqrt(mean_squared_error(actual_lat_time, predicted_lat_time))
+ 
 predicted_all = load_object("attention_result/predicted_all")
 y_test_all = load_object("attention_result/y_test_all")
 ws_all = load_object("attention_result/ws_all")
@@ -125,16 +126,24 @@ actual_long = load_object("attention_result/actual_long")
 actual_lat = load_object("attention_result/actual_lat")
 predicted_long = load_object("attention_result/predicted_long")
 predicted_lat = load_object("attention_result/predicted_lat")
+
+RMSE_time = dict()
+RMSE_pred = dict()
+RMSE_pred_wt = dict()
+RMSE_long_pred = dict()
+RMSE_long_pred_wt = dict()
+RMSE_lat_pred = dict()
+RMSE_lat_pred_wt = dict()
   
 for model_name in predicted_long:
 
-    r2_time[model_name] = dict()
-    r2_pred[model_name] = dict()
-    r2_pred_wt[model_name] = dict()
-    r2_long_pred[model_name] = dict()
-    r2_long_pred_wt[model_name] = dict()
-    r2_lat_pred[model_name] = dict()
-    r2_lat_pred_wt[model_name] = dict()
+    RMSE_time[model_name] = dict()
+    RMSE_pred[model_name] = dict()
+    RMSE_pred_wt[model_name] = dict()
+    RMSE_long_pred[model_name] = dict()
+    RMSE_long_pred_wt[model_name] = dict()
+    RMSE_lat_pred[model_name] = dict()
+    RMSE_lat_pred_wt[model_name] = dict()
 
     for dist_name in predicted_long[model_name]: 
 
@@ -216,13 +225,13 @@ for model_name in predicted_long:
                 predicted_lat_nt.append([predicted_lat_one[ix_use_len]])
                 predicted_lat_time.append([predicted_lat_one[ix_use_len], time_predicted_cumulative[ix_use_len]])
 
-        r2_time[model_name][dist_name] = r2_score(actual_tm, predicted_tm)
-        r2_pred[model_name][dist_name] = r2_score(actual_long_lat, predicted_long_lat)
-        r2_pred_wt[model_name][dist_name] = r2_score(actual_long_lat_time, predicted_long_lat_time)
-        r2_long_pred[model_name][dist_name] = r2_score(actual_long_nt, predicted_long_nt)
-        r2_long_pred_wt[model_name][dist_name] = r2_score(actual_long_time, predicted_long_time)
-        r2_lat_pred[model_name][dist_name] = r2_score(actual_lat_nt, predicted_lat_nt)
-        r2_lat_pred_wt[model_name][dist_name] = r2_score(actual_lat_time, predicted_lat_time)
+        RMSE_time[model_name][dist_name] = math.sqrt(mean_squared_error(actual_tm, predicted_tm))
+        RMSE_pred[model_name][dist_name] = math.sqrt(mean_squared_error(actual_long_lat, predicted_long_lat))
+        RMSE_pred_wt[model_name][dist_name] = math.sqrt(mean_squared_error(actual_long_lat_time, predicted_long_lat_time))
+        RMSE_long_pred[model_name][dist_name] = math.sqrt(mean_squared_error(actual_long_nt, predicted_long_nt))
+        RMSE_long_pred_wt[model_name][dist_name] = math.sqrt(mean_squared_error(actual_long_time, predicted_long_time))
+        RMSE_lat_pred[model_name][dist_name] = math.sqrt(mean_squared_error(actual_lat_nt, predicted_lat_nt))
+        RMSE_lat_pred_wt[model_name][dist_name] = math.sqrt(mean_squared_error(actual_lat_time, predicted_lat_time))
  
 long_dict = load_object("Markov_result/long_dict")
 lat_dict = load_object("Markov_result/lat_dict")
@@ -230,13 +239,13 @@ actual_traj = load_object("actual/actual_traj")
 actual_time = load_object("actual/actual_time")
 predicted_time = load_object("predicted/predicted_time")
 
-r2_time["Markov"] = dict()
-r2_pred["Markov"] = dict()
-r2_pred_wt["Markov"] = dict()
-r2_long_pred["Markov"] = dict()
-r2_long_pred_wt["Markov"] = dict()
-r2_lat_pred["Markov"] = dict()
-r2_lat_pred_wt["Markov"] = dict()
+RMSE_time["Markov"] = dict()
+RMSE_pred["Markov"] = dict()
+RMSE_pred_wt["Markov"] = dict()
+RMSE_long_pred["Markov"] = dict()
+RMSE_long_pred_wt["Markov"] = dict()
+RMSE_lat_pred["Markov"] = dict()
+RMSE_lat_pred_wt["Markov"] = dict()
 
 for dist_name in long_dict[list(long_dict.keys())[0]]:  
 
@@ -294,48 +303,48 @@ for dist_name in long_dict[list(long_dict.keys())[0]]:
             predicted_lat_nt.append([lat_dict[longer_file_name][dist_name.replace("long", "lat")][ix_use_len]])
             predicted_lat_time.append([lat_dict[longer_file_name][dist_name.replace("long", "lat")][ix_use_len], time_predicted_cumulative[ix_use_len]])
 
-    r2_time["Markov"][dist_name] = r2_score(actual_tm, predicted_tm)
-    r2_pred["Markov"][dist_name] = r2_score(actual_long_lat, predicted_long_lat)
-    r2_pred_wt["Markov"][dist_name] = r2_score(actual_long_lat_time, predicted_long_lat_time)
-    r2_long_pred["Markov"][dist_name] = r2_score(actual_long_nt, predicted_long_nt)
-    r2_long_pred_wt["Markov"][dist_name] = r2_score(actual_long_time, predicted_long_time)
-    r2_lat_pred["Markov"][dist_name] = r2_score(actual_lat_nt, predicted_lat_nt)
-    r2_lat_pred_wt["Markov"][dist_name] = r2_score(actual_lat_time, predicted_lat_time)
+    RMSE_time["Markov"][dist_name] = math.sqrt(mean_squared_error(actual_tm, predicted_tm))
+    RMSE_pred["Markov"][dist_name] = math.sqrt(mean_squared_error(actual_long_lat, predicted_long_lat))
+    RMSE_pred_wt["Markov"][dist_name] = math.sqrt(mean_squared_error(actual_long_lat_time, predicted_long_lat_time))
+    RMSE_long_pred["Markov"][dist_name] = math.sqrt(mean_squared_error(actual_long_nt, predicted_long_nt))
+    RMSE_long_pred_wt["Markov"][dist_name] = math.sqrt(mean_squared_error(actual_long_time, predicted_long_time))
+    RMSE_lat_pred["Markov"][dist_name] = math.sqrt(mean_squared_error(actual_lat_nt, predicted_lat_nt))
+    RMSE_lat_pred_wt["Markov"][dist_name] = math.sqrt(mean_squared_error(actual_lat_time, predicted_lat_time))
 
 def_translate = {"long no abs": "$x$ and $y$ offset", "long speed dir": "Speed and heading", "long speed ones dir": "Speed and heading, $1$ $\\mathrm{s}$"}
 
-print("r2_time")
-for model_name in r2_time: 
-    for dist_name in r2_time[model_name]:
-        print(model_name, "&", "$" + str(np.round(r2_time[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("RMSE_time")
+for model_name in RMSE_time: 
+    for dist_name in RMSE_time[model_name]:
+        print(model_name, "&", "$" + str(np.round(RMSE_time[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
         break
 
-print("r2_pred")
-for model_name in r2_pred: 
-    for dist_name in r2_pred[model_name]:
-        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(r2_pred[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("RMSE_pred")
+for model_name in RMSE_pred: 
+    for dist_name in RMSE_pred[model_name]:
+        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(RMSE_pred[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
 
-print("r2_pred_wt")
-for model_name in r2_pred_wt: 
-    for dist_name in r2_pred_wt[model_name]:
-        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(r2_pred_wt[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("RMSE_pred_wt")
+for model_name in RMSE_pred_wt: 
+    for dist_name in RMSE_pred_wt[model_name]:
+        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(RMSE_pred_wt[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
 
-print("r2_long_pred")
-for model_name in r2_long_pred: 
-    for dist_name in r2_long_pred[model_name]:
-        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(r2_long_pred[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("RMSE_long_pred")
+for model_name in RMSE_long_pred: 
+    for dist_name in RMSE_long_pred[model_name]:
+        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(RMSE_long_pred[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
 
-print("r2_long_pred_wt")
-for model_name in r2_long_pred_wt: 
-    for dist_name in r2_long_pred_wt[model_name]:
-        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(r2_long_pred_wt[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("RMSE_long_pred_wt")
+for model_name in RMSE_long_pred_wt: 
+    for dist_name in RMSE_long_pred_wt[model_name]:
+        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(RMSE_long_pred_wt[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
 
-print("r2_lat_pred")
-for model_name in r2_lat_pred: 
-    for dist_name in r2_lat_pred[model_name]:
-        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(r2_lat_pred[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("RMSE_lat_pred")
+for model_name in RMSE_lat_pred: 
+    for dist_name in RMSE_lat_pred[model_name]:
+        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(RMSE_lat_pred[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
 
-print("r2_lat_pred_wt")
-for model_name in r2_lat_pred_wt: 
-    for dist_name in r2_lat_pred_wt[model_name]:
-        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(r2_lat_pred_wt[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
+print("RMSE_lat_pred_wt")
+for model_name in RMSE_lat_pred_wt: 
+    for dist_name in RMSE_lat_pred_wt[model_name]:
+        print(model_name, "&", def_translate[dist_name], "&", "$" + str(np.round(RMSE_lat_pred_wt[model_name][dist_name] * 100, 2)) + "\\%$ \\\\ \\hline")
