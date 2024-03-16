@@ -269,6 +269,15 @@ print(len(find_worst))
 find_all = find_best.union(find_worst)
 print(len(find_all))
 
+for metric in distance_predicted_new:
+    for model_name in distance_predicted_new[metric]: 
+        for dist_name in distance_predicted_new[metric][model_name]:
+            for name in distance_predicted_new[metric][model_name][dist_name]:
+                if "Vehicle_17" in name and "9492910" in name:
+                    find_all.add((model_name, dist_name, name))
+                if "Vehicle_9" in name and "9150982" in name:
+                    find_all.add((model_name, dist_name, name))
+
 for pair_best in find_all:
 
     model_name, dist_name, k = pair_best
