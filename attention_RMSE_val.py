@@ -34,7 +34,7 @@ for varname in os.listdir("train_attention4"):
 
     for test_num in range(1, 5):
 
-        #print(test_num)
+        print(test_num)
  
         final_val_data = pd.read_csv("train_attention" + str(test_num) + "/" + varname + "/predictions/val/" + model_name + "/" + varname + "_" + model_name + "_ws_" + str(ws_use) + "_val.csv", sep = ";", index_col = False)
         final_val_data_predicted = [str(x).split(" ")[0].replace("a", ".") for x in final_val_data["predicted"]]
@@ -93,11 +93,11 @@ for varname in os.listdir("train_attention4"):
         final_test_R2.append(r2_score(final_test_data_actual, final_test_data_predicted))
         final_test_RMSE.append(math.sqrt(mean_squared_error(final_test_data_actual, final_test_data_predicted)) / (max(all_mine_flat) - min(all_mine_flat)))
  
-        #print(train_unk, len(final_train_data_predicted), np.round(train_unk / len(final_train_data_predicted) * 100, 4))
+        print(varname, "&", test_num, "&", train_unk, "&", len(final_train_data_predicted), "&", np.round(train_unk / len(final_train_data_predicted) * 100, 4), "\\\\ \\hline")
         
-        #print(val_unk, len(final_val_data_predicted), np.round(val_unk / len(final_val_data_predicted) * 100, 4))
+        print(varname, "&", test_num, "&", val_unk, "&", len(final_val_data_predicted), "&", np.round(val_unk / len(final_val_data_predicted) * 100, 4), "\\\\ \\hline")
         
-        #print(test_unk, len(final_test_data_predicted), np.round(test_unk / len(final_test_data_predicted) * 100, 4))
+        print(varname, "&", test_num, "&",test_unk, "&", len(final_test_data_predicted), "&", np.round(test_unk / len(final_test_data_predicted) * 100, 4), "\\\\ \\hline")
         
         test_ix.append(test_num)
 
