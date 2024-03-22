@@ -119,9 +119,9 @@ for filename in os.listdir("actual_train"):
         varname = filename.replace("actual_train_", "")
 
         src_field, trg_field = build_fields()
-        train_set, val_set, test_set = get_datasets(train_path="tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv", 
+        train_set, val_set, test_set = get_datasets(train_path="tokenized_data/" + varname + "/" + varname + "_train_" + str(ws_use) + ".csv", 
                                                     val_path="tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv", 
-                                                    test_path="tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv", 
+                                                    test_path="tokenized_data/" + varname + "/" + varname + "_test_" + str(ws_use) + ".csv", 
                                                     src_field=src_field, 
                                                     trg_field=trg_field)
         build_vocab(src_field=src_field, trg_field=trg_field, train_set=train_set, min_freq=MIN_FREQ, max_vocab_size=MAX_VOCAB_SIZE)
@@ -162,7 +162,7 @@ for filename in os.listdir("actual_train"):
             trg_pad_idx=trg_pad_idx,
             device=DEVICE,
             seq_beginning_token_idx=seq_beginning_token_idx,
-            train_attention4=TRAIN_ATTENTION,
+            train_attention=TRAIN_ATTENTION,
         )
 
         # Send model to device
