@@ -39,7 +39,7 @@ for ws_use in ws_range:
                   "embed": "timeF", 
                   "root_path": "dataset_new/" + str(ws_use) + "/" + varname, 
                   "data_path": "newdata_TRAIN.csv", 
-                  "features": "M", 
+                  "features": "M",
                   "seq_len": ws_use, 
                   "label_len": ws_use, 
                   "pred_len": ws_use, 
@@ -51,14 +51,13 @@ for ws_use in ws_range:
         for v in dictio:
             yml_part += "\n  " + v + ": " + str(dictio[v])
         yml_part += "\n"
-        continue
+        
         together_csv = "date,"
 
         for ik in range(ws_use):
             together_csv += str(ik) + ","
 
-        together_csv = together_csv[:-1]
-        together_csv += "\n"
+        together_csv += "OT\n"
     
         str_train = "" 
         str_val = ""
@@ -67,7 +66,7 @@ for ws_use in ws_range:
         
         for k in file_object_train:
 
-            x_train_part, y_train_part = get_XY(file_object_train[k], ws_use)
+            x_train_part, y_train_part = get_XY(file_object_train[k], ws_use, 1, 1)
             
             for ix1 in range(len(x_train_part)):
                     
@@ -75,7 +74,11 @@ for ws_use in ws_range:
 
                 for ix2 in range(len(x_train_part[ix1])): 
                     str_train += str(x_train_part[ix1][ix2]).replace(",", ".") + ","
-                    datetime_use += timedelta(seconds = 1)
+                    
+                for ix2 in range(len(y_train_part[ix1])): 
+                    str_train += str(y_train_part[ix1][ix2]).replace(",", ".") + ","
+                
+                datetime_use += timedelta(hours = 1)
 
                 str_train = str_train[:-1]
 
@@ -83,7 +86,7 @@ for ws_use in ws_range:
 
         for k in file_object_val:
 
-            x_val_part, y_val_part = get_XY(file_object_val[k], ws_use)
+            x_val_part, y_val_part = get_XY(file_object_val[k], ws_use, 1, 1)
             
             for ix1 in range(len(x_val_part)):
 
@@ -91,7 +94,11 @@ for ws_use in ws_range:
 
                 for ix2 in range(len(x_val_part[ix1])):
                     str_val += str(x_val_part[ix1][ix2]).replace(",", ".") + ","
-                    datetime_use += timedelta(seconds = 1)
+
+                for ix2 in range(len(y_val_part[ix1])):
+                    str_val += str(y_val_part[ix1][ix2]).replace(",", ".") + ","
+                
+                datetime_use += timedelta(hours = 1)
 
                 str_val = str_val[:-1]
 
@@ -99,16 +106,19 @@ for ws_use in ws_range:
 
         for k in file_object_test:
 
-            x_test_part, y_test_part = get_XY(file_object_test[k], ws_use)
+            x_test_part, y_test_part = get_XY(file_object_test[k], ws_use, 1, 1)
             
             for ix1 in range(len(x_test_part)):
 
                 str_test += datetime.strftime(datetime_use, "%Y-%m-%d %H-%M-%S") + ","
 
                 for ix2 in range(len(x_test_part[ix1])):
-
                     str_test += str(x_test_part[ix1][ix2]).replace(",", ".") + ","
-                    datetime_use += timedelta(seconds = 1)
+
+                for ix2 in range(len(y_test_part[ix1])):
+                    str_test += str(y_test_part[ix1][ix2]).replace(",", ".") + ","
+                    
+                datetime_use += timedelta(hours = 1)
 
                 str_test = str_test[:-1]
 
