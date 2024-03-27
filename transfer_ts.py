@@ -51,7 +51,6 @@ for ws_use in ws_range:
         for v in dictio:
             yml_part += "\n  " + v + ": " + str(dictio[v])
         yml_part += "\n"
-        continue
         
         together_csv = "date,"
 
