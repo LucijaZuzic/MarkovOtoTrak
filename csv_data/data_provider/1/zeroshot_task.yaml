@@ -9,7 +9,7 @@ task_dataset:
   features: M
   seq_len: 1
   label_len: 1
-  pred_len: 1
+  pred_len: 0
   enc_in: 1
   dec_in: 1
   c_out: 1
@@ -24,7 +24,7 @@ task_dataset:
   features: M
   seq_len: 1
   label_len: 1
-  pred_len: 1
+  pred_len: 0
   enc_in: 1
   dec_in: 1
   c_out: 1
@@ -39,7 +39,7 @@ task_dataset:
   features: M
   seq_len: 1
   label_len: 1
-  pred_len: 1
+  pred_len: 0
   enc_in: 1
   dec_in: 1
   c_out: 1
@@ -54,7 +54,7 @@ task_dataset:
   features: M
   seq_len: 1
   label_len: 1
-  pred_len: 1
+  pred_len: 0
   enc_in: 1
   dec_in: 1
   c_out: 1
@@ -69,7 +69,7 @@ task_dataset:
   features: M
   seq_len: 1
   label_len: 1
-  pred_len: 1
+  pred_len: 0
   enc_in: 1
   dec_in: 1
   c_out: 1

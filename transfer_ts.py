@@ -42,7 +42,7 @@ for ws_use in ws_range:
                   "features": "M",
                   "seq_len": ws_use, 
                   "label_len": ws_use, 
-                  "pred_len": ws_use, 
+                  "pred_len": 0, 
                   "enc_in": ws_use, 
                   "dec_in": ws_use, 
                   "c_out": ws_use}
@@ -51,6 +51,7 @@ for ws_use in ws_range:
         for v in dictio:
             yml_part += "\n  " + v + ": " + str(dictio[v])
         yml_part += "\n"
+        continue
         
         together_csv = "date,"
 
