@@ -150,6 +150,10 @@ for ws_use in ws_range:
     file_yml_pre_write.write(yml_part)
     file_yml_pre_write.close()
     
+    file_yml_pre_write_val = open("csv_data/data_provider/" + str(ws_use) + "/multi_task_pretrain_val.yaml", "w")
+    file_yml_pre_write_val.write(yml_part.replace("TRAIN", "TRAIN_VAL"))
+    file_yml_pre_write_val.close()
+    
     file_yml_write_val = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_val.yaml", "w")
     file_yml_write_val.write(yml_part.replace("pretrain_", "").replace("TRAIN", "VAL"))
     file_yml_write_val.close()
@@ -157,3 +161,7 @@ for ws_use in ws_range:
     file_yml_write = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task.yaml", "w")
     file_yml_write.write(yml_part.replace("pretrain_", "").replace("TRAIN", "TEST"))
     file_yml_write.close()
+    
+    file_yml_write_train = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_train.yaml", "w")
+    file_yml_write_train.write(yml_part.replace("pretrain_", ""))
+    file_yml_write_train.close()
