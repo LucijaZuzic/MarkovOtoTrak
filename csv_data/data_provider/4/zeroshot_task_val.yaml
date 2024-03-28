@@ -8,8 +8,8 @@ task_dataset:
   data_path: newdata_VAL.csv
   features: M
   seq_len: 4
-  label_len: 4
-  pred_len: 0
+  label_len: 0
+  pred_len: 1
   enc_in: 4
   dec_in: 4
   c_out: 4
@@ -23,8 +23,8 @@ task_dataset:
   data_path: newdata_VAL.csv
   features: M
   seq_len: 4
-  label_len: 4
-  pred_len: 0
+  label_len: 0
+  pred_len: 1
   enc_in: 4
   dec_in: 4
   c_out: 4
@@ -38,8 +38,8 @@ task_dataset:
   data_path: newdata_VAL.csv
   features: M
   seq_len: 4
-  label_len: 4
-  pred_len: 0
+  label_len: 0
+  pred_len: 1
   enc_in: 4
   dec_in: 4
   c_out: 4
@@ -53,8 +53,8 @@ task_dataset:
   data_path: newdata_VAL.csv
   features: M
   seq_len: 4
-  label_len: 4
-  pred_len: 0
+  label_len: 0
+  pred_len: 1
   enc_in: 4
   dec_in: 4
   c_out: 4
@@ -68,8 +68,8 @@ task_dataset:
   data_path: newdata_VAL.csv
   features: M
   seq_len: 4
-  label_len: 4
-  pred_len: 0
+  label_len: 0
+  pred_len: 1
   enc_in: 4
   dec_in: 4
   c_out: 4

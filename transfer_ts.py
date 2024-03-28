@@ -41,8 +41,8 @@ for ws_use in ws_range:
                   "data_path": "newdata_TRAIN.csv", 
                   "features": "M",
                   "seq_len": ws_use, 
-                  "label_len": ws_use, 
-                  "pred_len": 0, 
+                  "label_len": 0, 
+                  "pred_len": 1, 
                   "enc_in": ws_use, 
                   "dec_in": ws_use, 
                   "c_out": ws_use}

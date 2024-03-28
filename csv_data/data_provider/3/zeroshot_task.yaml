@@ -8,8 +8,8 @@ task_dataset:
   data_path: newdata_TEST.csv
   features: M
   seq_len: 3
-  label_len: 3
-  pred_len: 0
+  label_len: 0
+  pred_len: 1
   enc_in: 3
   dec_in: 3
   c_out: 3
@@ -23,8 +23,8 @@ task_dataset:
   data_path: newdata_TEST.csv
   features: M
   seq_len: 3
-  label_len: 3
-  pred_len: 0
+  label_len: 0
+  pred_len: 1
   enc_in: 3
   dec_in: 3
   c_out: 3
@@ -38,8 +38,8 @@ task_dataset:
   data_path: newdata_TEST.csv
   features: M
   seq_len: 3
-  label_len: 3
-  pred_len: 0
+  label_len: 0
+  pred_len: 1
   enc_in: 3
   dec_in: 3
   c_out: 3
@@ -53,8 +53,8 @@ task_dataset:
   data_path: newdata_TEST.csv
   features: M
   seq_len: 3
-  label_len: 3
-  pred_len: 0
+  label_len: 0
+  pred_len: 1
   enc_in: 3
   dec_in: 3
   c_out: 3
@@ -68,8 +68,8 @@ task_dataset:
   data_path: newdata_TEST.csv
   features: M
   seq_len: 3
-  label_len: 3
-  pred_len: 0
+  label_len: 0
+  pred_len: 1
   enc_in: 3
   dec_in: 3
   c_out: 3
