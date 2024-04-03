@@ -1,0 +1,75 @@
+task_dataset:
+ direction:
+  task_name: pretrain_long_term_forecast
+  dataset: direction
+  data: custom
+  embed: timeF
+  root_path: dataset_new/6/direction
+  data_path: newdata_TRAIN_VAL.csv
+  features: MS
+  seq_len: 6
+  label_len: 0
+  pred_len: 1
+  enc_in: 6
+  dec_in: 6
+  c_out: 6
+
+ latitude_no_abs:
+  task_name: pretrain_long_term_forecast
+  dataset: latitude_no_abs
+  data: custom
+  embed: timeF
+  root_path: dataset_new/6/latitude_no_abs
+  data_path: newdata_TRAIN_VAL.csv
+  features: MS
+  seq_len: 6
+  label_len: 0
+  pred_len: 1
+  enc_in: 6
+  dec_in: 6
+  c_out: 6
+
+ longitude_no_abs:
+  task_name: pretrain_long_term_forecast
+  dataset: longitude_no_abs
+  data: custom
+  embed: timeF
+  root_path: dataset_new/6/longitude_no_abs
+  data_path: newdata_TRAIN_VAL.csv
+  features: MS
+  seq_len: 6
+  label_len: 0
+  pred_len: 1
+  enc_in: 6
+  dec_in: 6
+  c_out: 6
+
+ speed:
+  task_name: pretrain_long_term_forecast
+  dataset: speed
+  data: custom
+  embed: timeF
+  root_path: dataset_new/6/speed
+  data_path: newdata_TRAIN_VAL.csv
+  features: MS
+  seq_len: 6
+  label_len: 0
+  pred_len: 1
+  enc_in: 6
+  dec_in: 6
+  c_out: 6
+
+ time:
+  task_name: pretrain_long_term_forecast
+  dataset: time
+  data: custom
+  embed: timeF
+  root_path: dataset_new/6/time
+  data_path: newdata_TRAIN_VAL.csv
+  features: MS
+  seq_len: 6
+  label_len: 0
+  pred_len: 1
+  enc_in: 6
+  dec_in: 6
+  c_out: 6

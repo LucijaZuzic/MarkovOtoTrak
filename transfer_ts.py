@@ -165,3 +165,43 @@ for ws_use in ws_range:
     file_yml_write_train = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_train.yaml", "w")
     file_yml_write_train.write(yml_part.replace("pretrain_", ""))
     file_yml_write_train.close()
+
+    file_yml_S_pre_write = open("csv_data/data_provider/" + str(ws_use) + "/multi_task_pretrain_S.yaml", "w")
+    file_yml_S_pre_write.write(yml_part.replace("features: M", "features: S"))
+    file_yml_S_pre_write.close()
+    
+    file_yml_S_pre_write_val = open("csv_data/data_provider/" + str(ws_use) + "/multi_task_pretrain_val_S.yaml", "w")
+    file_yml_S_pre_write_val.write(yml_part.replace("features: M", "features: S").replace("TRAIN", "TRAIN_VAL"))
+    file_yml_S_pre_write_val.close()
+    
+    file_yml_S_write_val = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_val_S.yaml", "w")
+    file_yml_S_write_val.write(yml_part.replace("features: M", "features: S").replace("pretrain_", "").replace("TRAIN", "VAL"))
+    file_yml_S_write_val.close()
+
+    file_yml_S_write = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_S.yaml", "w")
+    file_yml_S_write.write(yml_part.replace("features: M", "features: S").replace("pretrain_", "").replace("TRAIN", "TEST"))
+    file_yml_S_write.close()
+    
+    file_yml_S_write_train = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_train_S.yaml", "w")
+    file_yml_S_write_train.write(yml_part.replace("features: M", "features: S").replace("pretrain_", ""))
+    file_yml_S_write_train.close()
+
+    file_yml_MS_pre_write = open("csv_data/data_provider/" + str(ws_use) + "/multi_task_pretrain_MS.yaml", "w")
+    file_yml_MS_pre_write.write(yml_part.replace("features: M", "features: MS"))
+    file_yml_MS_pre_write.close()
+    
+    file_yml_MS_pre_write_val = open("csv_data/data_provider/" + str(ws_use) + "/multi_task_pretrain_val_MS.yaml", "w")
+    file_yml_MS_pre_write_val.write(yml_part.replace("features: M", "features: MS").replace("TRAIN", "TRAIN_VAL"))
+    file_yml_MS_pre_write_val.close()
+    
+    file_yml_MS_write_val = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_val_MS.yaml", "w")
+    file_yml_MS_write_val.write(yml_part.replace("features: M", "features: MS").replace("pretrain_", "").replace("TRAIN", "VAL"))
+    file_yml_MS_write_val.close()
+
+    file_yml_MS_write = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_MS.yaml", "w")
+    file_yml_MS_write.write(yml_part.replace("features: M", "features: MS").replace("pretrain_", "").replace("TRAIN", "TEMST"))
+    file_yml_MS_write.close()
+    
+    file_yml_MS_write_train = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_train_MS.yaml", "w")
+    file_yml_MS_write_train.write(yml_part.replace("features: M", "features: MS").replace("pretrain_", ""))
+    file_yml_MS_write_train.close()

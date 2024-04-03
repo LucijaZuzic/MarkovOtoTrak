@@ -1,0 +1,75 @@
+task_dataset:
+ direction:
+  task_name: long_term_forecast
+  dataset: direction
+  data: custom
+  embed: timeF
+  root_path: dataset_new/2/direction
+  data_path: newdata_VAL.csv
+  features: S
+  seq_len: 2
+  label_len: 0
+  pred_len: 1
+  enc_in: 2
+  dec_in: 2
+  c_out: 2
+
+ latitude_no_abs:
+  task_name: long_term_forecast
+  dataset: latitude_no_abs
+  data: custom
+  embed: timeF
+  root_path: dataset_new/2/latitude_no_abs
+  data_path: newdata_VAL.csv
+  features: S
+  seq_len: 2
+  label_len: 0
+  pred_len: 1
+  enc_in: 2
+  dec_in: 2
+  c_out: 2
+
+ longitude_no_abs:
+  task_name: long_term_forecast
+  dataset: longitude_no_abs
+  data: custom
+  embed: timeF
+  root_path: dataset_new/2/longitude_no_abs
+  data_path: newdata_VAL.csv
+  features: S
+  seq_len: 2
+  label_len: 0
+  pred_len: 1
+  enc_in: 2
+  dec_in: 2
+  c_out: 2
+
+ speed:
+  task_name: long_term_forecast
+  dataset: speed
+  data: custom
+  embed: timeF
+  root_path: dataset_new/2/speed
+  data_path: newdata_VAL.csv
+  features: S
+  seq_len: 2
+  label_len: 0
+  pred_len: 1
+  enc_in: 2
+  dec_in: 2
+  c_out: 2
+
+ time:
+  task_name: long_term_forecast
+  dataset: time
+  data: custom
+  embed: timeF
+  root_path: dataset_new/2/time
+  data_path: newdata_VAL.csv
+  features: S
+  seq_len: 2
+  label_len: 0
+  pred_len: 1
+  enc_in: 2
+  dec_in: 2
+  c_out: 2
