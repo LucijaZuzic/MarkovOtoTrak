@@ -1,0 +1,15 @@
+task_dataset:
+ time:
+  task_name: long_term_forecast
+  dataset: time
+  data: custom
+  embed: timeF
+  root_path: dataset_new/2/time
+  data_path: newdata_TEMST.csv
+  features: MS
+  seq_len: 2
+  label_len: 0
+  pred_len: 1
+  enc_in: 2
+  dec_in: 2
+  c_out: 2

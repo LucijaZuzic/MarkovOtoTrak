@@ -25,6 +25,15 @@ ws_range = range(1, 7)
 for ws_use in ws_range:
     
     yml_part = "task_dataset:"
+
+    yml_part_var = dict()
+
+    for filename in os.listdir("actual_train"):
+
+        varname = filename.replace("actual_train_", "")
+        
+        yml_part_var[varname] = "task_dataset:"
+
     for filename in os.listdir("actual_train"):
 
         varname = filename.replace("actual_train_", "")
@@ -48,9 +57,13 @@ for ws_use in ws_range:
                   "c_out": ws_use}
 
         yml_part += "\n " + str(varname) + ":"
+        yml_part_var[varname] += "\n " + str(varname) + ":"
         for v in dictio:
             yml_part += "\n  " + v + ": " + str(dictio[v])
+            yml_part_var[varname] += "\n  " + v + ": " + str(dictio[v])
         yml_part += "\n"
+        yml_part_var[varname] += "\n"
+        continue
         
         together_csv = "date,"
 
@@ -205,3 +218,67 @@ for ws_use in ws_range:
     file_yml_MS_write_train = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_train_MS.yaml", "w")
     file_yml_MS_write_train.write(yml_part.replace("features: M", "features: MS").replace("pretrain_", ""))
     file_yml_MS_write_train.close()
+
+    for filename in os.listdir("actual_train"):
+
+        varname = filename.replace("actual_train_", "")
+ 
+        file_yml_part_var_pre_write = open("csv_data/data_provider/" + str(ws_use) + "/multi_task_pretrain_" + varname + ".yaml", "w")
+        file_yml_part_var_pre_write.write(yml_part_var[varname])
+        file_yml_part_var_pre_write.close()
+        
+        file_yml_part_var_pre_write_val = open("csv_data/data_provider/" + str(ws_use) + "/multi_task_pretrain_val_" + varname + ".yaml", "w")
+        file_yml_part_var_pre_write_val.write(yml_part_var[varname].replace("TRAIN", "TRAIN_VAL"))
+        file_yml_part_var_pre_write_val.close()
+        
+        file_yml_part_var_write_val = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_val_" + varname + ".yaml", "w")
+        file_yml_part_var_write_val.write(yml_part_var[varname].replace("pretrain_", "").replace("TRAIN", "VAL"))
+        file_yml_part_var_write_val.close()
+
+        file_yml_part_var_write = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_" + varname + ".yaml", "w")
+        file_yml_part_var_write.write(yml_part_var[varname].replace("pretrain_", "").replace("TRAIN", "TEST"))
+        file_yml_part_var_write.close()
+        
+        file_yml_part_var_write_train = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_train_" + varname + ".yaml", "w")
+        file_yml_part_var_write_train.write(yml_part_var[varname].replace("pretrain_", ""))
+        file_yml_part_var_write_train.close()
+
+        file_yml_part_var_S_pre_write = open("csv_data/data_provider/" + str(ws_use) + "/multi_task_pretrain_S_" + varname + ".yaml", "w")
+        file_yml_part_var_S_pre_write.write(yml_part_var[varname].replace("features: M", "features: S"))
+        file_yml_part_var_S_pre_write.close()
+        
+        file_yml_part_var_S_pre_write_val = open("csv_data/data_provider/" + str(ws_use) + "/multi_task_pretrain_val_S_" + varname + ".yaml", "w")
+        file_yml_part_var_S_pre_write_val.write(yml_part_var[varname].replace("features: M", "features: S").replace("TRAIN", "TRAIN_VAL"))
+        file_yml_part_var_S_pre_write_val.close()
+        
+        file_yml_part_var_S_write_val = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_val_S_" + varname + ".yaml", "w")
+        file_yml_part_var_S_write_val.write(yml_part_var[varname].replace("features: M", "features: S").replace("pretrain_", "").replace("TRAIN", "VAL"))
+        file_yml_part_var_S_write_val.close()
+
+        file_yml_part_var_S_write = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_S_" + varname + ".yaml", "w")
+        file_yml_part_var_S_write.write(yml_part_var[varname].replace("features: M", "features: S").replace("pretrain_", "").replace("TRAIN", "TEST"))
+        file_yml_part_var_S_write.close()
+        
+        file_yml_part_var_S_write_train = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_train_S_" + varname + ".yaml", "w")
+        file_yml_part_var_S_write_train.write(yml_part_var[varname].replace("features: M", "features: S").replace("pretrain_", ""))
+        file_yml_part_var_S_write_train.close()
+
+        file_yml_part_var_MS_pre_write = open("csv_data/data_provider/" + str(ws_use) + "/multi_task_pretrain_MS_" + varname + ".yaml", "w")
+        file_yml_part_var_MS_pre_write.write(yml_part_var[varname].replace("features: M", "features: MS"))
+        file_yml_part_var_MS_pre_write.close()
+        
+        file_yml_part_var_MS_pre_write_val = open("csv_data/data_provider/" + str(ws_use) + "/multi_task_pretrain_val_MS_" + varname + ".yaml", "w")
+        file_yml_part_var_MS_pre_write_val.write(yml_part_var[varname].replace("features: M", "features: MS").replace("TRAIN", "TRAIN_VAL"))
+        file_yml_part_var_MS_pre_write_val.close()
+        
+        file_yml_part_var_MS_write_val = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_val_MS_" + varname + ".yaml", "w")
+        file_yml_part_var_MS_write_val.write(yml_part_var[varname].replace("features: M", "features: MS").replace("pretrain_", "").replace("TRAIN", "VAL"))
+        file_yml_part_var_MS_write_val.close()
+
+        file_yml_part_var_MS_write = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_MS_" + varname + ".yaml", "w")
+        file_yml_part_var_MS_write.write(yml_part_var[varname].replace("features: M", "features: MS").replace("pretrain_", "").replace("TRAIN", "TEMST"))
+        file_yml_part_var_MS_write.close()
+        
+        file_yml_part_var_MS_write_train = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_train_MS_" + varname + ".yaml", "w")
+        file_yml_part_var_MS_write_train.write(yml_part_var[varname].replace("features: M", "features: MS").replace("pretrain_", ""))
+        file_yml_part_var_MS_write_train.close()
