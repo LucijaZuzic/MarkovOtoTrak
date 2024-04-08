@@ -5,7 +5,7 @@ task_dataset:
   data: custom
   embed: timeF
   root_path: dataset_new/1/time
-  data_path: newdata_TEMST.csv
+  data_path: newdata_TEST.csv
   features: MS
   seq_len: 1
   label_len: 0
