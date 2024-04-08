@@ -212,7 +212,7 @@ for ws_use in ws_range:
     file_yml_MS_write_val.close()
 
     file_yml_MS_write = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_MS.yaml", "w")
-    file_yml_MS_write.write(yml_part.replace("features: M", "features: MS").replace("pretrain_", "").replace("TRAIN", "TEMST"))
+    file_yml_MS_write.write(yml_part.replace("features: M", "features: MS").replace("pretrain_", "").replace("TRAIN", "TEST"))
     file_yml_MS_write.close()
     
     file_yml_MS_write_train = open("csv_data/data_provider/" + str(ws_use) + "/zeroshot_task_train_MS.yaml", "w")
