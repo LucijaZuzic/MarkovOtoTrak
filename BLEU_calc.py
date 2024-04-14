@@ -63,15 +63,21 @@ for varname in os.listdir("train_attention4"):
  
         final_val_data = pd.read_csv("train_attention" + str(test_num) + "/" + varname + "/predictions/val/" + model_name + "/" + varname + "_" + model_name + "_ws_" + str(ws_use) + "_val.csv", sep = ";", index_col = False)
         final_val_data_predicted = [str(x).split(" ")[0].replace("a", ".") for x in final_val_data["predicted"]]
-        final_val_data_actual = [float(str(x).split(" ")[0].replace("a", ".")) for x in final_val_data["actual"]]
+        
+        final_val_data_new = pd.read_csv("tokenized_data/" + varname + "/" + varname + "_val_" + str(ws_use) + ".csv", sep = ">", index_col = False)
+        final_val_data_actual = [float(str(y).split(" ")[0].replace("a", ".")) for y in final_val_data_new["y"]]
 
         final_train_data = pd.read_csv("train_attention" + str(test_num) + "/" + varname + "/predictions/train/" + model_name + "/" + varname + "_" + model_name + "_ws_" + str(ws_use) + "_train.csv", sep = ";", index_col = False)
         final_train_data_predicted = [str(x).split(" ")[0].replace("a", ".") for x in final_train_data["predicted"]]
-        final_train_data_actual = [float(str(x).split(" ")[0].replace("a", ".")) for x in final_train_data["actual"]]
+        
+        final_train_data_new = pd.read_csv("tokenized_data/" + varname + "/" + varname + "_train_" + str(ws_use) + ".csv", sep = ">", index_col = False)
+        final_train_data_actual = [float(str(y).split(" ")[0].replace("a", ".")) for y in final_train_data_new["y"]]
 
         final_test_data = pd.read_csv("train_attention" + str(test_num) + "/" + varname + "/predictions/test/" + model_name + "/" + varname + "_" + model_name + "_ws_" + str(ws_use) + "_test.csv", sep = ";", index_col = False)
         final_test_data_predicted = [str(x).split(" ")[0].replace("a", ".") for x in final_test_data["predicted"]]
-        final_test_data_actual = [float(str(x).split(" ")[0].replace("a", ".")) for x in final_test_data["actual"]]
+        
+        final_test_data_new = pd.read_csv("tokenized_data/" + varname + "/" + varname + "_test_" + str(ws_use) + ".csv", sep = ">", index_col = False)
+        final_test_data_actual = [float(str(y).split(" ")[0].replace("a", ".")) for y in final_test_data_new["y"]]
     
         val_unk = 0
         for i in range(len(final_val_data_predicted)):
