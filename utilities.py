@@ -19,6 +19,7 @@ def translate_method(longlat):
         "long no abs-lat no abs": "x and y offset",  
         "long speed dir-lat speed dir": "Speed and heading", 
         "long speed ones dir-lat speed ones dir": "Speed and heading, 1s", 
+        "long speed actual dir-lat speed actual dir": "Speed and heading, actual time", 
     }
     if longlat in translate_name:
         return translate_name[longlat]

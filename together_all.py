@@ -78,6 +78,9 @@ latitude_from_speed_time_heading = dict()
 longitude_from_speed_time_ones_heading = dict()
 latitude_from_speed_time_ones_heading = dict()
 
+longitude_from_speed_time_actual_heading = dict()
+latitude_from_speed_time_actual_heading = dict()
+
 size = 8 
 long_dict = dict()
 lat_dict = dict()
@@ -141,6 +144,18 @@ for subdir_name in all_subdirs:
             longitude_from_speed_time_heading[longer_file_name].append(longitude_from_speed_time_heading[longer_file_name][-1] + new_long)
             latitude_from_speed_time_heading[longer_file_name].append(latitude_from_speed_time_heading[longer_file_name][-1] + new_lat) 
          
+        longitude_from_speed_time_actual_heading[longer_file_name] = [longitudes[0]]  
+        latitude_from_speed_time_actual_heading[longer_file_name] = [latitudes[0]]   
+        for index_long in range(len(time_int)): 
+            new_dir = (90 - direction_no_gap[index_long] + 360) % 360 
+            if not x_dir: 
+                new_dir = (180 - new_dir + 360) % 360
+            if not y_dir: 
+                new_dir = 360 - new_dir 
+            new_long, new_lat = get_sides_from_angle(speed_no_gap[index_long] / 111 / 0.1 / 3600 * time_int[index_long], new_dir)
+            longitude_from_speed_time_actual_heading[longer_file_name].append(longitude_from_speed_time_actual_heading[longer_file_name][-1] + new_long)
+            latitude_from_speed_time_actual_heading[longer_file_name].append(latitude_from_speed_time_actual_heading[longer_file_name][-1] + new_lat) 
+         
         longitude_from_speed_time_ones_heading[longer_file_name] = [longitudes[0]]  
         latitude_from_speed_time_ones_heading[longer_file_name] = [latitudes[0]]   
         for index_long in range(len(time_int)): 
@@ -157,12 +172,14 @@ for subdir_name in all_subdirs:
             "long no abs": long_no_abs_cumulative[longer_file_name], 
             "long speed dir": longitude_from_speed_time_heading[longer_file_name],  
             "long speed ones dir": longitude_from_speed_time_ones_heading[longer_file_name], 
+            "long speed actual dir": longitude_from_speed_time_actual_heading[longer_file_name], 
         }
          
         lat_dict[longer_file_name] = {
             "lat no abs": lat_no_abs_cumulative[longer_file_name], 
             "lat speed dir": latitude_from_speed_time_heading[longer_file_name],      
             "lat speed ones dir": latitude_from_speed_time_ones_heading[longer_file_name], 
+            "lat speed actual dir": latitude_from_speed_time_actual_heading[longer_file_name], 
         }
          
         long_names = long_dict[longer_file_name].keys() 

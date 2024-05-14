@@ -83,18 +83,28 @@ all_x_time, all_mine_time, filenames_time, filenames_length_time = read_var("tim
 #plot_rmse("speed", "Speed (km/h)", all_mine_speed, all_x_speed, filenames_speed, filenames_length_speed)
 #plot_rmse("time", "Time (s)", all_mine_time, all_x_time, filenames_time, filenames_length_time)
 
+print("NRMSE")
 print("heading", max(all_mine_heading),min(all_mine_heading), np.round(math.sqrt(mean_squared_error(all_mine_heading, all_x_heading)) / (max(all_mine_heading) - min(all_mine_heading)) * 100, 6))
 print("latitude", max(all_mine_latitude_no_abs),min(all_mine_latitude_no_abs), np.round(math.sqrt(mean_squared_error(all_mine_latitude_no_abs, all_x_latitude_no_abs)) / (max(all_mine_latitude_no_abs) - min(all_mine_latitude_no_abs)) * 100, 6))
 print("longitude", max(all_mine_longitude_no_abs),min(all_mine_longitude_no_abs), np.round(math.sqrt(mean_squared_error(all_mine_longitude_no_abs, all_x_longitude_no_abs)) / (max(all_mine_longitude_no_abs) - min(all_mine_longitude_no_abs)) * 100, 6))
 print("speed", max(all_mine_speed),min(all_mine_speed), np.round(math.sqrt(mean_squared_error(all_mine_speed, all_x_speed)) / (max(all_mine_speed) - min(all_mine_speed)) * 100, 6))
 print("time", max(all_mine_time),min(all_mine_time), np.round(math.sqrt(mean_squared_error(all_mine_time, all_x_time)) / (max(all_mine_time) - min(all_mine_time)) * 100, 6))
 
+print("RMSE")
+print("heading", max(all_mine_heading),min(all_mine_heading), np.round(math.sqrt(mean_squared_error(all_mine_heading, all_x_heading)), 6))
+print("latitude", max(all_mine_latitude_no_abs),min(all_mine_latitude_no_abs), np.round(math.sqrt(mean_squared_error(all_mine_latitude_no_abs, all_x_latitude_no_abs)), 6))
+print("longitude", max(all_mine_longitude_no_abs),min(all_mine_longitude_no_abs), np.round(math.sqrt(mean_squared_error(all_mine_longitude_no_abs, all_x_longitude_no_abs)), 6))
+print("speed", max(all_mine_speed),min(all_mine_speed), np.round(math.sqrt(mean_squared_error(all_mine_speed, all_x_speed)), 6))
+print("time", max(all_mine_time),min(all_mine_time), np.round(math.sqrt(mean_squared_error(all_mine_time, all_x_time)), 6))
+
+print("R2")
 print("heading", max(all_mine_heading),min(all_mine_heading), np.round(r2_score(all_mine_heading, all_x_heading) * 100, 6))
 print("latitude", max(all_mine_latitude_no_abs),min(all_mine_latitude_no_abs), np.round(r2_score(all_mine_latitude_no_abs, all_x_latitude_no_abs) * 100, 6))
 print("longitude", max(all_mine_longitude_no_abs),min(all_mine_longitude_no_abs), np.round(r2_score(all_mine_longitude_no_abs, all_x_longitude_no_abs) * 100, 6))
 print("speed", max(all_mine_speed),min(all_mine_speed), np.round(r2_score(all_mine_speed, all_x_speed) * 100, 6))
 print("time", max(all_mine_time),min(all_mine_time), np.round(r2_score(all_mine_time, all_x_time) * 100, 6))
 
+print("MAE")
 print("heading", max(all_mine_heading),min(all_mine_heading), np.round(mean_absolute_error(all_mine_heading, all_x_heading), 6))
 print("latitude", max(all_mine_latitude_no_abs),min(all_mine_latitude_no_abs), np.round(mean_absolute_error(all_mine_latitude_no_abs, all_x_latitude_no_abs), 6))
 print("longitude", max(all_mine_longitude_no_abs),min(all_mine_longitude_no_abs), np.round(mean_absolute_error(all_mine_longitude_no_abs, all_x_longitude_no_abs), 6))
