@@ -102,6 +102,7 @@ def plot_an_arr(arrx, arry, start_ix, category):
     plt.ylabel("y")
     if not os.path.isdir("illustrate/"):
         os.makedirs("illustrate")
+    plt.scatter(arrx[start_ix:end_ix], arry[start_ix:end_ix], c = "purple", zorder = 3, linewidth = 3)
     plt.savefig("illustrate/" + category + ".png", bbox_inches = "tight")
     plt.close()
   
