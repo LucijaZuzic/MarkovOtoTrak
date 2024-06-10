@@ -34,7 +34,7 @@ def header_dict(dictio):
     str_pr += "\\\\ \\hline\n"
     return str_pr
  
-def print_1d(dictio, mul, name_save):
+def print_1d(dictio, key_num, mul, name_save):
     str_pr = "\\begin{table}\n\\centering\n"
     str_pr += "\\begin{tabular}{|" + "c|" * (len(dictio) + 1) + "}\n\\hline\n"
     str_pr += "$X_{i}$ & " + header_dict(dictio) + "$P(X_{i})$ & "
@@ -52,7 +52,7 @@ def print_1d(dictio, mul, name_save):
         save_table(key_num, str_pr, name_save)
     return str_pr, str_pr_short, str_pr_shortest
 
-def print_2d(dictio, mul, name_save = ""):
+def print_2d(dictio, key_num, mul, name_save = ""):
     str_pr = "\\begin{table}\n\\centering\n"
     str_pr += "\\begin{tabular}{|" + "c|" * (len(dictio) + 1) + "}\n\\hline\n"
     str_pr += "$P(X_{i}|X_{i-1})$ & \\multicolumn{" + str(len(dictio)) + "}{|c|}{$X_{i}$}\\\\ \\hline\n"
@@ -85,7 +85,7 @@ def print_2d(dictio, mul, name_save = ""):
         save_table(key_num, str_pr, name_save)
     return str_pr, str_pr_short, str_pr_shortest
 
-def print_3d(dictio, mul, name_save): 
+def print_3d(dictio, key_num, mul, name_save): 
     str_pr = "\\begin{table}\n\\centering\n"
     str_pr += "\\begin{tabular}{|" + "c|" * (len(dictio) ** 2 + 1) + "}\n\\hline\n"
     str_pr += "\multirow{3}{*}{$P(X_{i}|X_{i-1},X_{i-2})$} & \\multicolumn{" + str(len(dictio) ** 2) + "}{|c|}{$X_{i-2}$}\\\\ \\cline{2-" + str(len(dictio) ** 2 + 1) + "}\n"
@@ -243,7 +243,7 @@ def get_bins(keys_list, probability_of, num_bins):
     new_bins = [keys_list[x] for x in new_bins_indexes]
     return new_bins
 
-def get_var(key_num, name_of):
+def get_var(ncols, key_num, name_of):
     print(name_of) 
 
     probability_of_in_next_next_step = load_object("probability/probability_of_" + name_of + "_in_next_next_step")   
@@ -286,9 +286,9 @@ def get_var(key_num, name_of):
         n2 = summarize_2d_dict(probability_of_in_next_step, keys_new, max(keys_list))
         n3 = summarize_3d_dict(probability_of_in_next_next_step, keys_new, max(keys_list))
     
-    p1, p1s, p1ss = print_1d(n1, mul, name_of + "_1d")
-    p2, p2s, p2ss = print_2d(n2, mul, name_of + "_2d")
-    p3, p3s, p3ss = print_3d(n3, mul, name_of + "_3d")
+    p1, p1s, p1ss = print_1d(n1, key_num, mul, name_of + "_1d")
+    p2, p2s, p2ss = print_2d(n2, key_num, mul, name_of + "_2d")
+    p3, p3s, p3ss = print_3d(n3, key_num, mul, name_of + "_3d")
     repl_name = name_of.replace("_", " ").capitalize()
     save_table(key_num, "\chapter{" + repl_name + "}\n" + p1 + p2 + p3, name_of + "_all") 
     str_pr_short = "\chapter{" + repl_name + "}\n\\begin{table}\n\\centering\n" + p1s + p2s + p3s
@@ -324,7 +324,7 @@ def run_tables():
             starting1 = "\\multicolumn{" + str(ncols + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
             starting2 = "\\multicolumn{" + str(ncols + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
             starting3 = "\\multicolumn{" + str(ncols ** 2 + 1) + "}{|c|}{" + v.replace("_", " ").capitalize() + "}\\\\ "
-            t, ts, s1, s2, s3 = get_var(key_num, v.replace("predicted_", ""))
+            t, ts, s1, s2, s3 = get_var(ncols, key_num, v.replace("predicted_", ""))
             totally += t
             totally_short += ts
             shortest_p1 += starting1 + s1
@@ -351,3 +351,5 @@ def run_tables():
         save_table(key_num, shortest_p1, "all_p1")
         save_table(key_num, shortest_p2, "all_p2")
         save_table(key_num, shortest_p3, "all_p3")
+
+run_tables()

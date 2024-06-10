@@ -147,3 +147,48 @@ plot_an_arr(actual_traj[lv][lr][0], actual_traj[lv][lr][1], 3, "actual")
 
 for longlat in all_longlats:
     plot_an_arr(long_dict[lv + "/cleaned_csv/" + lr][longlat[0]], lat_dict[lv + "/cleaned_csv/" + lr][longlat[1]], 3, longlat[0])
+
+def str_convert(val):
+    if val == False:
+        return "0"
+    if val == True:
+        return "1"
+    new_val = val
+    power_to = 0
+    while abs(new_val) < 1 and new_val != 0.0:
+        new_val *= 10
+        power_to += 1 
+    rounded = str(np.round(new_val, 2))
+    if rounded[-2:] == '.0':
+        rounded = rounded[:-2]
+    if power_to != 0:  
+        rounded += " \\times 10^{-" + str(power_to) + "}"
+    return rounded
+
+strintro = ""
+for longlat in all_longlats:
+    strintro += translate_category(longlat[0]) + " & "
+print(strintro)
+maxval = 10 ** 5
+for ixnum in range(6):
+    strpr = "$" + str_convert(actual_traj[lv][lr][0][ixnum] * maxval) + "$ & "
+    for longlat in all_longlats:
+        strpr += "$" + str_convert(long_dict[lv + "/cleaned_csv/" + lr][longlat[0]][ixnum] * maxval) + "$ & "
+    print(strpr[:-2], "\\\\ \\hline")
+
+for ixnum in range(6):
+    strpr = "$" + str_convert(actual_traj[lv][lr][1][ixnum] * maxval) + "$ & "
+    for longlat in all_longlats:
+        strpr += "$" + str_convert(lat_dict[lv + "/cleaned_csv/" + lr][longlat[1]][ixnum] * maxval) + "$ & "
+    print(strpr[:-2], "\\\\ \\hline")
+
+for ixnum in range(6):
+    print(actual_longitude_no_abs[lv + "/cleaned_csv/" + lr][ixnum], predicted_longitude_no_abs[lv + "/cleaned_csv/" + lr][ixnum])
+for ixnum in range(6):
+    print(actual_latitude_no_abs[lv + "/cleaned_csv/" + lr][ixnum], predicted_latitude_no_abs[lv + "/cleaned_csv/" + lr][ixnum])
+for ixnum in range(6):
+    print(actual_direction[lv + "/cleaned_csv/" + lr][ixnum], predicted_direction[lv + "/cleaned_csv/" + lr][ixnum])
+for ixnum in range(6):
+    print(actual_speed[lv + "/cleaned_csv/" + lr][ixnum], predicted_speed[lv + "/cleaned_csv/" + lr][ixnum])
+for ixnum in range(6):
+    print(actual_time[lv + "/cleaned_csv/" + lr][ixnum], predicted_time[lv + "/cleaned_csv/" + lr][ixnum])
